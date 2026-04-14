@@ -179,3 +179,34 @@
 - [x] Test promotions CRUD operations
 - [x] Test UI rendering and responsiveness
 - [x] Test discount calculations
+
+
+## Merged Website Features (Integration with Old beachvibe.eu)
+
+### Real Images Integration
+- [x] Extract images from old beachvibe.eu
+- [x] Upload images to CDN
+- [x] Replace generated images with real images
+- [x] Update Gallery component with real photos
+- [x] Update About component with real beach image
+
+### Content Integration
+- [x] Menu items and descriptions from old site
+- [x] Prices from old site (шезлонг, чадър, комплект, шатра)
+- [x] Contact information (телефон, имейл, адрес)
+- [x] Working hours (09:00 - 20:00)
+- [x] Animated tagline "Мечтаеш за лято?" (exact text)
+
+### Design Unification
+- [x] Hero section with animated tagline
+- [x] Real beach and bar images
+- [x] Elegant color scheme (amber, ocean blues)
+- [x] Responsive navigation with smooth scrolling
+- [x] All sections from old site preserved
+
+### Advanced Features Added
+- [x] Reservation system (not in old site)
+- [x] Owner notifications (not in old site)
+- [x] Seasonal promotions (not in old site)
+- [x] Database persistence (not in old site)
+- [x] Admin management panel (not in old site)
