@@ -1,9 +1,7 @@
-import { useLanguage } from "@/contexts/LanguageContext";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 
 export default function Navigation() {
-  const { language, setLanguage, t } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
 
   const scrollToSection = (id: string) => {
@@ -13,14 +11,14 @@ export default function Navigation() {
   };
 
   const navItems = [
-    { label: t("nav.beach"), id: "about" },
-    { label: t("nav.bar"), id: "bar" },
-    { label: t("nav.prices"), id: "prices" },
-    { label: t("nav.gallery"), id: "gallery" },
-    { label: t("nav.menu"), id: "menu" },
-    { label: t("nav.promotions"), id: "promotions" },
-    { label: t("nav.reservations"), id: "reservations" },
-    { label: t("nav.contact"), id: "contact" },
+    { label: "За плажа", id: "about" },
+    { label: "Барът", id: "bar" },
+    { label: "Цени", id: "prices" },
+    { label: "Галерия", id: "gallery" },
+    { label: "Меню", id: "menu" },
+    { label: "Промоции", id: "promotions" },
+    { label: "Резервации", id: "reservations" },
+    { label: "Контакт", id: "contact" },
   ];
 
   return (
@@ -42,36 +40,11 @@ export default function Navigation() {
           ))}
         </div>
 
-        {/* Language Switcher + Mobile Menu */}
-        <div className="flex items-center gap-4">
-          {/* Language Switcher */}
-          <div className="flex gap-2 bg-gray-100 rounded-lg p-1">
-            <button
-              onClick={() => setLanguage("bg")}
-              className={`px-3 py-1 rounded transition-colors ${
-                language === "bg"
-                  ? "bg-amber-600 text-white"
-                  : "text-gray-700 hover:text-amber-600"
-              }`}
-            >
-              БГ
-            </button>
-            <button
-              onClick={() => setLanguage("en")}
-              className={`px-3 py-1 rounded transition-colors ${
-                language === "en"
-                  ? "bg-amber-600 text-white"
-                  : "text-gray-700 hover:text-amber-600"
-              }`}
-            >
-              EN
-            </button>
-          </div>
-
-          {/* Mobile Menu Button */}
+        {/* Mobile Menu Button */}
+        <div className="md:hidden">
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden text-gray-700 hover:text-amber-600"
+            className="text-gray-700 hover:text-amber-600 transition-colors"
           >
             {isOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -81,12 +54,12 @@ export default function Navigation() {
       {/* Mobile Navigation */}
       {isOpen && (
         <div className="md:hidden bg-white border-t border-gray-200">
-          <div className="container max-w-7xl mx-auto px-4 py-4 flex flex-col gap-4">
+          <div className="container mx-auto px-4 py-4 space-y-2">
             {navItems.map((item) => (
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className="text-left text-gray-700 hover:text-amber-600 transition-colors font-medium py-2"
+                className="block w-full text-left px-4 py-2 text-gray-700 hover:text-amber-600 hover:bg-amber-50 rounded transition-colors font-medium"
               >
                 {item.label}
               </button>

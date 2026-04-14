@@ -214,9 +214,10 @@
 
 ## Bug Fixes & Improvements (NEW)
 
-- [ ] Fix repeating gallery image - add unique diverse images
-- [ ] Display all 8 cocktails with different images in Menu
-- [ ] Fix Google Map location to match old beachvibe.eu coordinates
-- [ ] Add Instagram link to Footer
-- [ ] Verify all images load correctly
-- [ ] Test responsive design on mobile
+- [x] Fix repeating gallery image - add unique diverse images
+- [x] Display all 8 cocktails with different images in Menu
+- [x] Fix Google Map location to match old beachvibe.eu coordinates
+- [x] Add Instagram link to Footer
+- [x] Verify all images load correctly
+- [x] Test responsive design on mobile
+- [x] Fix navigation labels showing "nav.beach", "nav.bar", etc.
