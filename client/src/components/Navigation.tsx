@@ -17,6 +17,7 @@ export default function Navigation() {
     { label: "Home", id: "hero" },
     { label: "Menu", id: "menu" },
     { label: "Gallery", id: "gallery" },
+    { label: "Promotions", id: "promotions" },
     { label: "Reservations", id: "reservations" },
     { label: "Location", id: "location" },
   ];

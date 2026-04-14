@@ -140,3 +140,42 @@
 - [x] SEO meta tags
 - [x] Create checkpoint
 - [x] Ready for publishing
+
+
+## Seasonal Promotions Feature (NEW)
+
+### Database Schema
+- [x] Create promotions table with fields: id, title, description, originalPrice, discountedPrice, discount%, imageUrl, startDate, endDate, status, createdAt
+
+### Backend Implementation
+- [x] Add promotions.list tRPC procedure (public)
+- [x] Add promotions.create tRPC procedure (admin only)
+- [x] Add promotions.update tRPC procedure (admin only)
+- [x] Add promotions.delete tRPC procedure (admin only)
+- [x] Create database helpers for promotions CRUD
+
+### Frontend Implementation
+- [x] Create Promotions component with attractive card layout
+- [x] Display discount badge/percentage on cards
+- [x] Show original and discounted prices
+- [x] Add hover effects and animations
+- [x] Implement responsive grid layout
+- [x] Add "Book Now" CTA button on each promotion
+
+### Content & Design
+- [x] Create 3-4 seasonal promotion offers
+- [x] Design eye-catching promotion cards
+- [x] Add promotional images/visuals
+- [x] Implement countdown timer for limited offers (optional)
+
+### Integration
+- [x] Add Promotions section to Home page
+- [x] Add "Promotions" link to navigation menu
+- [x] Smooth scroll to promotions section
+- [x] Ensure responsive design
+
+### Testing
+- [x] Test promotions.list query
+- [x] Test promotions CRUD operations
+- [x] Test UI rendering and responsiveness
+- [x] Test discount calculations

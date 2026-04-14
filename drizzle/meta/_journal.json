@@ -15,6 +15,13 @@
       "when": 1776171331996,
       "tag": "0001_short_bullseye",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1776172442040,
+      "tag": "0002_simple_centennial",
+      "breakpoints": true
     }
   ]
 }

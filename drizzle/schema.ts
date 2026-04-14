@@ -1,4 +1,4 @@
-import { int, mysqlEnum, mysqlTable, text, timestamp, varchar } from "drizzle-orm/mysql-core";
+import { int, mysqlEnum, mysqlTable, text, timestamp, varchar, decimal } from "drizzle-orm/mysql-core";
 
 /**
  * Core user table backing auth flow.
@@ -53,3 +53,21 @@ export const cocktails = mysqlTable("cocktails", {
 
 export type Cocktail = typeof cocktails.$inferSelect;
 export type InsertCocktail = typeof cocktails.$inferInsert;
+
+export const promotions = mysqlTable("promotions", {
+  id: int("id").autoincrement().primaryKey(),
+  title: varchar("title", { length: 255 }).notNull(),
+  description: text("description").notNull(),
+  originalPrice: decimal("originalPrice", { precision: 10, scale: 2 }).notNull(),
+  discountedPrice: decimal("discountedPrice", { precision: 10, scale: 2 }).notNull(),
+  discountPercentage: int("discountPercentage").notNull(),
+  imageUrl: varchar("imageUrl", { length: 500 }),
+  startDate: timestamp("startDate").notNull(),
+  endDate: timestamp("endDate").notNull(),
+  status: mysqlEnum("status", ["active", "inactive", "expired"]).default("active").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type Promotion = typeof promotions.$inferSelect;
+export type InsertPromotion = typeof promotions.$inferInsert;

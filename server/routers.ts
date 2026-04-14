@@ -3,7 +3,7 @@ import { COOKIE_NAME } from "@shared/const";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, protectedProcedure, router } from "./_core/trpc";
-import { createReservation, getReservations, getReservationById } from "./db";
+import { createReservation, getReservations, getReservationById, createPromotion, getPromotions, getActivePromotions, getPromotionById, updatePromotion, deletePromotion } from "./db";
 import { notifyOwner } from "./_core/notification";
 
 export const appRouter = router({
@@ -56,6 +56,76 @@ export const appRouter = router({
       .input(z.object({ id: z.number() }))
       .query(async ({ input }) => {
         return getReservationById(input.id);
+      }),
+  }),
+
+  promotions: router({
+    list: publicProcedure.query(async () => {
+      return getPromotions();
+    }),
+    active: publicProcedure.query(async () => {
+      return getActivePromotions();
+    }),
+    getById: publicProcedure
+      .input(z.object({ id: z.number() }))
+      .query(async ({ input }) => {
+        return getPromotionById(input.id);
+      }),
+    create: protectedProcedure
+      .input(z.object({
+        title: z.string(),
+        description: z.string(),
+        originalPrice: z.string(),
+        discountedPrice: z.string(),
+        discountPercentage: z.number(),
+        imageUrl: z.string().optional(),
+        startDate: z.date(),
+        endDate: z.date(),
+        status: z.enum(["active", "inactive", "expired"]),
+      }))
+      .mutation(async ({ input, ctx }) => {
+        if (ctx.user?.role !== "admin") {
+          throw new Error("Only admins can create promotions");
+        }
+        return createPromotion({
+          title: input.title,
+          description: input.description,
+          originalPrice: input.originalPrice as any,
+          discountedPrice: input.discountedPrice as any,
+          discountPercentage: input.discountPercentage,
+          imageUrl: input.imageUrl,
+          startDate: input.startDate,
+          endDate: input.endDate,
+          status: input.status,
+        });
+      }),
+    update: protectedProcedure
+      .input(z.object({
+        id: z.number(),
+        title: z.string().optional(),
+        description: z.string().optional(),
+        originalPrice: z.string().optional(),
+        discountedPrice: z.string().optional(),
+        discountPercentage: z.number().optional(),
+        imageUrl: z.string().optional(),
+        startDate: z.date().optional(),
+        endDate: z.date().optional(),
+        status: z.enum(["active", "inactive", "expired"]).optional(),
+      }))
+      .mutation(async ({ input, ctx }) => {
+        if (ctx.user?.role !== "admin") {
+          throw new Error("Only admins can update promotions");
+        }
+        const { id, ...data } = input;
+        return updatePromotion(id, data as any);
+      }),
+    delete: protectedProcedure
+      .input(z.object({ id: z.number() }))
+      .mutation(async ({ input, ctx }) => {
+        if (ctx.user?.role !== "admin") {
+          throw new Error("Only admins can delete promotions");
+        }
+        return deletePromotion(input.id);
       }),
   }),
 });

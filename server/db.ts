@@ -1,6 +1,6 @@
-import { eq } from "drizzle-orm";
+import { eq, and, gte, lte } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users, reservations, InsertReservation } from "../drizzle/schema";
+import { InsertUser, users, reservations, InsertReservation, promotions, InsertPromotion } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -113,4 +113,61 @@ export async function getReservationById(id: number) {
   }
   const result = await db.select().from(reservations).where(eq(reservations.id, id)).limit(1);
   return result.length > 0 ? result[0] : null;
+}
+
+export async function createPromotion(data: InsertPromotion) {
+  const db = await getDb();
+  if (!db) {
+    throw new Error("Database not available");
+  }
+  const result = await db.insert(promotions).values(data);
+  return result;
+}
+
+export async function getPromotions() {
+  const db = await getDb();
+  if (!db) {
+    throw new Error("Database not available");
+  }
+  return db.select().from(promotions).orderBy((t) => t.createdAt);
+}
+
+export async function getActivePromotions() {
+  const db = await getDb();
+  if (!db) {
+    throw new Error("Database not available");
+  }
+  const now = new Date();
+  return db.select().from(promotions).where(
+    and(
+      eq(promotions.status, "active"),
+      lte(promotions.startDate, now),
+      gte(promotions.endDate, now)
+    )
+  );
+}
+
+export async function getPromotionById(id: number) {
+  const db = await getDb();
+  if (!db) {
+    throw new Error("Database not available");
+  }
+  const result = await db.select().from(promotions).where(eq(promotions.id, id)).limit(1);
+  return result.length > 0 ? result[0] : null;
+}
+
+export async function updatePromotion(id: number, data: Partial<InsertPromotion>) {
+  const db = await getDb();
+  if (!db) {
+    throw new Error("Database not available");
+  }
+  return db.update(promotions).set(data).where(eq(promotions.id, id));
+}
+
+export async function deletePromotion(id: number) {
+  const db = await getDb();
+  if (!db) {
+    throw new Error("Database not available");
+  }
+  return db.delete(promotions).where(eq(promotions.id, id));
 }

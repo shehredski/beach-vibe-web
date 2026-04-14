@@ -3,6 +3,7 @@ import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Menu from "@/components/Menu";
 import Gallery from "@/components/Gallery";
+import Promotions from "@/components/Promotions";
 import ReservationForm from "@/components/ReservationForm";
 import Location from "@/components/Location";
 import Footer from "@/components/Footer";
@@ -15,6 +16,7 @@ export default function Home() {
       <About />
       <Menu />
       <Gallery />
+      <Promotions />
       <ReservationForm />
       <Location />
       <Footer />
