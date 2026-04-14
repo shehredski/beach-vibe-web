@@ -1,86 +1,104 @@
-import { Card } from "@/components/ui/card";
-
-const cocktails = [
-  {
-    id: 1,
-    name: "Мохито Райски",
-    description: "Класически мохито с местна мента, лайм, сода и малко ром. Освежаващ и лек.",
-    price: "18 BGN",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/cocktail_1_mojito-PhhGMzDaKy4m3upe2SzbTg.webp",
-  },
-  {
-    id: 2,
-    name: "Слънчев Залез",
-    description: "Тропически микс от манго, маракуя и кокосово мляко. Сладък и фруктов.",
-    price: "20 BGN",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/cocktail_2_sunset-LgHUQKndrgXfowYSt6BszQ.webp",
-  },
-  {
-    id: 3,
-    name: "Морски Бриз",
-    description: "Елегантна комбинация от водка, синьо кюрасо и лимонов сок. Цвят като морето.",
-    price: "19 BGN",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/cocktail_3_ocean-UfHvM9ujmyBAwhwwzcAJip.webp",
-  },
-  {
-    id: 4,
-    name: "Кокосова Мечта",
-    description: "Кокосов ром, кокосово мляко, ананас и малко лимон. Тропически рай в чаша.",
-    price: "19 BGN",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/cocktail_1_mojito-PhhGMzDaKy4m3upe2SzbTg.webp",
-  },
-  {
-    id: 5,
-    name: "Вечерна Магия",
-    description: "Тъмен ром, лайм, мед и щипка корица. Богат, топъл и пълен със мистерия.",
-    price: "21 BGN",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/cocktail_2_sunset-LgHUQKndrgXfowYSt6BszQ.webp",
-  },
-  {
-    id: 6,
-    name: "Цветна Лагуна",
-    description: "Водка, синьо кюрасо, маракуя и сок от лимон. Визуално спектакуларен.",
-    price: "20 BGN",
-    image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/cocktail_3_ocean-UfHvM9ujmyBAwhwwzcAJip.webp",
-  },
-];
-
 export default function Menu() {
+  const cocktails = [
+    {
+      id: 1,
+      name: "Мохито",
+      description: "Свежо с мента, лайм и ром",
+      price: "12 лв",
+      image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/cocktail_mojito-mjQXjYy9xDUE4KbuUt2FyN.webp"
+    },
+    {
+      id: 2,
+      name: "Sunset Spritz",
+      description: "Портокал, просеко и ликьор",
+      price: "14 лв",
+      image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/cocktail_sunset-kTFfWix6cLQUATGnyCErH3.webp"
+    },
+    {
+      id: 3,
+      name: "Ocean Blue",
+      description: "Синьо кюрасао, ром и ананас",
+      price: "13 лв",
+      image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/cocktail_ocean-BXgKCUhDyUf8QJLhRH6Tc9.webp"
+    },
+    {
+      id: 4,
+      name: "Маргарита",
+      description: "Текила, лайм и сол",
+      price: "12 лв",
+      image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/cocktail_margarita-ce6nk5iPaQBZ44Ms7EYHbv.webp"
+    },
+    {
+      id: 5,
+      name: "Пина Колада",
+      description: "Кокосово мляко, ром и ананас",
+      price: "13 лв",
+      image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/cocktail_pinacolada-7YddyxZDbwQUN9wBpXRD9W.webp"
+    },
+    {
+      id: 6,
+      name: "Дайкири",
+      description: "Ром, лайм и сироп",
+      price: "11 лв",
+      image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/cocktail_daiquiri-KVssDPnoYsfusr9qBqskvk.webp"
+    },
+    {
+      id: 7,
+      name: "Сангрия",
+      description: "Червено вино, плодове и ягоди",
+      price: "10 лв",
+      image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/cocktail_sangria-8Dfm6yzcrbA5nz4AEsmyo7.webp"
+    },
+    {
+      id: 8,
+      name: "Белини",
+      description: "Просеко, праскова и елегантност",
+      price: "12 лв",
+      image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/cocktail_bellini-fwuAJSg878WUKABaTAGP2v.webp"
+    }
+  ];
+
   return (
-    <section id="menu" className="py-20 md:py-32 bg-secondary/20">
-      <div className="container mx-auto px-4">
-        <h2 className="text-4xl md:text-5xl font-serif font-bold text-center mb-4 text-foreground">
-          Наше меню
+    <section id="menu" className="py-20 px-4 bg-gradient-to-b from-amber-50 to-white">
+      <div className="container mx-auto">
+        <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-gray-900">
+          Меню на Коктейли
         </h2>
-        <p className="text-center text-foreground/70 mb-16 max-w-2xl mx-auto">
-          Откройте нашата колекция от изискани коктейли, всеки един е майстерство на вкус и стил
+        <p className="text-center text-gray-600 mb-12 text-lg">
+          Откройте нашите сигнатурни напитки
         </p>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {cocktails.map((cocktail) => (
-            <Card
+            <div
               key={cocktail.id}
-              className="overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:scale-105 bg-card"
+              className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
             >
-              <div className="relative h-64 overflow-hidden">
+              <div className="relative h-48 overflow-hidden">
                 <img
                   src={cocktail.image}
                   alt={cocktail.name}
                   className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
+                  loading="lazy"
                 />
               </div>
-              <div className="p-6">
-                <h3 className="text-xl font-serif font-bold mb-2 text-foreground">
+              <div className="p-4">
+                <h3 className="text-xl font-bold text-gray-900 mb-2">
                   {cocktail.name}
                 </h3>
-                <p className="text-foreground/70 text-sm mb-4 leading-relaxed">
+                <p className="text-gray-600 text-sm mb-3">
                   {cocktail.description}
                 </p>
-                <p className="text-lg font-semibold text-primary">
-                  {cocktail.price}
-                </p>
+                <div className="flex justify-between items-center">
+                  <span className="text-2xl font-bold text-amber-600">
+                    {cocktail.price}
+                  </span>
+                  <button className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-full text-sm font-semibold transition-colors">
+                    Поръчай
+                  </button>
+                </div>
               </div>
-            </Card>
+            </div>
           ))}
         </div>
       </div>

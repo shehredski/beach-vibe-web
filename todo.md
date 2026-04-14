@@ -210,3 +210,13 @@
 - [x] Seasonal promotions (not in old site)
 - [x] Database persistence (not in old site)
 - [x] Admin management panel (not in old site)
+
+
+## Bug Fixes & Improvements (NEW)
+
+- [ ] Fix repeating gallery image - add unique diverse images
+- [ ] Display all 8 cocktails with different images in Menu
+- [ ] Fix Google Map location to match old beachvibe.eu coordinates
+- [ ] Add Instagram link to Footer
+- [ ] Verify all images load correctly
+- [ ] Test responsive design on mobile

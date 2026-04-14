@@ -1,115 +1,119 @@
-import { MapPin, Phone, Mail, Facebook, Clock } from "lucide-react";
-import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { MapView } from "@/components/Map";
+import { MapPin, Phone, Mail, Clock } from "lucide-react";
+import { MapView } from "./Map";
 
 export default function Location() {
   return (
-    <section id="location" className="py-20 md:py-32 bg-background">
-      <div className="container mx-auto px-4">
-        <h2 className="text-4xl md:text-5xl font-serif font-bold text-center mb-4 text-foreground">
-          Намери ни
+    <section id="location" className="py-20 px-4 bg-white">
+      <div className="container mx-auto">
+        <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-gray-900">
+          Локация & Контакт
         </h2>
-        <p className="text-center text-foreground/70 mb-16 max-w-2xl mx-auto">
-          Посетете Beach Vibe в Кемпинг Лагуна, Варна
+        <p className="text-center text-gray-600 mb-12 text-lg">
+          Намерете ни на красивия плаж
         </p>
 
-        <div className="grid md:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Map */}
-          <div className="rounded-lg overflow-hidden shadow-xl h-96">
+          <div className="rounded-lg overflow-hidden shadow-lg h-96">
             <MapView
-              initialCenter={{ lat: 43.2557, lng: 27.9689 }}
-              initialZoom={16}
-              onMapReady={(map: any) => {
-                new window.google.maps.marker.AdvancedMarkerElement({
-                  position: { lat: 43.2557, lng: 27.9689 },
-                  map: map,
-                  title: "Beach Vibe - Кемпинг Лагуна, Варна",
-                });
-              }}
+              initialCenter={{ lat: 43.2075, lng: 27.9273 }}
+              initialZoom={15}
+              onMapReady={() => {}}
             />
           </div>
 
           {/* Contact Info */}
           <div className="space-y-6">
-            {/* Address */}
-            <Card className="p-6 bg-card hover:shadow-lg transition-shadow">
-              <div className="flex gap-4">
-                <MapPin className="text-primary flex-shrink-0 mt-1" size={24} />
-                <div>
-                  <h3 className="font-serif font-bold text-lg mb-2 text-foreground">Адрес</h3>
-                  <p className="text-foreground/70">
-                    Кемпинг Лагуна<br />
-                    Варна, България<br />
-                    Лагуна Бийч (Златни пясъци)
-                  </p>
-                </div>
+            <div className="flex items-start space-x-4">
+              <MapPin className="w-6 h-6 text-red-500 mt-1 flex-shrink-0" />
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-1">
+                  Адрес
+                </h3>
+                <p className="text-gray-600">
+                  Кемпинг Лагуна, Варна
+                  <br />
+                  България
+                </p>
               </div>
-            </Card>
+            </div>
 
-            {/* Phone */}
-            <Card className="p-6 bg-card hover:shadow-lg transition-shadow">
-              <div className="flex gap-4">
-                <Phone className="text-primary flex-shrink-0 mt-1" size={24} />
-                <div>
-                  <h3 className="font-serif font-bold text-lg mb-2 text-foreground">Телефон</h3>
-                  <a href="tel:+359888995528" className="text-primary hover:underline">
-                    +359 88 899 5528
+            <div className="flex items-start space-x-4">
+              <Phone className="w-6 h-6 text-red-500 mt-1 flex-shrink-0" />
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-1">
+                  Телефон
+                </h3>
+                <p className="text-gray-600">
+                  <a href="tel:+359" className="hover:text-red-500 transition-colors">
+                    +359 (Позвънете за информация)
                   </a>
-                </div>
+                </p>
               </div>
-            </Card>
+            </div>
 
-            {/* Email */}
-            <Card className="p-6 bg-card hover:shadow-lg transition-shadow">
-              <div className="flex gap-4">
-                <Mail className="text-primary flex-shrink-0 mt-1" size={24} />
-                <div>
-                  <h3 className="font-serif font-bold text-lg mb-2 text-foreground">Email</h3>
-                  <a href="mailto:office@beachvibe.eu" className="text-primary hover:underline">
-                    office@beachvibe.eu
+            <div className="flex items-start space-x-4">
+              <Mail className="w-6 h-6 text-red-500 mt-1 flex-shrink-0" />
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-1">
+                  Имейл
+                </h3>
+                <p className="text-gray-600">
+                  <a href="mailto:info@beachvibe.eu" className="hover:text-red-500 transition-colors">
+                    info@beachvibe.eu
                   </a>
-                </div>
+                </p>
               </div>
-            </Card>
+            </div>
 
-            {/* Hours */}
-            <Card className="p-6 bg-card hover:shadow-lg transition-shadow">
-              <div className="flex gap-4">
-                <Clock className="text-primary flex-shrink-0 mt-1" size={24} />
-                <div>
-                  <h3 className="font-serif font-bold text-lg mb-2 text-foreground">Работно време</h3>
-                  <p className="text-foreground/70">
-                    Пн-Нд: 10:00 - 23:00<br />
-                    Лятен сезон: 10:00 - 00:00
-                  </p>
-                </div>
+            <div className="flex items-start space-x-4">
+              <Clock className="w-6 h-6 text-red-500 mt-1 flex-shrink-0" />
+              <div>
+                <h3 className="text-xl font-bold text-gray-900 mb-1">
+                  Работно време
+                </h3>
+                <p className="text-gray-600">
+                  Всеки ден: 09:00 - 20:00
+                  <br />
+                  (Летен сезон)
+                </p>
               </div>
-            </Card>
+            </div>
 
             {/* Social Links */}
-            <div className="flex gap-4 pt-4">
-              <a
-                href="https://www.facebook.com/profile.php?id=61576723747325"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-1"
-              >
-                <Button variant="outline" className="w-full gap-2">
-                  <Facebook size={20} />
-                  Facebook
-                </Button>
-              </a>
-              <a
-                href="https://beachvibe.eu"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-1"
-              >
-                <Button variant="outline" className="w-full">
-                  Уебсайт
-                </Button>
-              </a>
+            <div className="pt-6 border-t border-gray-200">
+              <h3 className="text-xl font-bold text-gray-900 mb-4">
+                Следете ни
+              </h3>
+              <div className="flex space-x-4">
+                <a
+                  href="https://www.facebook.com/profile.php?id=61576723747325"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center w-12 h-12 bg-blue-600 hover:bg-blue-700 text-white rounded-full transition-colors"
+                  title="Facebook"
+                >
+                  f
+                </a>
+                <a
+                  href="https://www.instagram.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-r from-pink-500 to-red-500 hover:from-pink-600 hover:to-red-600 text-white rounded-full transition-colors"
+                  title="Instagram"
+                >
+                  📷
+                </a>
+                <a
+                  href="https://www.beachvibe.eu"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center w-12 h-12 bg-amber-600 hover:bg-amber-700 text-white rounded-full transition-colors"
+                  title="Website"
+                >
+                  🌐
+                </a>
+              </div>
             </div>
           </div>
         </div>

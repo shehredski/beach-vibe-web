@@ -1,75 +1,79 @@
-import { Facebook, Mail, Phone } from "lucide-react";
+import { Facebook, Instagram, Globe } from "lucide-react";
 
 export default function Footer() {
+  const currentYear = new Date().getFullYear();
+
   return (
-    <footer className="bg-foreground/5 border-t border-border">
-      <div className="container mx-auto px-4 py-16">
-        <div className="grid md:grid-cols-4 gap-12 mb-12">
-          {/* Brand */}
+    <footer className="bg-gray-900 text-white py-12 px-4">
+      <div className="container mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+          {/* About */}
           <div>
-            <h3 className="text-2xl font-serif font-bold text-primary mb-4">Beach Vibe</h3>
-            <p className="text-foreground/70 text-sm leading-relaxed">
-              Luxury cocktail bar at Laguna Beach, Varna. Experience elegance, flavor, and unforgettable moments.
+            <h3 className="text-2xl font-bold mb-4 text-amber-400">Beach Vibe</h3>
+            <p className="text-gray-400">
+              Вашето идеално място за релакс, коктейли и незабравими моменти на плажа.
             </p>
-          </div>
-
-          {/* Quick Links */}
-          <div>
-            <h4 className="font-serif font-bold text-foreground mb-4">Бързи линкове</h4>
-            <ul className="space-y-2 text-sm text-foreground/70">
-              <li><a href="#hero" className="hover:text-primary transition-colors">Начало</a></li>
-              <li><a href="#menu" className="hover:text-primary transition-colors">Меню</a></li>
-              <li><a href="#gallery" className="hover:text-primary transition-colors">Галерия</a></li>
-              <li><a href="#reservations" className="hover:text-primary transition-colors">Резервации</a></li>
-              <li><a href="#location" className="hover:text-primary transition-colors">Местоположение</a></li>
-            </ul>
-          </div>
-
-          {/* Contact */}
-          <div>
-            <h4 className="font-serif font-bold text-foreground mb-4">Контакт</h4>
-            <ul className="space-y-3 text-sm text-foreground/70">
-              <li className="flex gap-2">
-                <Phone size={16} className="flex-shrink-0 mt-0.5" />
-                <a href="tel:+359888995528" className="hover:text-primary transition-colors">
-                  +359 88 899 5528
-                </a>
-              </li>
-              <li className="flex gap-2">
-                <Mail size={16} className="flex-shrink-0 mt-0.5" />
-                <a href="mailto:office@beachvibe.eu" className="hover:text-primary transition-colors">
-                  office@beachvibe.eu
-                </a>
-              </li>
-            </ul>
           </div>
 
           {/* Hours */}
           <div>
-            <h4 className="font-serif font-bold text-foreground mb-4">Работно време</h4>
-            <ul className="space-y-2 text-sm text-foreground/70">
-              <li>Пн-Нд: 10:00 - 23:00</li>
-              <li>Лятен сезон: 10:00 - 00:00</li>
-              <li className="pt-2 border-t border-border/50 mt-2">
-                <a href="https://www.facebook.com/profile.php?id=61576723747325" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 hover:text-primary transition-colors">
-                  <Facebook size={16} />
-                  Facebook
-                </a>
-              </li>
-            </ul>
+            <h4 className="text-lg font-bold mb-4">Работно време</h4>
+            <p className="text-gray-400">
+              Всеки ден<br />
+              09:00 - 20:00<br />
+              <span className="text-sm">(Летен сезон)</span>
+            </p>
+          </div>
+
+          {/* Social Links */}
+          <div>
+            <h4 className="text-lg font-bold mb-4">Следете ни</h4>
+            <div className="flex space-x-4">
+              <a
+                href="https://www.facebook.com/profile.php?id=61576723747325"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center w-10 h-10 bg-blue-600 hover:bg-blue-700 rounded-full transition-colors"
+                title="Facebook"
+              >
+                <Facebook size={20} />
+              </a>
+              <a
+                href="https://www.instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center w-10 h-10 bg-gradient-to-r from-pink-500 to-red-500 hover:from-pink-600 hover:to-red-600 rounded-full transition-colors"
+                title="Instagram"
+              >
+                <Instagram size={20} />
+              </a>
+              <a
+                href="https://www.beachvibe.eu"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center w-10 h-10 bg-amber-600 hover:bg-amber-700 rounded-full transition-colors"
+                title="Website"
+              >
+                <Globe size={20} />
+              </a>
+            </div>
           </div>
         </div>
 
-        {/* Bottom */}
-        <div className="border-t border-border/50 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-foreground/70">
-          <p>&copy; 2026 Beach Vibe. Всички права запазени.</p>
-          <div className="flex gap-6 mt-4 md:mt-0">
-            <a href="https://beachvibe.eu" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
-              Уебсайт
-            </a>
-            <a href="https://www.facebook.com/profile.php?id=61576723747325" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
-              Facebook
-            </a>
+        {/* Divider */}
+        <div className="border-t border-gray-700 pt-8">
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <p className="text-gray-400 text-sm mb-4 md:mb-0">
+              &copy; {currentYear} Beach Vibe. Всички права запазени.
+            </p>
+            <div className="flex space-x-6 text-sm text-gray-400">
+              <a href="#" className="hover:text-white transition-colors">
+                Условия на ползване
+              </a>
+              <a href="#" className="hover:text-white transition-colors">
+                Политика на поверителност
+              </a>
+            </div>
           </div>
         </div>
       </div>
