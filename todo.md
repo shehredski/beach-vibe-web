@@ -221,3 +221,11 @@
 - [x] Verify all images load correctly
 - [x] Test responsive design on mobile
 - [x] Fix navigation labels showing "nav.beach", "nav.bar", etc.
+
+
+## Current Bug Fixes
+
+- [ ] Extract exact location coordinates from old beachvibe.eu
+- [ ] Update Location component with exact coordinates
+- [ ] Remove all remaining text remnants/translation keys from website
+- [ ] Verify all sections display correct text

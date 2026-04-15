@@ -1,20 +1,17 @@
-import { useLanguage } from "@/contexts/LanguageContext";
-
 export default function About() {
-  const { t } = useLanguage();
   const beachImage = "https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/beach_real_1_62623b0c.webp";
 
   return (
     <section id="about" className="py-20 bg-gradient-to-b from-blue-50 to-white">
       <div className="container max-w-7xl mx-auto px-4">
         <h2 className="text-4xl font-bold text-center mb-12 text-amber-900">
-          {t("about.title")}
+          За плажа
         </h2>
         
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
             <p className="text-lg text-gray-700 leading-relaxed mb-6">
-              {t("about.description")}
+              Добре дошли на плаж Beach Vibe – тихо и спокойно място за отдих, разположено на Кемпинг Лагуна до Златни пясъци. Предлагаме модерни шезлонги, чадъри и простортни шатри.
             </p>
             <div className="space-y-4">
               <div className="flex items-start gap-4">
