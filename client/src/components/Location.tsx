@@ -59,7 +59,7 @@ export default function Location() {
                   Facebook
                 </a>
                 <a 
-                  href="https://www.instagram.com" 
+                  href="https://www.instagram.com/beach_vibe___?igsh=b25yZXZmOWdsczZ5" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="text-pink-600 hover:text-pink-700 text-2xl font-bold transition-colors"

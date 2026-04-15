@@ -11,7 +11,7 @@ export default function About() {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
             <p className="text-lg text-gray-700 leading-relaxed mb-6">
-              Добре дошли на плаж Beach Vibe – тихо и спокойно място за отдих, разположено на Кемпинг Лагуна до Златни пясъци. Предлагаме модерни шезлонги, чадъри и простортни шатри.
+              Добре дошли на плаж Beach Vibe – тихо и спокойно място за отдих, разположено на Къмпинг Лагуна до Златни пясъци. Предлагаме модерни шезлонги, чадъри и простортни шатри.
             </p>
             <div className="space-y-4">
               <div className="flex items-start gap-4">

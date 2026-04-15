@@ -225,7 +225,7 @@
 
 ## Current Bug Fixes
 
-- [ ] Extract exact location coordinates from old beachvibe.eu
-- [ ] Update Location component with exact coordinates
-- [ ] Remove all remaining text remnants/translation keys from website
-- [ ] Verify all sections display correct text
+- [x] Extract exact location coordinates from old beachvibe.eu
+- [x] Update Location component with exact coordinates
+- [x] Remove all remaining text remnants/translation keys from website
+- [x] Verify all sections display correct text
