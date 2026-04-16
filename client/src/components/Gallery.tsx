@@ -4,39 +4,63 @@ export default function Gallery() {
   const galleryImages = [
     {
       id: 1,
-      src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/instagram_beach_hammock_61c63385.webp',
-      alt: 'Beach Relaxation',
-      title: 'Релаксирай на плажа'
-    },
-    {
-      id: 2,
-      src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/instagram_beach_food_c3c6b90e.webp',
-      alt: 'Beach Food',
+      src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/instagram_beach_food_unique-Vwofvt5BYB4ZAqFaBt38Pv.webp',
+      alt: 'Beach Food Platter',
       title: 'Гурме преживяване'
     },
     {
+      id: 2,
+      src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/instagram_beach_cocktail_unique-22kDT78zJYDJ8auCdHVgfo.webp',
+      alt: 'Tropical Cocktail',
+      title: 'Свежи коктейли'
+    },
+    {
       id: 3,
-      src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/instagram_beach_setup_73f4ca96.webp',
-      alt: 'Beach Setup',
-      title: 'Модерна инфраструктура'
+      src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/instagram_beach_sunset_unique-38fds8WUHLmfUvAzZXBTt5.webp',
+      alt: 'Beach Sunset',
+      title: 'Морска красота'
     },
     {
       id: 4,
-      src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/instagram_beach_umbrella_45363ff3.webp',
-      alt: 'Beach Umbrella',
-      title: 'Защита от слънце'
+      src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/instagram_beach_people_unique-5WTZbore2bMVibx4EYR6kj.webp',
+      alt: 'Friends at Beach',
+      title: 'Приятелски моменти'
     },
     {
       id: 5,
-      src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/instagram_beach_relaxation_6e203dce.webp',
-      alt: 'Beach Relaxation 2',
-      title: 'Спокойствие и комфорт'
+      src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/instagram_beach_bar_setup_unique-PJxYV2Y5vZ6bRwCyJoNWGV.webp',
+      alt: 'Beach Bar Setup',
+      title: 'Барът Beach Vibe'
     },
     {
       id: 6,
-      src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/instagram_beach_sunset_3c805110.webp',
-      alt: 'Beach Sunset',
-      title: 'Морска красота'
+      src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/instagram_beach_lounge_unique-9Y3jV4pBQHt9k6SZNDftur.webp',
+      alt: 'Beach Loungers',
+      title: 'Луксозни шезлонги'
+    },
+    {
+      id: 7,
+      src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/instagram_beach_water_unique-oKDwzNiAn6uPHUbHHyj8PW.webp',
+      alt: 'Crystal Clear Water',
+      title: 'Кристално чисто море'
+    },
+    {
+      id: 8,
+      src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/instagram_beach_group_unique-KLtPBCHP3rSZH7LEEWBqE9.webp',
+      alt: 'Group Having Fun',
+      title: 'Летни забавления'
+    },
+    {
+      id: 9,
+      src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/instagram_beach_details_unique-Ae7QU664svZSVYkqw5NyLP.webp',
+      alt: 'Bar Details',
+      title: 'Детайли на бара'
+    },
+    {
+      id: 10,
+      src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/instagram_beach_panorama_unique-cxmKkvYqb9smeM72GdKfrJ.webp',
+      alt: 'Beach Panorama',
+      title: 'Панорама на Beach Vibe'
     }
   ];
 

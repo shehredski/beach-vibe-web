@@ -240,3 +240,20 @@
 - [x] Update About/Atmosphere section with Instagram photos
 - [x] Update Hero section background with Instagram photo
 - [x] Test all sections display correctly
+
+
+## Gallery Images Fix (NEW)
+
+- [x] Extract 10 unique Instagram photos from beach_vibe___ profile (ensure no duplicates)
+- [x] Verify all 10 photos are different and diverse (beach, bar, sunset, drinks, people, etc.)
+- [x] Upload all 10 photos to CDN
+- [x] Update Gallery component to display exactly 10 unique photos
+- [x] Test gallery for duplicate images
+- [x] Verify responsive grid layout with 10 images
+
+## Location Pin Extraction (NEW)
+
+- [x] Visit beachvibe.eu and extract exact location with pin
+- [x] Get precise coordinates and map pin details (43.307184074212714, 28.051537076595283)
+- [x] Confirm Location component already has correct pin information
+- [x] Test Google Map display with correct pin location
