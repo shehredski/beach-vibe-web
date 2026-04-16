@@ -233,10 +233,10 @@
 
 ## Instagram Photo Integration (NEW)
 
-- [ ] Extract photos from Beach Vibe Instagram profile
-- [ ] Select best 8-10 photos for gallery
-- [ ] Upload photos to CDN
-- [ ] Update Gallery component with Instagram photos
-- [ ] Update About/Atmosphere section with Instagram photos
-- [ ] Update Hero section background with Instagram photo
-- [ ] Test all sections display correctly
+- [x] Extract photos from Beach Vibe Instagram profile
+- [x] Select best 8-10 photos for gallery
+- [x] Upload photos to CDN
+- [x] Update Gallery component with Instagram photos
+- [x] Update About/Atmosphere section with Instagram photos
+- [x] Update Hero section background with Instagram photo
+- [x] Test all sections display correctly
