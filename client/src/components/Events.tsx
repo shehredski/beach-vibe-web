@@ -161,12 +161,12 @@ export default function Events() {
         {/* Call to Action */}
         <div className="mt-12 bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg p-8 text-center text-white">
           <h3 className="text-2xl font-bold mb-2">Искаш ли да организираш своето събитие?</h3>
-          <p className="mb-4 text-blue-100">Свържи се с нас за специални предложения за корпоративни и приватни парти.</p>
+          <p className="mb-4 text-blue-100">Свържи се с нас за специални предложения за корпоративни и частни партита.</p>
           <a 
             href="tel:0888995528"
             className="inline-block bg-white text-blue-600 font-bold py-3 px-8 rounded-lg hover:bg-blue-50 transition-colors duration-200"
           >
-            Позвони ни сега
+            Позвъни ни сега
           </a>
         </div>
       </div>

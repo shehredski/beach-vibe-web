@@ -4,62 +4,62 @@ export default function Gallery() {
   const galleryImages = [
     {
       id: 1,
-      src: 'https://scontent-iad3-1.cdninstagram.com/v/t51.82787-15/530461637_17859449244466288_5026139876889918154_n.webp',
-      alt: 'Beach Vibe Sunset',
-      title: 'Морска красота'
+      src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/beach_vibe_sunset_lounge-RHCqb7uj9J5YzrqwrfiT7Y.webp',
+      alt: 'Beach Vibe Sunset Lounge',
+      title: 'Луксозни Шезлонги'
     },
     {
       id: 2,
-      src: 'https://scontent-iad3-1.cdninstagram.com/v/t51.82787-15/530508253_17859203628466288_3907397288714041931_n.webp',
-      alt: 'Beach Setup',
-      title: 'Модерна инфраструктура'
+      src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/beach_vibe_cocktails-HFccBx4aDGaSAQmowFSx2x.webp',
+      alt: 'Colorful Cocktails',
+      title: 'Тропически Коктейли'
     },
     {
       id: 3,
-      src: 'https://scontent-iad3-1.cdninstagram.com/v/t51.82787-15/532153644_17859775986466288_2566356350421343574_n.webp',
-      alt: 'Beach Relaxation',
-      title: 'Релаксирай на плажа'
+      src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/beach_vibe_food_platter-UgmuA7LijpcZCxdmn63ae6.webp',
+      alt: 'Seafood Platter',
+      title: 'Морски Деликатеси'
     },
     {
       id: 4,
-      src: 'https://scontent-iad3-1.cdninstagram.com/v/t51.82787-15/534343827_17859775917466288_8060401248947267951_n.webp',
-      alt: 'Beach Bar',
+      src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/beach_vibe_bar_setup-9EWWiFsnD4Spk39rMDdhDB.webp',
+      alt: 'Professional Bar Setup',
       title: 'Барът Beach Vibe'
     },
     {
       id: 5,
-      src: 'https://scontent-iad3-1.cdninstagram.com/v/t51.82787-15/534836406_17860168386466288_3704832567059594790_n.jpg?stp=dst-jpg',
-      alt: 'Beach Food',
-      title: 'Гурме преживяване'
+      src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/beach_vibe_group_celebration-cQCmnrCXbqG4hE8PPvwP7z.webp',
+      alt: 'Friends Celebrating',
+      title: 'Приятелски Моменти'
     },
     {
       id: 6,
-      src: 'https://scontent-iad3-2.cdninstagram.com/v/t51.82787-15/533133035_17859775869466288_3898397286951599619_n.webp',
-      alt: 'Beach Umbrellas',
-      title: 'Защита от слънце'
+      src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/beach_vibe_water_view-khYfBQhiBQQKvQRetpYXxr.webp',
+      alt: 'Crystal Clear Water',
+      title: 'Кристално Чисто Море'
     },
     {
       id: 7,
-      src: 'https://scontent-iad3-2.cdninstagram.com/v/t51.82787-15/539920563_17861435874466288_1044480071753392138_n.jpg?stp=dst-jpg',
-      alt: 'Summer Vibes',
-      title: 'Летни забавления'
+      src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/beach_vibe_dj_night-GBJkkbsZoHaipaZN2YdYaR.webp',
+      alt: 'DJ Night Party',
+      title: 'DJ Нощ'
     },
     {
       id: 8,
-      src: 'https://scontent-iad3-2.cdninstagram.com/v/t51.82787-15/641094751_17881402773466288_1381898906206454341_n.webp',
-      alt: 'Beach Cocktails',
-      title: 'Свежи коктейли'
+      src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/beach_vibe_dining_table-MhPspc3rraPn9CQZvfcv78.webp',
+      alt: 'Romantic Dinner',
+      title: 'Романтична Вечеря'
     },
     {
       id: 9,
-      src: 'https://scontent-iad6-1.cdninstagram.com/v/t51.82787-15/531308113_17859654618466288_4211506792020629837_n.webp',
-      alt: 'Beach People',
-      title: 'Приятелски моменти'
+      src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/beach_vibe_entrance-BJd6hVPiWgaCfKSzW8T722.webp',
+      alt: 'Beach Vibe Entrance',
+      title: 'Входът на Beach Vibe'
     },
     {
       id: 10,
-      src: 'https://scontent-iad6-1.cdninstagram.com/v/t51.82787-15/529807909_17859165831466288_3358768919333621512_n.jpg?stp=dst-jpg',
-      alt: 'Beach Panorama',
+      src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/beach_vibe_panorama-4t3Wu7UZ33nG3chuXjpRCv.webp',
+      alt: 'Beach Bar Panorama',
       title: 'Панорама на Beach Vibe'
     }
   ];
