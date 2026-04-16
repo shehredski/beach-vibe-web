@@ -4,61 +4,61 @@ export default function Gallery() {
   const galleryImages = [
     {
       id: 1,
-      src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/instagram_beach_food_unique-Vwofvt5BYB4ZAqFaBt38Pv.webp',
-      alt: 'Beach Food Platter',
-      title: 'Гурме преживяване'
-    },
-    {
-      id: 2,
-      src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/instagram_beach_cocktail_unique-22kDT78zJYDJ8auCdHVgfo.webp',
-      alt: 'Tropical Cocktail',
-      title: 'Свежи коктейли'
-    },
-    {
-      id: 3,
-      src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/instagram_beach_sunset_unique-38fds8WUHLmfUvAzZXBTt5.webp',
-      alt: 'Beach Sunset',
+      src: 'https://scontent-iad3-1.cdninstagram.com/v/t51.82787-15/530461637_17859449244466288_5026139876889918154_n.webp',
+      alt: 'Beach Vibe Sunset',
       title: 'Морска красота'
     },
     {
-      id: 4,
-      src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/instagram_beach_people_unique-5WTZbore2bMVibx4EYR6kj.webp',
-      alt: 'Friends at Beach',
-      title: 'Приятелски моменти'
+      id: 2,
+      src: 'https://scontent-iad3-1.cdninstagram.com/v/t51.82787-15/530508253_17859203628466288_3907397288714041931_n.webp',
+      alt: 'Beach Setup',
+      title: 'Модерна инфраструктура'
     },
     {
-      id: 5,
-      src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/instagram_beach_bar_setup_unique-PJxYV2Y5vZ6bRwCyJoNWGV.webp',
-      alt: 'Beach Bar Setup',
+      id: 3,
+      src: 'https://scontent-iad3-1.cdninstagram.com/v/t51.82787-15/532153644_17859775986466288_2566356350421343574_n.webp',
+      alt: 'Beach Relaxation',
+      title: 'Релаксирай на плажа'
+    },
+    {
+      id: 4,
+      src: 'https://scontent-iad3-1.cdninstagram.com/v/t51.82787-15/534343827_17859775917466288_8060401248947267951_n.webp',
+      alt: 'Beach Bar',
       title: 'Барът Beach Vibe'
     },
     {
+      id: 5,
+      src: 'https://scontent-iad3-1.cdninstagram.com/v/t51.82787-15/534836406_17860168386466288_3704832567059594790_n.jpg?stp=dst-jpg',
+      alt: 'Beach Food',
+      title: 'Гурме преживяване'
+    },
+    {
       id: 6,
-      src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/instagram_beach_lounge_unique-9Y3jV4pBQHt9k6SZNDftur.webp',
-      alt: 'Beach Loungers',
-      title: 'Луксозни шезлонги'
+      src: 'https://scontent-iad3-2.cdninstagram.com/v/t51.82787-15/533133035_17859775869466288_3898397286951599619_n.webp',
+      alt: 'Beach Umbrellas',
+      title: 'Защита от слънце'
     },
     {
       id: 7,
-      src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/instagram_beach_water_unique-oKDwzNiAn6uPHUbHHyj8PW.webp',
-      alt: 'Crystal Clear Water',
-      title: 'Кристално чисто море'
-    },
-    {
-      id: 8,
-      src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/instagram_beach_group_unique-KLtPBCHP3rSZH7LEEWBqE9.webp',
-      alt: 'Group Having Fun',
+      src: 'https://scontent-iad3-2.cdninstagram.com/v/t51.82787-15/539920563_17861435874466288_1044480071753392138_n.jpg?stp=dst-jpg',
+      alt: 'Summer Vibes',
       title: 'Летни забавления'
     },
     {
+      id: 8,
+      src: 'https://scontent-iad3-2.cdninstagram.com/v/t51.82787-15/641094751_17881402773466288_1381898906206454341_n.webp',
+      alt: 'Beach Cocktails',
+      title: 'Свежи коктейли'
+    },
+    {
       id: 9,
-      src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/instagram_beach_details_unique-Ae7QU664svZSVYkqw5NyLP.webp',
-      alt: 'Bar Details',
-      title: 'Детайли на бара'
+      src: 'https://scontent-iad6-1.cdninstagram.com/v/t51.82787-15/531308113_17859654618466288_4211506792020629837_n.webp',
+      alt: 'Beach People',
+      title: 'Приятелски моменти'
     },
     {
       id: 10,
-      src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/instagram_beach_panorama_unique-cxmKkvYqb9smeM72GdKfrJ.webp',
+      src: 'https://scontent-iad6-1.cdninstagram.com/v/t51.82787-15/529807909_17859165831466288_3358768919333621512_n.jpg?stp=dst-jpg',
       alt: 'Beach Panorama',
       title: 'Панорама на Beach Vibe'
     }

@@ -257,3 +257,11 @@
 - [x] Get precise coordinates and map pin details (43.307184074212714, 28.051537076595283)
 - [x] Confirm Location component already has correct pin information
 - [x] Test Google Map display with correct pin location
+
+
+## URGENT FIXES REQUIRED
+
+- [x] Extract 10 REAL unique photos from @beach_vibe___ Instagram profile (NOT AI generated)
+- [x] Replace gallery AI images with real Instagram photos
+- [x] Add visible map marker/pin on Location component Google Map
+- [x] Create Live Events calendar section with upcoming events

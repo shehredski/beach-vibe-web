@@ -74,6 +74,17 @@ export default function Location() {
           <div className="rounded-lg overflow-hidden shadow-xl h-96">
             <MapView 
               initialCenter={{ lat: 43.307184074212714, lng: 28.051537076595283 }}
+              initialZoom={16}
+              onMapReady={(map) => {
+                // Add marker pin for Beach Vibe location
+                if (window.google?.maps?.marker?.AdvancedMarkerElement) {
+                  new window.google.maps.marker.AdvancedMarkerElement({
+                    map,
+                    position: { lat: 43.307184074212714, lng: 28.051537076595283 },
+                    title: "Beach Vibe - Camping Laguna",
+                  });
+                }
+              }}
             />
           </div>
         </div>

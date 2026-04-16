@@ -15,6 +15,7 @@ export default function Navigation() {
     { label: "Барът", id: "bar" },
     { label: "Цени", id: "prices" },
     { label: "Галерия", id: "gallery" },
+    { label: "Събития", id: "events" },
     { label: "Меню", id: "menu" },
     { label: "Промоции", id: "promotions" },
     { label: "Резервации", id: "reservations" },
