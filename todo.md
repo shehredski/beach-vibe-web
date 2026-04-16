@@ -229,3 +229,14 @@
 - [x] Update Location component with exact coordinates
 - [x] Remove all remaining text remnants/translation keys from website
 - [x] Verify all sections display correct text
+
+
+## Instagram Photo Integration (NEW)
+
+- [ ] Extract photos from Beach Vibe Instagram profile
+- [ ] Select best 8-10 photos for gallery
+- [ ] Upload photos to CDN
+- [ ] Update Gallery component with Instagram photos
+- [ ] Update About/Atmosphere section with Instagram photos
+- [ ] Update Hero section background with Instagram photo
+- [ ] Test all sections display correctly
