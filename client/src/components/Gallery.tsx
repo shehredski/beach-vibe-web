@@ -70,7 +70,7 @@ export default function Gallery() {
     },
     {
       id: 12,
-      src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/BOB_4030_5809dd94.webp',
+      src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/BOB_4030_b804677d.webp',
       alt: 'Beach Vibe Photo 12',
       title: 'Beach Vibe Фото 12'
     },
@@ -130,13 +130,13 @@ export default function Gallery() {
     },
     {
       id: 22,
-      src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/BOB_4160_d570c62b.webp',
+      src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/BOB_4160_27ea6cac.webp',
       alt: 'Beach Vibe Photo 22',
       title: 'Beach Vibe Фото 22'
     },
     {
       id: 23,
-      src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/BOB_4185_2f14d635.webp',
+      src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/BOB_4185_7e5b6ef4.webp',
       alt: 'Beach Vibe Photo 23',
       title: 'Beach Vibe Фото 23'
     },
