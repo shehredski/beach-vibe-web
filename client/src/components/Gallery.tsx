@@ -1,6 +1,21 @@
 import React from 'react';
 
 export default function Gallery() {
+  const rotations: { [key: number]: number } = {
+    12: 180,
+    17: -90,
+    18: -90,
+    19: -90,
+    21: -90,
+    30: -90,
+    31: -90,
+    32: -90,
+    33: -90,
+    35: -90,
+    22: 90,
+    23: 90,
+  };
+
   const galleryImages = [
     {
       id: 1,
@@ -239,6 +254,7 @@ export default function Gallery() {
                 alt={image.alt}
                 className="w-full h-64 object-cover group-hover:brightness-75 transition-all duration-300"
                 loading="lazy"
+                style={rotations[image.id] ? { transform: `rotate(${rotations[image.id]}deg)` } : undefined}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-start p-4">
                 <h3 className="text-white font-semibold text-lg">{image.title}</h3>
