@@ -23,7 +23,7 @@ export default function Hero() {
       id="hero"
       className="relative h-screen flex items-center justify-center overflow-hidden"
       style={{
-        backgroundImage: `url('https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/instagram_beach_sunset_3c805110.webp')`,
+        backgroundImage: `url('https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/BOB_3999_f882c966.webp')`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}
