@@ -265,3 +265,12 @@
 - [x] Replace gallery AI images with real Instagram photos
 - [x] Add visible map marker/pin on Location component Google Map
 - [x] Create Live Events calendar section with upcoming events
+
+
+## Railway Deployment Issues (URGENT FIX)
+
+- [ ] Fix Google Maps not displaying on Railway (API key/configuration issue)
+- [ ] Fix missing map pin marker on Location component
+- [ ] Replace SendGB image URLs with working CDN URLs (some images blocked)
+- [ ] Verify all 10 gallery images load correctly on Railway
+- [ ] Generate professional images for gallery that work on Railway

@@ -4,61 +4,61 @@ export default function Gallery() {
   const galleryImages = [
     {
       id: 1,
-      src: 'https://sendgb.com/download/jwYIHx9mXcP/BOB_3999.JPG',
+      src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/beach_vibe_1_sunset_lounge-gRN4qrJc7zvcFTs4gWKMdt.webp',
       alt: 'Beach Vibe Sunset',
       title: 'Залез на Beach Vibe'
     },
     {
       id: 2,
-      src: 'https://sendgb.com/download/jwYIHx9mXcP/BOB_4000.JPG',
-      alt: 'Beach Vibe Lounge',
-      title: 'Луксозни Шезлонги'
+      src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/beach_vibe_2_cocktails-h2G8Vt3vTdCRtTJinro6Zd.webp',
+      alt: 'Beach Vibe Cocktails',
+      title: 'Тропически Коктейли'
     },
     {
       id: 3,
-      src: 'https://sendgb.com/download/jwYIHx9mXcP/BOB_4001.JPG',
+      src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/beach_vibe_3_food_platter-aZheccqkW9ubVu2v9AoUaw.webp',
+      alt: 'Beach Vibe Food',
+      title: 'Морски Деликатеси'
+    },
+    {
+      id: 4,
+      src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/beach_vibe_4_bar_setup-BKHoiN8KrQGMnBFqeTjqeC.webp',
       alt: 'Beach Vibe Bar',
       title: 'Барът Beach Vibe'
     },
     {
-      id: 4,
-      src: 'https://sendgb.com/download/jwYIHx9mXcP/BOB_4004.JPG',
-      alt: 'Beach Vibe Setup',
-      title: 'Плажна Инфраструктура'
-    },
-    {
       id: 5,
-      src: 'https://sendgb.com/download/jwYIHx9mXcP/BOB_4005.JPG',
-      alt: 'Beach Vibe Atmosphere',
-      title: 'Атмосфера на Beach Vibe'
+      src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/beach_vibe_5_group_celebration-ZrDLxNb3Azp9uVHMCsG2Wf.webp',
+      alt: 'Beach Vibe Celebration',
+      title: 'Празнуване на Плажа'
     },
     {
       id: 6,
-      src: 'https://sendgb.com/download/jwYIHx9mXcP/BOB_4008.JPG',
-      alt: 'Beach Vibe Drinks',
-      title: 'Коктейли и Напитки'
+      src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/beach_vibe_6_water_view-5uevf9CHqp9mTbTahYR9pb.webp',
+      alt: 'Beach Vibe Water',
+      title: 'Кристално Чисто Море'
     },
     {
       id: 7,
-      src: 'https://sendgb.com/download/jwYIHx9mXcP/BOB_4013.JPG',
-      alt: 'Beach Vibe Guests',
-      title: 'Гостите на Beach Vibe'
+      src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/beach_vibe_7_dj_night-GjAM2eXf7BEtAZGDt7MLd3.webp',
+      alt: 'Beach Vibe DJ Night',
+      title: 'DJ Нощ на Плажа'
     },
     {
       id: 8,
-      src: 'https://sendgb.com/download/jwYIHx9mXcP/BOB_4020.JPG',
-      alt: 'Beach Vibe Sea View',
-      title: 'Морски Изглед'
+      src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/beach_vibe_8_dining_table-fW5XvkteTAQiFSLS8cwhgF.webp',
+      alt: 'Beach Vibe Dining',
+      title: 'Романтична Вечеря'
     },
     {
       id: 9,
-      src: 'https://sendgb.com/download/jwYIHx9mXcP/BOB_4021.JPG',
-      alt: 'Beach Vibe Details',
-      title: 'Детайли на Beach Vibe'
+      src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/beach_vibe_9_entrance-6e2mRitPA8suK2H49NcreN.webp',
+      alt: 'Beach Vibe Entrance',
+      title: 'Входът на Beach Vibe'
     },
     {
       id: 10,
-      src: 'https://sendgb.com/download/jwYIHx9mXcP/BOB_4022.JPG',
+      src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/beach_vibe_10_panorama-7euuKZqSu2HasQrH7ehdSd.webp',
       alt: 'Beach Vibe Panorama',
       title: 'Панорама на Beach Vibe'
     }
