@@ -269,8 +269,9 @@
 
 ## Railway Deployment Issues (URGENT FIX)
 
-- [ ] Fix Google Maps not displaying on Railway (API key/configuration issue)
-- [ ] Fix missing map pin marker on Location component
-- [ ] Replace SendGB image URLs with working CDN URLs (some images blocked)
-- [ ] Verify all 10 gallery images load correctly on Railway
-- [ ] Generate professional images for gallery that work on Railway
+- [x] Fix Google Maps not displaying on Railway (API key/configuration issue)
+- [x] Fix missing map pin marker on Location component
+- [x] Replace SendGB image URLs with working CDN URLs (some images blocked)
+- [x] Verify all 10 gallery images load correctly on Railway
+- [x] Generate professional images for gallery that work on Railway
+- [x] Replace Hero section with real Beach Vibe photo (BOB_3999.webp)

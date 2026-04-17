@@ -72,20 +72,16 @@ export default function Location() {
           
           {/* Map */}
           <div className="rounded-lg overflow-hidden shadow-xl h-96">
-            <MapView 
-              initialCenter={{ lat: 43.307184074212714, lng: 28.051537076595283 }}
-              initialZoom={16}
-              onMapReady={(map) => {
-                // Add marker pin for Beach Vibe location
-                if (window.google?.maps?.marker?.AdvancedMarkerElement) {
-                  new window.google.maps.marker.AdvancedMarkerElement({
-                    map,
-                    position: { lat: 43.307184074212714, lng: 28.051537076595283 },
-                    title: "Beach Vibe - Camping Laguna",
-                  });
-                }
-              }}
-            />
+            <iframe
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2892.9847562949584!2d28.051537076595283!3d43.307184074212714!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40a4a4a4a4a4a4a5%3A0x1234567890abcdef!2sBeach%20Vibe%20-%20Camping%20Laguna!5e0!3m2!1sen!2sbg!4v1234567890"
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="rounded-lg"
+            ></iframe>
           </div>
         </div>
       </div>
