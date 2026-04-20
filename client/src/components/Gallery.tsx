@@ -96,7 +96,7 @@ export default function Gallery() {
 
       {/* LIGHTBOX MODAL */}
       <AnimatePresence>
-        {selectedImage && currentImage && (
+        {selectedImage !== null && currentImage && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -106,34 +106,39 @@ export default function Gallery() {
           >
             <button 
               className="absolute top-5 right-5 text-white p-2 hover:bg-white/10 rounded-full transition-colors z-[110]"
-              onClick={() => setSelectedImage(null)}
+              onClick={(e) => {
+                e.stopPropagation();
+                setSelectedImage(null);
+              }}
             >
-              <X size={32} />
+              <X size={40} />
             </button>
 
-            <motion.img
-              layoutId={`img-${selectedImage}`}
-              src={currentImage.src}
-              alt={currentImage.title}
-              className="max-w-[90vw] max-h-[85vh] object-contain rounded-sm shadow-2xl"
-              style={{ 
-                transform: rotations[currentImage.id] 
-                  ? `rotate(${rotations[currentImage.id]}deg)` 
-                  : 'rotate(0deg)' 
-              }}
-              initial={{ scale: 0.8 }}
-              animate={{ scale: 1 }}
-              transition={{ type: "spring", stiffness: 300, damping: 25 }}
-            />
+            <div className="relative flex items-center justify-center w-full h-full">
+              <motion.img
+                key={`large-${currentImage.id}`}
+                src={currentImage.src}
+                alt={currentImage.title}
+                initial={{ scale: 0.5, opacity: 0, rotate: rotations[currentImage.id] || 0 }}
+                animate={{ 
+                  scale: 1, 
+                  opacity: 1, 
+                  rotate: rotations[currentImage.id] || 0 
+                }}
+                transition={{ type: "spring", stiffness: 250, damping: 30 }}
+                className="max-w-[85vw] max-h-[80vh] object-contain shadow-2xl"
+                style={{
+                  // Твърдо задаваме ротацията тук
+                  transformOrigin: "center center"
+                }}
+              />
+            </div>
             
-            <div className="absolute bottom-6 left-0 right-0 text-center">
-               <p className="text-white/80 text-sm font-light tracking-widest uppercase bg-black/20 inline-block px-4 py-2 rounded-full">
+            <div className="absolute bottom-10 left-0 right-0 text-center pointer-events-none">
+               <p className="text-white/90 text-sm font-light tracking-widest uppercase bg-black/40 inline-block px-6 py-2 rounded-full border border-white/10">
                  {currentImage.title}
                </p>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-    </section>
-  );
-}
