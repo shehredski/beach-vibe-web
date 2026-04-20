@@ -1,12 +1,20 @@
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
+import { Link, useLocation } from "wouter"; // 1. Добавяме Link и useLocation
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
+  const [location, setLocation] = useState(window.location.pathname);
 
   const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    element?.scrollIntoView({ behavior: "smooth" });
+    // Ако сме на началната страница, превърти
+    if (window.location.pathname === "/") {
+      const element = document.getElementById(id);
+      element?.scrollIntoView({ behavior: "smooth" });
+    } else {
+      // Ако сме на друга страница (напр. /menu), първо се върни в началото
+      window.location.href = "/#" + id;
+    }
     setIsOpen(false);
   };
 
@@ -16,7 +24,6 @@ export default function Navigation() {
     { label: "Цени", id: "prices" },
     { label: "Галерия", id: "gallery" },
     { label: "Събития", id: "events" },
-    { label: "Меню", id: "menu" },
     { label: "Промоции", id: "promotions" },
     { label: "Резервации", id: "reservations" },
     { label: "Контакт", id: "contact" },
@@ -25,8 +32,10 @@ export default function Navigation() {
   return (
     <nav className="sticky top-0 z-50 bg-white shadow-lg">
       <div className="container max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-        {/* Logo */}
-        <div className="text-2xl font-bold text-amber-600">Beach Vibe</div>
+        {/* Logo - Цъкането върху него ни връща в началото */}
+        <Link href="/">
+          <div className="text-2xl font-bold text-amber-600 cursor-pointer">Beach Vibe</div>
+        </Link>
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-8">
@@ -39,6 +48,13 @@ export default function Navigation() {
               {item.label}
             </button>
           ))}
+          
+          {/* СПЕЦИАЛЕН БУТОН ЗА МЕНЮТО */}
+          <Link href="/menu">
+            <button className="bg-amber-600 text-white px-4 py-2 rounded-lg hover:bg-amber-700 transition-colors font-medium">
+              Меню 🍹
+            </button>
+          </Link>
         </div>
 
         {/* Mobile Menu Button */}
@@ -65,6 +81,11 @@ export default function Navigation() {
                 {item.label}
               </button>
             ))}
+            <Link href="/menu">
+              <button className="block w-full text-left px-4 py-2 text-amber-600 font-bold">
+                Меню 🍹
+              </button>
+            </Link>
           </div>
         </div>
       )}
