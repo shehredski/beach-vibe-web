@@ -1,7 +1,7 @@
 import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
-import Menu from "@/components/Menu";
+// import Menu from "@/components/Menu"; // <--- ТОВА Е ИЗТРИТО
 import Gallery from "@/components/Gallery";
 import Events from "@/components/Events";
 import Promotions from "@/components/Promotions";
@@ -15,7 +15,7 @@ export default function Home() {
       <Navigation />
       <Hero />
       <About />
-      <Menu />
+      {/* <Menu /> - Вече не е тук, за да не тежи на началната страница */}
       <Gallery />
       <Events />
       <Promotions />
