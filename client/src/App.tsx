@@ -40,3 +40,18 @@ function App() {
 }
 
 export default App;
+// ... другите импорти
+import Home from "./pages/Home";
+import MenuPage from "./pages/MenuPage"; // 1. ДОБАВИ ТОВА
+
+function Router() {
+  return (
+    <Switch>
+      <Route path={"/"} component={Home} />
+      <Route path={"/menu"} component={MenuPage} /> {/* 2. ДОБАВИ ТОВА */}
+      <Route path={"/404"} component={NotFound} />
+      <Route component={NotFound} />
+    </Switch>
+  );
+}
+// ... останалото остава същото
