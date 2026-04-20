@@ -5,14 +5,18 @@ import { X } from "lucide-react";
 export default function Gallery() {
   const [selectedImage, setSelectedImage] = useState<null | number>(null);
 
-  // Специфичните ротации за твоите снимки
+  // ПРЕЦИЗНИ РОТАЦИИ: Коригираме наклона, за да изправим снимките
   const rotations: { [key: number]: number } = {
-    12: 180, 17: -90, 18: -90, 19: -90, 21: -90, 
-    30: -90, 31: -90, 32: -90, 33: -90, 35: -90, 
-    22: 90, 23: 90,
+    // Тези бяха на -90, завъртаме ги на +90, за да се изправят
+    17: 90, 18: 90, 19: 90, 21: 90, 30: 90, 31: 90, 32: 90, 33: 90, 35: 90, 
+    
+    // Тези бяха на +90, завъртаме ги на -90, за да се изправят
+    22: -90, 23: -90,
+
+    // Снимка 12 вече е на 0, за да не е наопаки
+    12: 0, 
   };
 
-  // Пълният списък с всички 36 снимки
   const galleryImages = [
     { id: 1, src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/BOB_3999_9c5474d6.webp', title: 'Beach Vibe 1' },
     { id: 2, src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/BOB_4000_68d7d68a.webp', title: 'Beach Vibe 2' },
@@ -69,7 +73,6 @@ export default function Gallery() {
           {galleryImages.map((image, index) => (
             <motion.div
               key={image.id}
-              layoutId={`img-${image.id}`}
               onClick={() => setSelectedImage(image.id)}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -82,7 +85,11 @@ export default function Gallery() {
                 alt={image.title}
                 loading="lazy"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                style={rotations[image.id] ? { transform: `rotate(${rotations[image.id]}deg) scale(1.5)` } : undefined}
+                style={{
+                  transform: rotations[image.id] 
+                    ? `rotate(${rotations[image.id]}deg) scale(1.5)` 
+                    : 'none'
+                }}
               />
               <div className="absolute inset-0 bg-stone-900/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                 <p className="text-white font-light tracking-widest uppercase border-white border px-4 py-2">
@@ -127,10 +134,7 @@ export default function Gallery() {
                 }}
                 transition={{ type: "spring", stiffness: 250, damping: 30 }}
                 className="max-w-[85vw] max-h-[80vh] object-contain shadow-2xl"
-                style={{
-                  // Твърдо задаваме ротацията тук
-                  transformOrigin: "center center"
-                }}
+                style={{ transformOrigin: "center center" }}
               />
             </div>
             
@@ -142,3 +146,6 @@ export default function Gallery() {
           </motion.div>
         )}
       </AnimatePresence>
+    </section>
+  );
+}
