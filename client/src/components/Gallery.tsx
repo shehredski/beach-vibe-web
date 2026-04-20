@@ -1,16 +1,18 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X } from "lucide-react"; // Трябва да имаш инсталиран lucide-react
+import { X } from "lucide-react";
 
 export default function Gallery() {
   const [selectedImage, setSelectedImage] = useState<null | number>(null);
 
+  // Специфичните ротации за твоите снимки
   const rotations: { [key: number]: number } = {
     12: 180, 17: -90, 18: -90, 19: -90, 21: -90, 
     30: -90, 31: -90, 32: -90, 33: -90, 35: -90, 
     22: 90, 23: 90,
   };
 
+  // Пълният списък с всички 36 снимки
   const galleryImages = [
     { id: 1, src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/BOB_3999_9c5474d6.webp', title: 'Beach Vibe 1' },
     { id: 2, src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/BOB_4000_68d7d68a.webp', title: 'Beach Vibe 2' },
@@ -58,7 +60,7 @@ export default function Gallery() {
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-stone-800 mb-4 uppercase tracking-wider">Галерия</h2>
           <div className="w-24 h-1 bg-amber-500 mx-auto mb-6"></div>
-          <p className="text-stone-500 max-w-2xl mx-auto italic italic">
+          <p className="text-stone-500 max-w-2xl mx-auto italic">
             "Животът е по-добър на плажа"
           </p>
         </div>
@@ -100,10 +102,10 @@ export default function Gallery() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setSelectedImage(null)}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4 md:p-10 cursor-zoom-out"
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 p-4 cursor-zoom-out"
           >
             <button 
-              className="absolute top-5 right-5 text-white p-2 hover:bg-white/10 rounded-full transition-colors"
+              className="absolute top-5 right-5 text-white p-2 hover:bg-white/10 rounded-full transition-colors z-[110]"
               onClick={() => setSelectedImage(null)}
             >
               <X size={32} />
@@ -113,15 +115,19 @@ export default function Gallery() {
               layoutId={`img-${selectedImage}`}
               src={currentImage.src}
               alt={currentImage.title}
-              className="max-w-full max-h-[90vh] object-contain rounded-sm shadow-2xl"
-              style={rotations[currentImage.id] ? { transform: `rotate(${rotations[currentImage.id]}deg)` } : undefined}
+              className="max-w-[90vw] max-h-[85vh] object-contain rounded-sm shadow-2xl"
+              style={{ 
+                transform: rotations[currentImage.id] 
+                  ? `rotate(${rotations[currentImage.id]}deg)` 
+                  : 'rotate(0deg)' 
+              }}
               initial={{ scale: 0.8 }}
               animate={{ scale: 1 }}
               transition={{ type: "spring", stiffness: 300, damping: 25 }}
             />
             
-            <div className="absolute bottom-10 left-0 right-0 text-center">
-               <p className="text-white/80 text-lg font-light tracking-widest uppercase">
+            <div className="absolute bottom-6 left-0 right-0 text-center">
+               <p className="text-white/80 text-sm font-light tracking-widest uppercase bg-black/20 inline-block px-4 py-2 rounded-full">
                  {currentImage.title}
                </p>
             </div>
