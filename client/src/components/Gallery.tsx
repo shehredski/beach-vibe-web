@@ -5,14 +5,19 @@ import { X } from "lucide-react";
 export default function Gallery() {
   const [selectedImage, setSelectedImage] = useState<null | number>(null);
 
-  // Пълният списък с всички 36 снимки без никакви ротации
+  // ОРИГИНАЛНИТЕ РОТАЦИИ - тук записваме кои снимки трябва да се завъртят
+  const rotations: { [key: number]: number } = {
+    17: -90, 18: -90, 19: -90, 21: -90, 30: -90, 31: -90, 32: -90, 33: -90, 35: -90, 
+    22: 90, 23: 90, 12: 180
+  };
+
   const galleryImages = [
     { id: 1, src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/BOB_3999_9c5474d6.webp', title: 'Beach Vibe 1' },
     { id: 2, src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/BOB_4000_68d7d68a.webp', title: 'Beach Vibe 2' },
     { id: 3, src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/BOB_4001_85cb0cb3.webp', title: 'Beach Vibe 3' },
     { id: 4, src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/BOB_4004_e945973b.webp', title: 'Beach Vibe 4' },
     { id: 5, src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/BOB_4005_364969f9.webp', title: 'Beach Vibe 5' },
-    { id: 6, src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/BOB_4008_fee3344a.webp', title: 'Beach Vibe 6' },
+    { id: 6, src: 'https://d2xsxph8kpxk0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/BOB_4008_fee3344a.webp', title: 'Beach Vibe 6' },
     { id: 7, src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/BOB_4013_44099905.webp', title: 'Beach Vibe 7' },
     { id: 8, src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/BOB_4020_76aea105.webp', title: 'Beach Vibe 8' },
     { id: 9, src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/BOB_4021_0ad5cc90.webp', title: 'Beach Vibe 9' },
@@ -40,4 +45,74 @@ export default function Gallery() {
     { id: 31, src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/BOB_4234_c6f4f750.webp', title: 'Beach Vibe 31' },
     { id: 32, src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/BOB_4238_443891cc.webp', title: 'Beach Vibe 32' },
     { id: 33, src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/BOB_4277_98cfb168.webp', title: 'Beach Vibe 33' },
-    { id: 34, src: 'https://d2xsxph8kpxj0
+    { id: 34, src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/BOB_4283_ec46c180.webp', title: 'Beach Vibe 34' },
+    { id: 35, src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/BOB_4348_5e329c25.webp', title: 'Beach Vibe 35' },
+    { id: 36, src: 'https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/BOB_4505_3cf0be9b.webp', title: 'Beach Vibe 36' },
+  ];
+
+  const currentImage = galleryImages.find(img => img.id === selectedImage);
+
+  return (
+    <section id="gallery" className="py-20 bg-white">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-bold text-stone-800 mb-4 uppercase tracking-wider">Галерия</h2>
+          <div className="w-24 h-1 bg-amber-500 mx-auto mb-6"></div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {galleryImages.map((image, index) => (
+            <motion.div
+              key={image.id}
+              onClick={() => setSelectedImage(image.id)}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: (index % 3) * 0.1 }}
+              viewport={{ once: true }}
+              className="relative group overflow-hidden rounded-lg shadow-xl aspect-[4/3] bg-stone-100 cursor-pointer"
+            >
+              <img
+                src={image.src}
+                alt={image.title}
+                loading="lazy"
+                // В ГРИДА СНИМКИТЕ СА ОРИГИНАЛНИ (без ротация)
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-stone-900/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                <p className="text-white font-light tracking-widest uppercase border-white border px-4 py-2 text-sm">Увеличи</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+
+      {/* LIGHTBOX MODAL */}
+      <AnimatePresence>
+        {selectedImage !== null && currentImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setSelectedImage(null)}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 p-4 cursor-zoom-out"
+          >
+            <button className="absolute top-5 right-5 text-white z-[110]">
+              <X size={40} />
+            </button>
+
+            <div className="relative flex items-center justify-center w-full h-full">
+              <motion.img
+                key={`large-${currentImage.id}`}
+                src={currentImage.src}
+                // РОТАЦИЯТА СЕ ПРИЛАГА САМО ПРИ УВЕЛИЧЕНИЕ
+                initial={{ scale: 0.5, opacity: 0, rotate: rotations[currentImage.id] || 0 }}
+                animate={{ scale: 1, opacity: 1, rotate: rotations[currentImage.id] || 0 }}
+                className="max-w-[85vw] max-h-[80vh] object-contain shadow-2xl"
+              />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </section>
+  );
+}
