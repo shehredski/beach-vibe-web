@@ -3,7 +3,8 @@ import { Link } from "wouter";
 
 export default function Hero() {
   const [displayedText, setDisplayedText] = useState('');
-  const fullText = 'Мечтаеш за лято?';
+  // ДОБАВИХМЕ "!!!" ЗА ТЕСТ:
+  const fullText = 'Мечтаеш за лято?!!!';
 
   useEffect(() => {
     let index = 0;
@@ -41,7 +42,6 @@ export default function Hero() {
         </p>
         
         <div className="flex flex-col md:flex-row gap-4 justify-center items-center">
-          {/* ПРОМЕНЕН БУТОН: вече сочи към #booking */}
           <a
             href="#booking"
             className="w-full md:w-auto inline-block bg-amber-600 hover:bg-amber-700 text-white font-bold py-4 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
