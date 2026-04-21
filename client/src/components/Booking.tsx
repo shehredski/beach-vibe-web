@@ -7,38 +7,37 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Send, Loader2 } from "lucide-react";
-import { useState } from "react";
-import emailjs from '@emailjs/browser';
-import { useState, useEffect } from "react"; // Добави useEffect тук
+import { useState, useEffect } from "react";
 import emailjs from '@emailjs/browser';
 
-// ДОБАВИ ТОЗИ РЕД ТУК - той "събужда" EmailJS веднага щом сайтът се зареди
-emailjs.init("RDskpTUuP9O976NEM"); 
-
-export default function BookingInquiry() {
-  // ... останалият код си остава същият
-
+// 1. Валидационна схема
 const inquirySchema = z.object({
   name: z.string().min(2, "Моля, въведете име"),
   email: z.string().email("Невалиден имейл адрес"),
   phone: z.string().min(7, "Моля, въведете телефон за връзка"),
-  message: z.string().min(10, "Моля, напишете вашето запитване"),
+  message: z.string().min(10, "Съобщението трябва да е поне 10 символа"),
 });
 
 type InquiryValues = z.infer<typeof inquirySchema>;
 
 export default function BookingInquiry() {
   const [isSending, setIsSending] = useState(false);
-  
+
+  // 2. Инициализираме EmailJS веднъж при зареждане на сайта
+  useEffect(() => {
+    emailjs.init("RDskpTUuP9O976NEM");
+  }, []);
+
   const form = useForm<InquiryValues>({
     resolver: zodResolver(inquirySchema),
     defaultValues: { name: "", email: "", phone: "", message: "" },
   });
 
+  // 3. Функция за изпращане
   async function onSubmit(data: InquiryValues) {
     setIsSending(true);
     try {
-      await emailjs.send(
+      const response = await emailjs.send(
         'service_6ab4jtk', 
         'template_0haaozp', 
         {
@@ -49,10 +48,14 @@ export default function BookingInquiry() {
         },
         'RDskpTUuP9O976NEM'
       );
-      alert("Благодарим Ви! Запитването е изпратено успешно.");
-      form.reset();
-    } catch (error) {
-      alert("Грешка при изпращането. Моля, свържете се с нас по телефон.");
+
+      if (response.status === 200) {
+        alert("Благодарим Ви! Запитването е изпратено успешно.");
+        form.reset();
+      }
+    } catch (error: any) {
+      console.error("Грешка:", error);
+      alert("Грешка при изпращането: " + (error?.text || "Моля, опитайте по-късно."));
     } finally {
       setIsSending(false);
     }
@@ -61,24 +64,57 @@ export default function BookingInquiry() {
   return (
     <section id="booking" className="py-20 bg-stone-50">
       <div className="container mx-auto px-4 max-w-2xl text-center">
-        <h2 className="text-4xl font-bold mb-8 uppercase">Направи запитване</h2>
-        <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} className="bg-white p-8 rounded-xl shadow-xl border">
+        <h2 className="text-4xl font-bold mb-8 uppercase text-stone-800">Направи запитване</h2>
+        
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          className="bg-white p-8 rounded-xl shadow-xl border border-stone-200"
+        >
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 text-left">
-              <FormField control={form.control} name="name" render={({ field }) => (
-                <FormItem><FormLabel>Име</FormLabel><FormControl><Input {...field} disabled={isSending} /></FormControl><FormMessage /></FormItem>
-              )} />
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <FormField control={form.control} name="name" render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Име</FormLabel>
+                    <FormControl><Input placeholder="Вашето име" {...field} disabled={isSending} /></FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )} />
+                <FormField control={form.control} name="phone" render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Телефон</FormLabel>
+                    <FormControl><Input placeholder="08XXXXXXXX" {...field} disabled={isSending} /></FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )} />
+              </div>
+
               <FormField control={form.control} name="email" render={({ field }) => (
-                <FormItem><FormLabel>Имейл</FormLabel><FormControl><Input {...field} disabled={isSending} /></FormControl><FormMessage /></FormItem>
+                <FormItem>
+                  <FormLabel>Имейл</FormLabel>
+                  <FormControl><Input placeholder="email@example.com" {...field} disabled={isSending} /></FormControl>
+                  <FormMessage />
+                </FormItem>
               )} />
-              <FormField control={form.control} name="phone" render={({ field }) => (
-                <FormItem><FormLabel>Телефон</FormLabel><FormControl><Input {...field} disabled={isSending} /></FormControl><FormMessage /></FormItem>
-              )} />
+
               <FormField control={form.control} name="message" render={({ field }) => (
-                <FormItem><FormLabel>Съобщение</FormLabel><FormControl><Textarea {...field} disabled={isSending} /></FormControl><FormMessage /></FormItem>
+                <FormItem>
+                  <FormLabel>Съобщение</FormLabel>
+                  <FormControl>
+                    <Textarea placeholder="Вашето запитване..." className="min-h-[120px]" {...field} disabled={isSending} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
               )} />
-              <Button type="submit" className="w-full bg-amber-600 h-12 text-white" disabled={isSending}>
-                {isSending ? <Loader2 className="animate-spin" /> : <><Send className="mr-2" /> Изпрати</>}
+
+              <Button type="submit" className="w-full bg-amber-600 hover:bg-amber-700 text-white h-12" disabled={isSending}>
+                {isSending ? (
+                  <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Изпращане...</>
+                ) : (
+                  <><Send className="mr-2 h-4 w-4" /> Изпрати запитването</>
+                )}
               </Button>
             </form>
           </Form>
