@@ -31,18 +31,17 @@ export default function BookingInquiry() {
     setIsSending(true);
     try {
       await emailjs.send(
-        'service_6ab4jtk',     // Твоят Service ID
-        'YOUR_TEMPLATE_ID',    // ТУК ПОСТАВИ ТВОЯ TEMPLATE ID (от EmailJS Templates)
+        'service_6ab4jtk', 
+        'template_0haaozp', 
         {
           from_name: data.name,
           reply_to: data.email,
           phone: data.phone,
           message: data.message,
         },
-        'RDskpTUuP9O976NEM'    // Твоят Public Key от снимката
+        'RDskpTUuP9O976NEM'
       );
-
-      alert("Благодарим Ви, " + data.name + "! Запитването е изпратено успешно.");
+      alert("Благодарим Ви! Запитването е изпратено успешно.");
       form.reset();
     } catch (error) {
       alert("Грешка при изпращането. Моля, свържете се с нас по телефон.");
@@ -53,52 +52,25 @@ export default function BookingInquiry() {
 
   return (
     <section id="booking" className="py-20 bg-stone-50">
-      <div className="container mx-auto px-4 max-w-2xl">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-stone-800 mb-4 uppercase tracking-tighter">Направи запитване</h2>
-          <div className="w-20 h-1 bg-amber-500 mx-auto mb-6"></div>
-          <p className="text-stone-600 italic">Свържете се с нас директно на beachvibevarna@gmail.com</p>
-        </div>
-
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          className="bg-white p-8 rounded-xl shadow-2xl border border-stone-100"
-        >
+      <div className="container mx-auto px-4 max-w-2xl text-center">
+        <h2 className="text-4xl font-bold mb-8 uppercase">Направи запитване</h2>
+        <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} className="bg-white p-8 rounded-xl shadow-xl border">
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 text-left">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <FormField control={form.control} name="name" render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Име</FormLabel>
-                    <FormControl><Input placeholder="Вашето име" {...field} disabled={isSending} /></FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )} />
-                <FormField control={form.control} name="phone" render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Телефон</FormLabel>
-                    <FormControl><Input placeholder="08XXXXXXXX" {...field} disabled={isSending} /></FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )} />
-              </div>
+              <FormField control={form.control} name="name" render={({ field }) => (
+                <FormItem><FormLabel>Име</FormLabel><FormControl><Input {...field} disabled={isSending} /></FormControl><FormMessage /></FormItem>
+              )} />
               <FormField control={form.control} name="email" render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Имейл</FormLabel>
-                  <FormControl><Input placeholder="email@example.com" {...field} disabled={isSending} /></FormControl>
-                  <FormMessage />
-                </FormItem>
+                <FormItem><FormLabel>Имейл</FormLabel><FormControl><Input {...field} disabled={isSending} /></FormControl><FormMessage /></FormItem>
+              )} />
+              <FormField control={form.control} name="phone" render={({ field }) => (
+                <FormItem><FormLabel>Телефон</FormLabel><FormControl><Input {...field} disabled={isSending} /></FormControl><FormMessage /></FormItem>
               )} />
               <FormField control={form.control} name="message" render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Вашето съобщение</FormLabel>
-                  <FormControl><Textarea placeholder="..." className="min-h-[120px]" {...field} disabled={isSending} /></FormControl>
-                  <FormMessage />
-                </FormItem>
+                <FormItem><FormLabel>Съобщение</FormLabel><FormControl><Textarea {...field} disabled={isSending} /></FormControl><FormMessage /></FormItem>
               )} />
-              <Button type="submit" className="w-full bg-amber-600 hover:bg-amber-700 text-white h-12" disabled={isSending}>
-                {isSending ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : "Изпрати запитването"}
+              <Button type="submit" className="w-full bg-amber-600 h-12 text-white" disabled={isSending}>
+                {isSending ? <Loader2 className="animate-spin" /> : <><Send className="mr-2" /> Изпрати</>}
               </Button>
             </form>
           </Form>
