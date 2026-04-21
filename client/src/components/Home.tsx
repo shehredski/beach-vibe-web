@@ -14,9 +14,6 @@ export default function Home() {
       <Hero />
       <About />
       <Gallery />
-      
-      {/* Тук няма Events - премахнати са окончателно */}
-      
       <Promotions />
       <Booking /> 
       <Location />
