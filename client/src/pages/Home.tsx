@@ -2,9 +2,8 @@ import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Gallery from "@/components/Gallery";
-import Events from "@/components/Events";
+// Премахнато: import Events from "@/components/Events"; (вече е в отделен таб)
 import Promotions from "@/components/Promotions";
-// 1. Сменяме импорта от ReservationForm към новия ти файл Booking
 import Booking from "@/components/Booking"; 
 import Location from "@/components/Location";
 import Footer from "@/components/Footer";
@@ -16,7 +15,9 @@ export default function Home() {
       <Hero />
       <About />
       <Gallery />
-      <Events />
+      
+      {/* Секцията за събития е премахната оттук */}
+      
       <Promotions />
       
       {/* 2. Заменяме стария компонент с новия */}
