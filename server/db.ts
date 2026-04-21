@@ -1,6 +1,15 @@
-import { eq, and, gte, lte } from "drizzle-orm";
+import { eq, and, gte, lte, asc } from "drizzle-orm"; // Добавихме asc за подредба по дата
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users, reservations, InsertReservation, promotions, InsertPromotion } from "../drizzle/schema";
+import { 
+  InsertUser, 
+  users, 
+  reservations, 
+  InsertReservation, 
+  promotions, 
+  InsertPromotion,
+  events,        // <--- Добавено (таблицата)
+  InsertEvent    // <--- Добавено (типа за вмъкване)
+} from "../drizzle/schema";
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -89,6 +98,8 @@ export async function getUserByOpenId(openId: string) {
   return result.length > 0 ? result[0] : undefined;
 }
 
+// --- RESERVATIONS ---
+
 export async function createReservation(data: InsertReservation) {
   const db = await getDb();
   if (!db) {
@@ -114,6 +125,8 @@ export async function getReservationById(id: number) {
   const result = await db.select().from(reservations).where(eq(reservations.id, id)).limit(1);
   return result.length > 0 ? result[0] : null;
 }
+
+// --- PROMOTIONS ---
 
 export async function createPromotion(data: InsertPromotion) {
   const db = await getDb();
@@ -170,4 +183,31 @@ export async function deletePromotion(id: number) {
     throw new Error("Database not available");
   }
   return db.delete(promotions).where(eq(promotions.id, id));
+}
+
+// --- EVENTS (НОВОТО) ---
+
+export async function getEvents() {
+  const db = await getDb();
+  if (!db) {
+    throw new Error("Database not available");
+  }
+  // Връщаме събитията подредени по дата (най-скорошните първи)
+  return db.select().from(events).orderBy(asc(events.eventDate));
+}
+
+export async function createEvent(data: InsertEvent) {
+  const db = await getDb();
+  if (!db) {
+    throw new Error("Database not available");
+  }
+  return db.insert(events).values(data);
+}
+
+export async function deleteEvent(id: number) {
+  const db = await getDb();
+  if (!db) {
+    throw new Error("Database not available");
+  }
+  return db.delete(events).where(eq(events.id, id));
 }
