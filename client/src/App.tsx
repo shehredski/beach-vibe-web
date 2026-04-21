@@ -13,6 +13,7 @@ function Router() {
       <Route path="/" component={Home} />
       <Route path="/menu" component={MenuPage} />
       <Route component={NotFound} />
+      <Route path="/events" component={EventsPage} />
     </Switch>
   );
 }
