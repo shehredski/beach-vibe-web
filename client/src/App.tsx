@@ -1,6 +1,6 @@
 import EventsPage from "@/components/EventsPage";
 import { Route, Switch } from "wouter";
-import Home from "@/components/Home"; // <--- ТОВА Е ВАЖНОТО
+import Home from "@/components/Home";   // <--- ТОВА Е ВАЖНОТО
 import MenuPage from "./pages/MenuPage";
 import NotFound from "./pages/NotFound";
 import { ThemeProvider } from "./contexts/ThemeContext";
