@@ -9,6 +9,14 @@ import { Button } from "@/components/ui/button";
 import { Send, Loader2 } from "lucide-react";
 import { useState } from "react";
 import emailjs from '@emailjs/browser';
+import { useState, useEffect } from "react"; // Добави useEffect тук
+import emailjs from '@emailjs/browser';
+
+// ДОБАВИ ТОЗИ РЕД ТУК - той "събужда" EmailJS веднага щом сайтът се зареди
+emailjs.init("RDskpTUuP9O976NEM"); 
+
+export default function BookingInquiry() {
+  // ... останалият код си остава същият
 
 const inquirySchema = z.object({
   name: z.string().min(2, "Моля, въведете име"),
