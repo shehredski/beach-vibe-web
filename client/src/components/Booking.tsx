@@ -33,11 +33,8 @@ export default function BookingInquiry() {
 
   async function onSubmit(data: InquiryValues) {
     setIsSending(true);
-    // Сменил съм надписа, за да знаеш на 100%, че това е НОВИЯТ код
-    console.log("ВРЪЗКА С EMAILJS СТАРТИРАНА...", data); 
-
     try {
-      const res = await emailjs.send(
+      await emailjs.send(
         'service_6ab4jtk', 
         'template_0haaozp', 
         {
@@ -45,17 +42,12 @@ export default function BookingInquiry() {
           reply_to: data.email,
           phone: data.phone,
           message: data.message,
-        },
-        'RDskpTUuP9O976NEM'
+        }
       );
-      
-      if (res.status === 200) {
-        alert("Успешно изпратено запитване!");
-        form.reset();
-      }
-    } catch (error: any) {
-      console.error("ГРЕШКА ПРИ ИЗПРАЩАНЕ:", error);
-      alert("Грешка: " + (error?.text || "Проверете интернет връзката"));
+      alert("Благодарим Ви! Запитването е изпратено успешно.");
+      form.reset();
+    } catch (error) {
+      alert("Грешка при изпращането.");
     } finally {
       setIsSending(false);
     }
@@ -64,7 +56,7 @@ export default function BookingInquiry() {
   return (
     <section id="booking" className="py-20 bg-stone-50">
       <div className="container mx-auto px-4 max-w-2xl text-center">
-        <h2 className="text-4xl font-bold mb-8 uppercase text-stone-800">Направи запитване</h2>
+        <h2 className="text-4xl font-bold mb-8 uppercase">Направи запитване</h2>
         <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} className="bg-white p-8 rounded-xl shadow-xl border">
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 text-left">
@@ -81,7 +73,7 @@ export default function BookingInquiry() {
                 <FormItem><FormLabel>Съобщение</FormLabel><FormControl><Textarea {...field} disabled={isSending} /></FormControl><FormMessage /></FormItem>
               )} />
               <Button type="submit" className="w-full bg-amber-600 h-12 text-white" disabled={isSending}>
-                {isSending ? <Loader2 className="animate-spin" /> : <><Send className="mr-2 w-4 h-4" /> Изпрати</>}
+                {isSending ? <Loader2 className="animate-spin" /> : "Изпрати"}
               </Button>
             </form>
           </Form>
