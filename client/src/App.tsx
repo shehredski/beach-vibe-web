@@ -1,4 +1,4 @@
-import EventsPage from "./pages/EventsPage"; // или ./components/EventsPage
+import EventsPage from "@/components/EventsPage";
 import { Route, Switch } from "wouter";
 import Home from "./pages/Home";
 import MenuPage from "./pages/MenuPage";
