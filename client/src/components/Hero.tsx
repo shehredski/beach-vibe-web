@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from "wouter"; // 1. Добавяме това
+import { Link } from "wouter";
 
 export default function Hero() {
   const [displayedText, setDisplayedText] = useState('');
@@ -40,16 +40,15 @@ export default function Hero() {
           Открийте идеалното място за релакс, коктейли и незабравими моменти на плажа
         </p>
         
-        {/* Контейнер за бутоните, за да стоят един до друг */}
         <div className="flex flex-col md:flex-row gap-4 justify-center items-center">
+          {/* ПРОМЕНЕН БУТОН: вече сочи към #booking */}
           <a
-            href="#reservations"
-            className="w-full md:w-auto inline-block bg-red-500 hover:bg-red-600 text-white font-bold py-4 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
+            href="#booking"
+            className="w-full md:w-auto inline-block bg-amber-600 hover:bg-amber-700 text-white font-bold py-4 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
           >
-            Резервирай сега
+            Направи запитване
           </a>
 
-          {/* НОВИЯТ БУТОН ЗА МЕНЮТО */}
           <Link href="/menu">
             <button className="w-full md:w-auto inline-block bg-white/20 hover:bg-white/30 text-white border-2 border-white/50 font-bold py-4 px-8 rounded-full text-lg backdrop-blur-sm transition-all duration-300 transform hover:scale-105 shadow-lg">
               Разгледай менюто 🍹
