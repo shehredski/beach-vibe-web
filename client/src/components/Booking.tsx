@@ -8,7 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Send, Loader2 } from "lucide-react";
 import { useState, useEffect } from "react";
-import { emailjs } from '@emailjs/browser';
+import * as emailjs from '@emailjs/browser';;
 
 const inquirySchema = z.object({
   name: z.string().min(2, "Моля, въведете име"),
