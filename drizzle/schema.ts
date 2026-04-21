@@ -65,6 +65,15 @@ export const promotions = mysqlTable("promotions", {
   startDate: timestamp("startDate").notNull(),
   endDate: timestamp("endDate").notNull(),
   status: mysqlEnum("status", ["active", "inactive", "expired"]).default("active").notNull(),
+  import { pgTable, serial, text, timestamp } from "drizzle-orm/pg-core";
+
+export const events = pgTable("events", {
+  id: serial("id").primaryKey(),
+  title: text("title").notNull(),
+  description: text("description"),
+  eventDate: timestamp("event_date").notNull(),
+  location: text("location"),
+});
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });
