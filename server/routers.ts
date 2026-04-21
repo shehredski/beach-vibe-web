@@ -3,11 +3,21 @@ import { COOKIE_NAME } from "@shared/const";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, protectedProcedure, router } from "./_core/trpc";
-import { createReservation, getReservations, getReservationById, createPromotion, getPromotions, getActivePromotions, getPromotionById, updatePromotion, deletePromotion } from "./db";
+import { 
+  createReservation, 
+  getReservations, 
+  getReservationById, 
+  createPromotion, 
+  getPromotions, 
+  getActivePromotions, 
+  getPromotionById, 
+  updatePromotion, 
+  deletePromotion,
+  getEvents // <--- Трябва да съществува в db.ts
+} from "./db";
 import { notifyOwner } from "./_core/notification";
 
 export const appRouter = router({
-    // if you need to use socket.io, read and register route in server/_core/index.ts, all api should start with '/api/' so that the gateway can route correctly
   system: systemRouter,
   auth: router({
     me: publicProcedure.query(opts => opts.ctx.user),
@@ -41,7 +51,6 @@ export const appRouter = router({
           status: "pending",
         });
 
-        // Send owner notification
         await notifyOwner({
           title: "New Reservation",
           content: `New reservation from ${input.name} for ${input.partySize} guests on ${input.date} at ${input.time}. Contact: ${input.email} / ${input.phone}`,
@@ -127,6 +136,13 @@ export const appRouter = router({
         }
         return deletePromotion(input.id);
       }),
+  }),
+
+  // НОВАТА СЕКЦИЯ ЗА СЪБИТИЯ:
+  events: router({
+    list: publicProcedure.query(async () => {
+      return getEvents();
+    }),
   }),
 });
 
