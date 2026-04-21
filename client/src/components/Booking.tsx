@@ -6,7 +6,6 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { useToast } from "@/hooks/use-toast";
 import { Send } from "lucide-react";
 
 // Валидация за запитването
@@ -20,7 +19,6 @@ const inquirySchema = z.object({
 type InquiryValues = z.infer<typeof inquirySchema>;
 
 export default function BookingInquiry() {
-  const { toast } = useToast();
   const form = useForm<InquiryValues>({
     resolver: zodResolver(inquirySchema),
     defaultValues: { name: "", email: "", phone: "", message: "" },
@@ -28,10 +26,10 @@ export default function BookingInquiry() {
 
   function onSubmit(data: InquiryValues) {
     console.log("Inquiry sent:", data);
-    toast({
-      title: "Запитването е изпратено успешно!",
-      description: "Ще се свържем с Вас възможно най-скоро.",
-    });
+    
+    // Използваме стандартен alert, за да нямаме нужда от външни файлове (hooks)
+    alert("Благодарим Ви, " + data.name + "! Запитването Ви е изпратено успешно. Ще се свържем с Вас скоро.");
+    
     form.reset();
   }
 
