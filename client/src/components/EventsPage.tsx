@@ -5,17 +5,19 @@ import { Calendar, MapPin, Tag } from "lucide-react";
 import { format } from "date-fns";
 import { bg } from "date-fns/locale";
 
+// Обновен интерфейс, който отговаря на твоя SQL (image_3996fe.png)
 interface Event {
   id: number;
   title: string;
   description: string;
-  originalPrice: number;
-  discountedPrice: number;
-  discountPercentage: number;
-  imageUrl: string;
-  startDate: string;
-  endDate: string;
-  status: string;
+  eventDate: string; // Използваме името от твоя SQL
+  location?: string;
+  imageUrl?: string;
+  // Правим тези опционални, за да не гърми, ако ги няма в базата
+  originalPrice?: number;
+  discountedPrice?: number;
+  discountPercentage?: number;
+  status?: string;
 }
 
 export default function EventsPage() {
@@ -26,7 +28,7 @@ export default function EventsPage() {
   if (isLoading) {
     return (
       <div className="container mx-auto py-10 text-center">
-        <p className="text-xl text-muted-foreground animate-pulse">Зареждане на събития...</p>
+        <p className="text-xl text-muted-foreground animate-pulse">Зареждане...</p>
       </div>
     );
   }
@@ -42,11 +44,12 @@ export default function EventsPage() {
           <Card key={event.id} className="overflow-hidden hover:shadow-2xl transition-shadow border-none bg-white/50 backdrop-blur-sm">
             <div className="aspect-video w-full overflow-hidden relative">
               <img
-                src={event.imageUrl}
+                src={event.imageUrl || "http://googleusercontent.com/9"}
                 alt={event.title}
                 className="w-full h-full object-cover transition-transform hover:scale-105 duration-500"
               />
-              {event.discountPercentage > 0 && (
+              {/* Показваме процента само ако съществува и е над 0 */}
+              {event.discountPercentage && event.discountPercentage > 0 && (
                 <Badge className="absolute top-4 right-4 bg-red-500 text-white text-lg font-bold px-3 py-1">
                   -{event.discountPercentage}%
                 </Badge>
@@ -56,7 +59,7 @@ export default function EventsPage() {
             <CardHeader>
               <div className="flex justify-between items-start mb-2">
                 <Badge variant="outline" className="text-amber-700 border-amber-200">
-                  {event.status === 'active' ? 'Активно' : 'Предстоящо'}
+                  {event.status === 'active' ? 'Активно' : 'Промоция'}
                 </Badge>
               </div>
               <CardTitle className="text-2xl text-amber-900 leading-tight">
@@ -73,21 +76,21 @@ export default function EventsPage() {
                 <div className="flex items-center gap-2">
                   <Calendar className="w-4 h-4 text-amber-600" />
                   <span>
-                    {format(new Date(event.startDate), "d MMMM", { locale: bg })} 
-                    {event.endDate && ` - ${format(new Date(event.endDate), "d MMMM", { locale: bg })}`}
+                    {/* Проверка за валидна дата, за да не гърми сайта */}
+                    {event.eventDate ? format(new Date(event.eventDate), "d MMMM", { locale: bg }) : "Промоция"}
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
                   <MapPin className="w-4 h-4 text-amber-600" />
-                  <span>Кемпинг Лагуна, Златни пясъци</span>
+                  <span>{event.location || "Кемпинг Лагуна, Златни пясъци"}</span>
                 </div>
               </div>
 
-              {/* Секция за цени */}
-              {(event.originalPrice > 0 || event.discountedPrice > 0) && (
+              {/* Показваме цените само ако ги има в обекта */}
+              {event.discountedPrice && (
                 <div className="pt-4 border-t flex items-center justify-between">
                   <div className="flex flex-col">
-                    {event.originalPrice > 0 && (
+                    {event.originalPrice && (
                       <span className="text-sm text-gray-400 line-through">
                         {Number(event.originalPrice).toFixed(2)} лв.
                       </span>
@@ -104,7 +107,7 @@ export default function EventsPage() {
         ))}
       </div>
 
-      {events?.length === 0 && (
+      {(!events || events.length === 0) && (
         <div className="text-center py-20">
           <p className="text-xl text-gray-400">В момента няма активни промоции.</p>
         </div>
