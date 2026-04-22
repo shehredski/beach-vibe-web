@@ -89,17 +89,17 @@ export default function Promotions() {
                     {/* Pricing */}
                     <div className="flex items-baseline gap-3 mb-6">
                       <span className="text-3xl font-bold text-primary">
-                        {promo.discountedPrice} лв
+                        {promo.discountedPrice} евро
                       </span>
                       <span className="text-lg text-foreground/50 line-through">
-                        {promo.originalPrice} лв
+                        {promo.originalPrice} евро
                       </span>
                     </div>
 
                     {/* Savings Info */}
                     <div className="bg-primary/10 rounded-lg p-3 mb-6 text-center">
                       <p className="text-sm text-primary font-semibold">
-                        Спестявате: {(parseFloat(promo.originalPrice) - parseFloat(promo.discountedPrice)).toFixed(2)} лв
+                        Спестявате: {(parseFloat(promo.originalPrice) - parseFloat(promo.discountedPrice)).toFixed(2)} евро
                       </p>
                     </div>
 
