@@ -71,7 +71,7 @@ export default function EventsPage() {
                     <div className="flex justify-between items-start mb-4">
                       <h2 className="text-2xl font-bold text-card-foreground">{event.title}</h2>
                       <span className="bg-primary/10 text-primary px-4 py-1 rounded-full text-sm font-semibold border border-primary/20">
-                        📅 {new Date(event.eventDate).toLocaleDateString('bg-BG', {
+                        📅 {new Date(event.startDate).toLocaleDateString('bg-BG', {
                           day: 'numeric',
                           month: 'long',
                           year: 'numeric'
