@@ -1,4 +1,4 @@
-import { eq, desc } from "drizzle-orm";
+import { eq, desc, and, gte } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { 
   users, 
@@ -24,7 +24,7 @@ export async function getDb() {
   return _db;
 }
 
-// --- USERS ---
+// --- ПОТРЕБИТЕЛИ ---
 export async function upsertUser(user: InsertUser) {
   const db = await getDb();
   if (!db) return;
@@ -38,7 +38,7 @@ export async function getUserByOpenId(openId: string) {
   return result[0];
 }
 
-// --- RESERVATIONS ---
+// --- РЕЗЕРВАЦИИ ---
 export async function createReservation(data: InsertReservation) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
@@ -51,7 +51,6 @@ export async function getReservations() {
   return await db.select().from(reservations).orderBy(desc(reservations.createdAt));
 }
 
-// ТАЗИ ФУНКЦИЯ ЛИПСВАШЕ И ЧУПЕШЕ BUILD-A
 export async function getReservationById(id: number) {
   const db = await getDb();
   if (!db) return null;
@@ -59,21 +58,41 @@ export async function getReservationById(id: number) {
   return result[0] || null;
 }
 
-// --- PROMOTIONS ---
+// --- ПРОМОЦИИ (ВСИЧКИ ЛИПСВАЩИ ФУНКЦИИ) ---
+
 export async function getPromotions() {
   const db = await getDb();
   if (!db) return [];
   return await db.select().from(promotions).orderBy(desc(promotions.createdAt));
 }
 
-// ТАЗИ ФУНКЦИЯ СЪЩО ЛИПСВАШЕ
-export async function updatePromotion(id: number, data: Partial<InsertPromotion>) {
+export async function getActivePromotions() {
   const db = await getDb();
-  if (!db) throw new Error("Database not available");
-  return await db.update(promotions).set(data).where(eq(promotions.id, id));
+  if (!db) return [];
+  // Връща само активните промоции
+  return await db.select().from(promotions).where(eq(promotions.status, "active"));
 }
 
-// --- EVENTS ---
+export async function createPromotion(data: InsertPromotion) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  return await db.insert(promotions).values(data);
+}
+
+export async function updatePromotion(id: number, data: Partial<InsertPromotion>) {
+  const db = await db.fetch(); // Поправка за Railway среда ако е нужно
+  const database = await getDb();
+  if (!database) throw new Error("Database not available");
+  return await database.update(promotions).set(data).where(eq(promotions.id, id));
+}
+
+export async function deletePromotion(id: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  return await db.delete(promotions).where(eq(promotions.id, id));
+}
+
+// --- СЪБИТИЯ ---
 export async function getEvents() {
   const db = await getDb();
   if (!db) return [];
@@ -84,4 +103,10 @@ export async function createEvent(data: InsertEvent) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
   return await db.insert(events).values(data);
+}
+
+export async function deleteEvent(id: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  return await db.delete(events).where(eq(events.id, id));
 }
