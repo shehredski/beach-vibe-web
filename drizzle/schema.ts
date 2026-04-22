@@ -1,7 +1,7 @@
 import { int, mysqlEnum, mysqlTable, text, timestamp, varchar, decimal } from "drizzle-orm/mysql-core";
 
 /**
- * Коректна таблица за потребители
+ * ПОТРЕБИТЕЛИ
  */
 export const users = mysqlTable("users", {
   id: int("id").autoincrement().primaryKey(),
@@ -19,12 +19,12 @@ export type User = typeof users.$inferSelect;
 export type InsertUser = typeof users.$inferInsert;
 
 /**
- * Резервации
+ * РЕЗЕРВАЦИИ
  */
 export const reservations = mysqlTable("reservations", {
   id: int("id").autoincrement().primaryKey(),
-  date: varchar("date", { length: 10 }).notNull(),
-  time: varchar("time", { length: 5 }).notNull(),
+  date: varchar("date", { length: 10 }).notNull(), // Формат: YYYY-MM-DD
+  time: varchar("time", { length: 5 }).notNull(),  // Формат: HH:mm
   partySize: int("partySize").notNull(),
   name: varchar("name", { length: 255 }).notNull(),
   email: varchar("email", { length: 320 }).notNull(),
@@ -39,7 +39,7 @@ export type Reservation = typeof reservations.$inferSelect;
 export type InsertReservation = typeof reservations.$inferInsert;
 
 /**
- * Коктейли (Меню)
+ * МЕНЮ (КОКТЕЙЛИ)
  */
 export const cocktails = mysqlTable("cocktails", {
   id: int("id").autoincrement().primaryKey(),
@@ -54,7 +54,7 @@ export type Cocktail = typeof cocktails.$inferSelect;
 export type InsertCocktail = typeof cocktails.$inferInsert;
 
 /**
- * Промоции
+ * ПРОМОЦИИ
  */
 export const promotions = mysqlTable("promotions", {
   id: int("id").autoincrement().primaryKey(),
@@ -75,14 +75,16 @@ export type Promotion = typeof promotions.$inferSelect;
 export type InsertPromotion = typeof promotions.$inferInsert;
 
 /**
- * НОВО: СЪБИТИЯ (Коригирано за MySQL)
+ * СЪБИТИЯ (EVENTS)
+ * Добавено поле imageUrl за визуализация на събитията
  */
 export const events = mysqlTable("events", {
   id: int("id").autoincrement().primaryKey(),
   title: varchar("title", { length: 255 }).notNull(),
   description: text("description"),
   eventDate: timestamp("eventDate").notNull(),
-  location: varchar("location", { length: 255 }),
+  imageUrl: varchar("imageUrl", { length: 500 }), // Вече съществува тук
+  location: varchar("location", { length: 255 }).default("Beach Vibe"),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
 
