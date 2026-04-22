@@ -1,11 +1,14 @@
-import { eq, desc, asc } from "drizzle-orm";
+import { eq, and, gte, lte, asc, desc } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { 
   users, 
   reservations, 
   promotions, 
   events,         
-  InsertEvent    
+  InsertEvent,
+  InsertUser,
+  InsertReservation,
+  InsertPromotion
 } from "../drizzle/schema";
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -22,11 +25,52 @@ export async function getDb() {
   return _db;
 }
 
-// --- EVENTS (ОПРАВЕНО) ---
+// --- USERS ---
+export async function upsertUser(user: InsertUser): Promise<void> {
+  const db = await getDb();
+  if (!db) return;
+  await db.insert(users).values(user).onDuplicateKeyUpdate({ set: user });
+}
+
+export async function getUserByOpenId(openId: string) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const result = await db.select().from(users).where(eq(users.openId, openId)).limit(1);
+  return result[0];
+}
+
+// --- RESERVATIONS ---
+export async function createReservation(data: InsertReservation) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  return await db.insert(reservations).values(data);
+}
+
+export async function getReservations() {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  return await db.select().from(reservations).orderBy(desc(reservations.createdAt));
+}
+
+// --- PROMOTIONS (ВАЖНО: За да виждаш промоциите на сайта) ---
+export async function getPromotions() {
+  const db = await getDb();
+  if (!db) return [];
+  // Тук ползваме startDate, защото така е в твоята схема за promotions
+  return await db.select().from(promotions).orderBy(desc(promotions.createdAt));
+}
+
+export async function createPromotion(data: InsertPromotion) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  return await db.insert(promotions).values(data);
+}
+
+// --- EVENTS ---
 export async function getEvents() {
   const db = await getDb();
   if (!db) return [];
-  // Използваме eventDate, точно както е в схемата ти
+  // ВАЖНО: Тук ползваме eventDate (от твоята схема за events)
   return await db.select().from(events).orderBy(desc(events.eventDate));
 }
 
@@ -41,5 +85,3 @@ export async function deleteEvent(id: number) {
   if (!db) throw new Error("Database not available");
   return await db.delete(events).where(eq(events.id, id));
 }
-
-// Функциите за резервации и другите остават същите...
