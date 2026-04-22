@@ -1,4 +1,4 @@
-import { eq, desc, and, gte } from "drizzle-orm";
+import { eq, desc, and } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { 
   users, 
@@ -24,7 +24,7 @@ export async function getDb() {
   return _db;
 }
 
-// --- ПОТРЕБИТЕЛИ ---
+// --- USERS ---
 export async function upsertUser(user: InsertUser) {
   const db = await getDb();
   if (!db) return;
@@ -38,7 +38,7 @@ export async function getUserByOpenId(openId: string) {
   return result[0];
 }
 
-// --- РЕЗЕРВАЦИИ ---
+// --- RESERVATIONS ---
 export async function createReservation(data: InsertReservation) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
@@ -58,8 +58,7 @@ export async function getReservationById(id: number) {
   return result[0] || null;
 }
 
-// --- ПРОМОЦИИ (ВСИЧКИ ЛИПСВАЩИ ФУНКЦИИ) ---
-
+// --- PROMOTIONS ---
 export async function getPromotions() {
   const db = await getDb();
   if (!db) return [];
@@ -69,7 +68,6 @@ export async function getPromotions() {
 export async function getActivePromotions() {
   const db = await getDb();
   if (!db) return [];
-  // Връща само активните промоции
   return await db.select().from(promotions).where(eq(promotions.status, "active"));
 }
 
@@ -80,10 +78,9 @@ export async function createPromotion(data: InsertPromotion) {
 }
 
 export async function updatePromotion(id: number, data: Partial<InsertPromotion>) {
-  const db = await db.fetch(); // Поправка за Railway среда ако е нужно
-  const database = await getDb();
-  if (!database) throw new Error("Database not available");
-  return await database.update(promotions).set(data).where(eq(promotions.id, id));
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  return await db.update(promotions).set(data).where(eq(promotions.id, id));
 }
 
 export async function deletePromotion(id: number) {
@@ -92,7 +89,7 @@ export async function deletePromotion(id: number) {
   return await db.delete(promotions).where(eq(promotions.id, id));
 }
 
-// --- СЪБИТИЯ ---
+// --- EVENTS ---
 export async function getEvents() {
   const db = await getDb();
   if (!db) return [];
