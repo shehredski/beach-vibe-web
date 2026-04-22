@@ -7,8 +7,8 @@ import { registerOAuthRoutes } from "./oauth";
 import { appRouter } from "../routers";
 import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
-// Внасяме функциите за базата данни от db.ts
-import { createEvent, getEvents } from "../db"; 
+// Внасяме всички необходими функции
+import { createEvent, getEvents, getPromotions } from "../db"; 
 
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise(resolve => {
@@ -33,52 +33,54 @@ async function startServer() {
   const app = express();
   const server = createServer(app);
 
-  // Конфигуриране на body parser за работа с JSON и по-големи файлове
   app.use(express.json({ limit: "50mb" }));
   app.use(express.urlencoded({ limit: "50mb", extended: true }));
 
-  // OAuth маршрути
   registerOAuthRoutes(app);
 
-  // --- REST API МАРШРУТИ ЗА СЪБИТИЯ (EVENTS) ---
+  // --- REST API МАРШРУТИ ---
   
-  // 1. Вземане на всички събития
+  // 1. Вземане на събития
   app.get("/api/events", async (_req, res) => {
     try {
-      const events = await getEvents();
-      res.json(events);
+      const data = await getEvents();
+      res.json(data);
     } catch (err: any) {
-      console.error("Грешка при FETCH на събития:", err);
       res.status(500).json({ error: err.message });
     }
   });
 
-  // 2. Създаване на ново събитие (с парола)
+  // 2. Вземане на промоции (ВАЖНО - за да се виждат в EventsPage)
+  app.get("/api/promotions", async (_req, res) => {
+    try {
+      const data = await getPromotions();
+      res.json(data);
+    } catch (err: any) {
+      res.status(500).json({ error: err.message });
+    }
+  });
+
+  // 3. Създаване на събитие
   app.post("/api/events", async (req, res) => {
     try {
-      // Проверка за парола
       if (req.body.adminPassword !== "beachvibe2024") {
         return res.status(401).json({ message: "Невалидна парола!" });
       }
 
       const { adminPassword, ...eventData } = req.body;
       
-      // Подготвяме обекта за createEvent функцията в db.ts
+      // КОРЕКЦИЯ: Използваме eventDate, за да съвпадне със схемата ти
       const result = await createEvent({
         ...eventData,
-        startDate: new Date(eventData.startDate),
-        endDate: eventData.endDate ? new Date(eventData.endDate) : null,
-        status: "active"
+        eventDate: new Date(eventData.eventDate || eventData.startDate), 
       });
       
       res.json(result);
     } catch (err: any) {
-      console.error("Грешка при INSERT на събитие:", err);
+      console.error("Грешка при запис:", err);
       res.status(500).json({ error: err.message });
     }
   });
-
-  // --- КРАЙ НА МАРШРУТИТЕ ЗА СЪБИТИЯ ---
 
   // tRPC API
   app.use(
@@ -89,7 +91,6 @@ async function startServer() {
     })
   );
 
-  // Работа с Vite в dev среда или статични файлове в production
   if (process.env.NODE_ENV === "development") {
     await setupVite(app, server);
   } else {
@@ -98,10 +99,6 @@ async function startServer() {
 
   const preferredPort = parseInt(process.env.PORT || "3000");
   const port = await findAvailablePort(preferredPort);
-
-  if (port !== preferredPort) {
-    console.log(`Port ${preferredPort} is busy, using port ${port} instead`);
-  }
 
   server.listen(port, () => {
     console.log(`Server running on http://localhost:${port}/`);
