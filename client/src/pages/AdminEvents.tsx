@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { useLocation } from "wouter";
+import { useLocation, Link } from "wouter"; // Добавяме Link за навигация
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
+import { ChevronLeft } from "lucide-react"; // Икона за бутона назад
 
 export default function AdminEvents() {
   const [, setLocation] = useLocation();
@@ -58,53 +59,66 @@ export default function AdminEvents() {
 
   return (
     <div className="container mx-auto py-10 px-4">
-      <Card className="max-w-lg mx-auto shadow-xl">
-        <CardHeader>
-          <CardTitle className="text-2xl font-bold">Админ: Ново събитие</CardTitle>
-        </CardHeader>
-        <CardContent>
-          {/* autoComplete="off" тук забранява на браузъра да попълва автоматично цялата форма */}
-          <form onSubmit={handleSubmit} className="space-y-4" autoComplete="off">
-            <div className="space-y-1">
-              <label className="text-sm font-medium">Име на събитието</label>
-              <Input name="title" placeholder="напр. Beach Party" required />
-            </div>
-
-            <div className="space-y-1">
-              <label className="text-sm font-medium">Дата и час</label>
-              <Input name="date" type="datetime-local" required />
-            </div>
-
-            <div className="space-y-1">
-              <label className="text-sm font-medium">Описание</label>
-              <Textarea name="description" placeholder="Детайли..." required className="min-h-[100px]" />
-            </div>
-
-            <div className="space-y-1">
-              <label className="text-sm font-medium">Линк към снимка</label>
-              <Input name="imageUrl" placeholder="URL към изображение" />
-            </div>
-            
-            <div className="pt-4 border-t space-y-2">
-              <label className="text-sm font-bold text-primary">Сигурност</label>
-              <Input 
-                name="adminPassword" 
-                type="password"           // Прави символите на точки
-                autoComplete="new-password" // КРИТИЧНО: Спира подсказките на Chrome/Edge
-                placeholder="Въведете парола за достъп" 
-                required 
-              />
-              <p className="text-[10px] text-muted-foreground">
-                Паролата се проверява директно в SQL сървъра.
-              </p>
-            </div>
-
-            <Button type="submit" className="w-full text-lg" disabled={loading}>
-              {loading ? "Записване в SQL..." : "Публикувай събитието"}
+      <div className="max-w-lg mx-auto">
+        
+        {/* Бутон за връщане към списъка със събития */}
+        <div className="mb-6">
+          <Link href="/events">
+            <Button variant="ghost" className="gap-2 hover:bg-primary/10 transition-colors">
+              <ChevronLeft className="w-4 h-4" />
+              Назад към събитията
             </Button>
-          </form>
-        </CardContent>
-      </Card>
+          </Link>
+        </div>
+
+        <Card className="shadow-xl border-t-4 border-t-primary">
+          <CardHeader>
+            <CardTitle className="text-2xl font-bold">Админ: Ново събитие</CardTitle>
+          </CardHeader>
+          <CardContent>
+            {/* autoComplete="off" забранява на браузъра да попълва автоматично формата */}
+            <form onSubmit={handleSubmit} className="space-y-4" autoComplete="off">
+              <div className="space-y-1">
+                <label className="text-sm font-medium">Име на събитието</label>
+                <Input name="title" placeholder="напр. Beach Party" required />
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-sm font-medium">Дата и час</label>
+                <Input name="date" type="datetime-local" required />
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-sm font-medium">Описание</label>
+                <Textarea name="description" placeholder="Детайли..." required className="min-h-[100px]" />
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-sm font-medium">Линк към снимка</label>
+                <Input name="imageUrl" placeholder="URL към изображение" />
+              </div>
+              
+              <div className="pt-4 border-t space-y-2">
+                <label className="text-sm font-bold text-primary">Сигурност</label>
+                <Input 
+                  name="adminPassword" 
+                  type="password"           // Крие паролата с точки
+                  autoComplete="new-password" // Спира подсказките на браузъра
+                  placeholder="Въведете парола за достъп" 
+                  required 
+                />
+                <p className="text-[10px] text-muted-foreground">
+                  Паролата се проверява директно в SQL сървъра.
+                </p>
+              </div>
+
+              <Button type="submit" className="w-full text-lg font-bold" disabled={loading}>
+                {loading ? "Записване в SQL..." : "Публикувай събитието"}
+              </Button>
+            </form>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 }
