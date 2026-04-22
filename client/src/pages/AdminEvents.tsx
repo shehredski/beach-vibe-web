@@ -17,55 +17,92 @@ export default function AdminEvents() {
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData);
 
-    // ВАЖНО: Проверка за парола, за да е защитено
-    if (data.adminPassword !== "beachvibe2024") { // Смени си паролата тук
-      toast.error("Грешна парола!");
-      setLoading(false);
-      return;
-    }
+    // Подготвяме тялото на заявката точно както го очаква сървърът (routes.ts)
+    const payload = {
+      title: data.title as string,
+      description: data.description as string,
+      date: data.date as string, // Изпращаме стринга директно, сървърът ще направи new Date()
+      imageUrl: (data.imageUrl as string) || "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3",
+      adminPassword: data.adminPassword as string, // ТОВА БЕШЕ ПРОПУСНАТО
+    };
 
     try {
+      // Важно: Увери се, че пътят е /api/events. 
+      // Ако ползваш tRPC, пътят може да е различен, но според лога ти търсим JSON тук.
       const res = await fetch("/api/events", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          title: data.title,
-          description: data.description,
-          date: new Date(data.date as string).toISOString(),
-          imageUrl: data.imageUrl || "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3",
-        }),
+        headers: { 
+          "Content-Type": "application/json",
+          "Accept": "application/json" 
+        },
+        body: JSON.stringify(payload),
       });
 
-      if (res.ok) {
-        toast.success("Събитието е добавено успешно!");
-        setLocation("/events");
-      } else {
-        throw new Error();
+      // Проверка дали отговорът е JSON
+      const contentType = res.headers.get("content-type");
+      if (!res.ok) {
+        const errorData = contentType?.includes("application/json") ? await res.json() : null;
+        throw new Error(errorData?.message || "Грешка при запис");
       }
-    } catch (err) {
-      toast.error("Грешка при запис в базата.");
+
+      toast.success("Събитието е добавено успешно в SQL!");
+      setLocation("/events");
+    } catch (err: any) {
+      console.error("Save Error:", err);
+      toast.error(err.message || "Грешка при връзката със сървъра.");
     } finally {
       setLoading(false);
     }
   }
 
   return (
-    <div className="container mx-auto py-10 px-4">
-      <Card className="max-w-lg mx-auto">
-        <CardHeader>
-          <CardTitle>Добави ново събитие</CardTitle>
+    <div className="min-h-screen bg-background py-10 px-4">
+      <Card className="max-w-lg mx-auto shadow-2xl border-primary/20">
+        <CardHeader className="space-y-1">
+          <CardTitle className="text-2xl text-center">Админ Панел: Събития</CardTitle>
+          <p className="text-sm text-center text-muted-foreground">
+            Добавете ново парти на плажа
+          </p>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
-            <Input name="title" placeholder="Име на партито (напр. July Morning)" required />
-            <Input name="date" type="datetime-local" required />
-            <Textarea name="description" placeholder="Описание на събитието..." required />
-            <Input name="imageUrl" placeholder="Линк към снимка (незадължително)" />
-            <div className="pt-4 border-t">
-              <Input name="adminPassword" type="password" placeholder="Админ парола" required />
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Заглавие</label>
+              <Input name="title" placeholder="напр. July Morning 2024" required />
             </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Дата и час</label>
+              <Input name="date" type="datetime-local" required />
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Описание</label>
+              <Textarea 
+                name="description" 
+                placeholder="Разкажете повече за събитието..." 
+                className="min-h-[100px]"
+                required 
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Линк към снимка</label>
+              <Input name="imageUrl" placeholder="https://..." />
+            </div>
+
+            <div className="pt-4 border-t space-y-2">
+              <label className="text-sm font-bold text-primary">Секретна парола</label>
+              <Input 
+                name="adminPassword" 
+                type="password" 
+                placeholder="Въведете паролата за достъп" 
+                required 
+              />
+            </div>
+
             <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? "Записване..." : "Публикувай събитието"}
+              {loading ? "Изпращане към SQL..." : "Публикувай на стената"}
             </Button>
           </form>
         </CardContent>
