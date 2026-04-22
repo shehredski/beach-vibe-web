@@ -17,92 +17,75 @@ export default function AdminEvents() {
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData);
 
-    // Подготвяме тялото на заявката точно както го очаква сървърът (routes.ts)
+    // Подготвяме данните точно както ги очаква твоя backend (routes.ts)
     const payload = {
       title: data.title as string,
       description: data.description as string,
-      date: data.date as string, // Изпращаме стринга директно, сървърът ще направи new Date()
+      date: data.date as string, 
       imageUrl: (data.imageUrl as string) || "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3",
-      adminPassword: data.adminPassword as string, // ТОВА БЕШЕ ПРОПУСНАТО
+      adminPassword: data.adminPassword as string,
     };
 
     try {
-      // Важно: Увери се, че пътят е /api/events. 
-      // Ако ползваш tRPC, пътят може да е различен, но според лога ти търсим JSON тук.
+      // Опитваме първо с /api/events, но ако сървърът ти ползва tRPC или 
+      // стандартен роутинг, това е мястото, където става грешката.
       const res = await fetch("/api/events", {
         method: "POST",
         headers: { 
           "Content-Type": "application/json",
-          "Accept": "application/json" 
+          "Accept": "application/json"
         },
         body: JSON.stringify(payload),
       });
 
-      // Проверка дали отговорът е JSON
+      // Ако получим HTML вместо JSON, ще хванем грешката тук
       const contentType = res.headers.get("content-type");
-      if (!res.ok) {
-        const errorData = contentType?.includes("application/json") ? await res.json() : null;
-        throw new Error(errorData?.message || "Грешка при запис");
+      if (!contentType || !contentType.includes("application/json")) {
+        console.error("Сървърът не върна JSON, а:", await res.text());
+        throw new Error("Сървърът върна грешен формат (вероятно 404 или 500).");
       }
 
-      toast.success("Събитието е добавено успешно в SQL!");
-      setLocation("/events");
+      const result = await res.json();
+
+      if (res.ok) {
+        toast.success("Събитието е записано успешно в SQL!");
+        setLocation("/events");
+      } else {
+        throw new Error(result.message || "Грешка при запис.");
+      }
     } catch (err: any) {
-      console.error("Save Error:", err);
-      toast.error(err.message || "Грешка при връзката със сървъра.");
+      console.error("Грешка:", err);
+      toast.error(err.message || "Неуспешно свързване със сървъра.");
     } finally {
       setLoading(false);
     }
   }
 
   return (
-    <div className="min-h-screen bg-background py-10 px-4">
-      <Card className="max-w-lg mx-auto shadow-2xl border-primary/20">
-        <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl text-center">Админ Панел: Събития</CardTitle>
-          <p className="text-sm text-center text-muted-foreground">
-            Добавете ново парти на плажа
-          </p>
+    <div className="container mx-auto py-10 px-4">
+      <Card className="max-w-lg mx-auto shadow-xl">
+        <CardHeader>
+          <CardTitle className="text-2xl font-bold">Админ: Ново събитие</CardTitle>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Заглавие</label>
-              <Input name="title" placeholder="напр. July Morning 2024" required />
-            </div>
-
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Дата и час</label>
-              <Input name="date" type="datetime-local" required />
-            </div>
-
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Описание</label>
-              <Textarea 
-                name="description" 
-                placeholder="Разкажете повече за събитието..." 
-                className="min-h-[100px]"
-                required 
-              />
-            </div>
-
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Линк към снимка</label>
-              <Input name="imageUrl" placeholder="https://..." />
-            </div>
-
-            <div className="pt-4 border-t space-y-2">
-              <label className="text-sm font-bold text-primary">Секретна парола</label>
+            <Input name="title" placeholder="Заглавие на събитието" required />
+            <Input name="date" type="datetime-local" required />
+            <Textarea name="description" placeholder="Описание..." required className="min-h-[100px]" />
+            <Input name="imageUrl" placeholder="Линк към снимка (URL)" />
+            
+            <div className="pt-4 border-t">
+              <p className="text-sm text-muted-foreground mb-2">Сигурност:</p>
               <Input 
                 name="adminPassword" 
                 type="password" 
-                placeholder="Въведете паролата за достъп" 
+                placeholder="Админ парола (beachvibe2024)" 
                 required 
               />
             </div>
 
-            <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? "Изпращане към SQL..." : "Публикувай на стената"}
+            <Button type="submit" className="w-full text-lg" disabled={loading}>
+              {loading ? "Записване в SQL..." : "Публикувай събитието"}
             </Button>
           </form>
         </CardContent>
