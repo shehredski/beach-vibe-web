@@ -52,41 +52,18 @@ export async function getReservations() {
   return await db.select().from(reservations).orderBy(desc(reservations.createdAt));
 }
 
-export async function getReservationById(id: number) {
-  const db = await getDb();
-  if (!db) throw new Error("Database not available");
-  const result = await db.select().from(reservations).where(eq(reservations.id, id)).limit(1);
-  return result[0] || null;
-}
-
-// --- PROMOTIONS (Ако ги ползваш отделно) ---
-export async function createPromotion(data: InsertPromotion) {
-  const db = await getDb();
-  if (!db) throw new Error("Database not available");
-  return await db.insert(promotions).values(data);
-}
-
-export async function getPromotions() {
-  const db = await getDb();
-  if (!db) throw new Error("Database not available");
-  return await db.select().from(promotions).orderBy(desc(promotions.createdAt));
-}
-
-// --- EVENTS (ОБНОВЕНИ ЗА ЮНИ ПРОМОЦИЯТА) ---
+// --- EVENTS (ОПРАВЕНО ЗА ТВОЯТА ТАБЛИЦА) ---
 
 export async function getEvents() {
   const db = await getDb();
   if (!db) return [];
-  // Подреждаме ги по начална дата, най-новите отгоре
-  // ВНИМАНИЕ: Увери се, че в schema.ts полето е startDate, а не eventDate
-  return await db.select().from(events).orderBy(desc(events.startDate));
+  // ИЗПОЛЗВАМЕ eventDate, защото така се казва колоната в твоя SQL в момента
+  return await db.select().from(events).orderBy(desc(events.eventDate));
 }
 
 export async function createEvent(data: InsertEvent) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
-  // Drizzle автоматично ще вкара title, description, originalPrice, 
-  // discountedPrice, discountPercentage, imageUrl, startDate, endDate и status
   return await db.insert(events).values(data);
 }
 
@@ -94,4 +71,11 @@ export async function deleteEvent(id: number) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
   return await db.delete(events).where(eq(events.id, id));
+}
+
+// Запазвам останалите функции за Promotions, ако ти трябват...
+export async function getPromotions() {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  return await db.select().from(promotions).orderBy(desc(promotions.createdAt));
 }
