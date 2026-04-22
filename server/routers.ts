@@ -138,12 +138,34 @@ export const appRouter = router({
       }),
   }),
 
-  // НОВАТА СЕКЦИЯ ЗА СЪБИТИЯ:
+ // НАМЕРИ ТОВА В КРАЯ НА ФАЙЛА СИ И ГО ЗАМЕНИ:
   events: router({
     list: publicProcedure.query(async () => {
       return getEvents();
     }),
+    // ДОБАВИ ТОВА:
+    create: publicProcedure // Използваме public за по-лесно, но със защита в кода
+      .input(z.object({
+        title: z.string(),
+        description: z.string(),
+        date: z.string(), // Приемаме го като string от формата
+        imageUrl: z.string().optional(),
+        adminPassword: z.string(),
+      }))
+      .mutation(async ({ input }) => {
+        // Проверка на паролата директно тук
+        if (input.adminPassword !== "beachvibe2024") {
+          throw new Error("Невалидна парола!");
+        }
+
+        const { insertEvent } = await import("./db"); // Импорт на функцията за запис
+        return insertEvent({
+          title: input.title,
+          description: input.description,
+          date: new Date(input.date),
+          imageUrl: input.imageUrl || "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3",
+        });
+      }),
   }),
-});
 
 export type AppRouter = typeof appRouter;
