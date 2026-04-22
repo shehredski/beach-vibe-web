@@ -32,7 +32,7 @@ export default function Location() {
                 <div>
                   <p className="text-gray-600 font-semibold">Адрес:</p>
                   <p className="text-gray-800 text-lg leading-snug">
-                    Кемпинг Лагуна<br />
+                    Къмпинг Лагуна<br />
                     Златни пясъци, Варна
                   </p>
                 </div>
