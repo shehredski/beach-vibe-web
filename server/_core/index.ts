@@ -7,7 +7,7 @@ import { registerOAuthRoutes } from "./oauth";
 import { appRouter } from "../routers";
 import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
-// Внасяме функциите за базата данни
+// Внасяме функциите за базата данни от db.ts
 import { createEvent, getEvents } from "../db"; 
 
 function isPortAvailable(port: number): Promise<boolean> {
@@ -33,45 +33,52 @@ async function startServer() {
   const app = express();
   const server = createServer(app);
 
-  // Configure body parser with larger size limit for file uploads
+  // Конфигуриране на body parser за работа с JSON и по-големи файлове
   app.use(express.json({ limit: "50mb" }));
   app.use(express.urlencoded({ limit: "50mb", extended: true }));
 
-  // OAuth callback under /api/oauth/callback
+  // OAuth маршрути
   registerOAuthRoutes(app);
 
-  // --- НОВИ REST API МАРШРУТИ ЗА СЪБИТИЯ ---
-  // Това оправя грешката с връщането на HTML (index.html) вместо JSON
+  // --- REST API МАРШРУТИ ЗА СЪБИТИЯ (EVENTS) ---
+  
+  // 1. Вземане на всички събития
   app.get("/api/events", async (_req, res) => {
     try {
       const events = await getEvents();
       res.json(events);
     } catch (err: any) {
-      console.error("Грешка при вземане на събития:", err);
+      console.error("Грешка при FETCH на събития:", err);
       res.status(500).json({ error: err.message });
     }
   });
 
+  // 2. Създаване на ново събитие (с парола)
   app.post("/api/events", async (req, res) => {
     try {
-      // Проверка за парола на ниво API за допълнителна сигурност
+      // Проверка за парола
       if (req.body.adminPassword !== "beachvibe2024") {
         return res.status(401).json({ message: "Невалидна парола!" });
       }
 
       const { adminPassword, ...eventData } = req.body;
+      
+      // Подготвяме обекта за createEvent функцията в db.ts
       const result = await createEvent({
         ...eventData,
-        eventDate: new Date(eventData.date)
+        startDate: new Date(eventData.startDate),
+        endDate: eventData.endDate ? new Date(eventData.endDate) : null,
+        status: "active"
       });
       
       res.json(result);
     } catch (err: any) {
-      console.error("Грешка при запис на събитие:", err);
+      console.error("Грешка при INSERT на събитие:", err);
       res.status(500).json({ error: err.message });
     }
   });
-  // ------------------------------------------
+
+  // --- КРАЙ НА МАРШРУТИТЕ ЗА СЪБИТИЯ ---
 
   // tRPC API
   app.use(
@@ -82,7 +89,7 @@ async function startServer() {
     })
   );
 
-  // development mode uses Vite, production mode uses static files
+  // Работа с Vite в dev среда или статични файлове в production
   if (process.env.NODE_ENV === "development") {
     await setupVite(app, server);
   } else {
