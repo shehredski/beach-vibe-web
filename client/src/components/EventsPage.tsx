@@ -2,9 +2,16 @@ import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 
 export default function EventsPage() {
-  // Тук правим заявка към сървъра за събитията от SQL
-  const { data: events, isLoading } = useQuery({
+  // Добавяме queryFn, за да може React Query реално да изтегли данните
+  const { data: events, isLoading, error } = useQuery({
     queryKey: ["/api/events"],
+    queryFn: async () => {
+      const res = await fetch("/api/events");
+      if (!res.ok) {
+        throw new Error("Неуспешно зареждане на събитията");
+      }
+      return res.json();
+    },
   });
 
   return (
@@ -17,22 +24,55 @@ export default function EventsPage() {
         <h1 className="text-4xl font-bold text-primary mb-8 text-center">Предстоящи събития</h1>
         
         {isLoading ? (
-          <p className="text-center">Зареждане на купона...</p>
+          <div className="flex justify-center items-center py-20">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+            <p className="ml-4 text-xl">Зареждане на купона...</p>
+          </div>
+        ) : error ? (
+          <div className="text-center p-8 bg-destructive/10 rounded-xl text-destructive">
+            Грешка при зареждането. Моля, опитайте по-късно.
+          </div>
         ) : (
-          <div className="grid gap-6">
-            {events?.length === 0 && <p className="text-center">В момента няма планирани събития. Очаквайте скоро!</p>}
+          <div className="grid gap-8">
+            {events?.length === 0 && (
+              <p className="text-center text-xl text-muted-foreground">
+                В момента няма планирани събития. Очаквайте скоро! 🍹
+              </p>
+            )}
+            
             {events?.map((event: any) => (
-              <div key={event.id} className="bg-card p-6 rounded-xl shadow-lg border border-border">
-                <div className="flex justify-between items-start">
-                  <h2 className="text-2xl font-semibold text-card-foreground">{event.title}</h2>
-                  <span className="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium">
-                    {new Date(event.eventDate).toLocaleDateString('bg-BG')}
-                  </span>
-                </div>
-                <p className="mt-4 text-muted-foreground">{event.description}</p>
-                {event.location && (
-                  <p className="mt-2 text-sm text-primary/80">📍 {event.location}</p>
+              <div key={event.id} className="bg-card overflow-hidden rounded-xl shadow-lg border border-border hover:border-primary/50 transition-colors">
+                {/* Визуализираме снимката, ако я има */}
+                {event.imageUrl && (
+                  <div className="h-48 w-full overflow-hidden">
+                    <img 
+                      src={event.imageUrl} 
+                      alt={event.title} 
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
                 )}
+                
+                <div className="p-6">
+                  <div className="flex justify-between items-start mb-4">
+                    <h2 className="text-2xl font-bold text-card-foreground">{event.title}</h2>
+                    <span className="bg-primary/10 text-primary px-4 py-1 rounded-full text-sm font-semibold border border-primary/20">
+                      📅 {new Date(event.eventDate).toLocaleDateString('bg-BG', {
+                        day: 'numeric',
+                        month: 'long',
+                        year: 'numeric'
+                      })}
+                    </span>
+                  </div>
+                  
+                  <p className="text-muted-foreground text-lg leading-relaxed">{event.description}</p>
+                  
+                  <div className="mt-6 flex items-center text-sm font-medium text-primary">
+                    <span className="flex items-center gap-1">
+                      📍 {event.location || "Beach Vibe, Varna"}
+                    </span>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
