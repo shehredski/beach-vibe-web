@@ -1,14 +1,13 @@
 import "dotenv/config";
 import express from "express";
 import { createServer } from "http";
-import net from "net";
 import { createExpressMiddleware } from "@trpc/server/adapters/express";
 import { registerOAuthRoutes } from "./oauth";
 import { appRouter } from "../routers";
 import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
-// ПРОВЕРИ ПЪТЯ: Ако index.ts е в _core/, трябва да е "../../db"
-import { createEvent, getEvents, getPromotions } from "../db"; 
+// Внасяме и createPromotion
+import { createEvent, getEvents, getPromotions, createPromotion } from "../db"; 
 
 async function startServer() {
   const app = express();
@@ -19,7 +18,7 @@ async function startServer() {
 
   registerOAuthRoutes(app);
 
-  // API Маршрути
+  // --- GET МАРШРУТИ ---
   app.get("/api/events", async (_req, res) => {
     try {
       const data = await getEvents();
@@ -38,15 +37,48 @@ async function startServer() {
     }
   });
 
+  // --- POST МАРШРУТИ (РАЗДЕЛЕНИ) ---
+
+  // 1. Само за СЪБИТИЯ
   app.post("/api/events", async (req, res) => {
     try {
       if (req.body.adminPassword !== "beachvibe2024") {
         return res.status(401).json({ message: "Invalid password" });
       }
       const { adminPassword, ...eventData } = req.body;
+      
+      // Записваме в таблица EVENTS
       const result = await createEvent({
-        ...eventData,
+        title: eventData.title,
+        description: eventData.description,
+        imageUrl: eventData.imageUrl,
+        location: eventData.location || "Beach Vibe",
         eventDate: new Date(eventData.eventDate || eventData.startDate),
+      });
+      res.json(result);
+    } catch (err: any) {
+      res.status(500).json({ error: err.message });
+    }
+  });
+
+  // 2. Само за ПРОМОЦИИ (Добави това!)
+  app.post("/api/promotions", async (req, res) => {
+    try {
+      if (req.body.adminPassword !== "beachvibe2024") {
+        return res.status(401).json({ message: "Invalid password" });
+      }
+      const { adminPassword, ...promoData } = req.body;
+      
+      // Записваме в таблица PROMOTIONS
+      const result = await createPromotion({
+        title: promoData.title,
+        description: promoData.description,
+        imageUrl: promoData.imageUrl,
+        originalPrice: promoData.originalPrice?.toString(),
+        discountedPrice: promoData.discountedPrice?.toString(),
+        discountPercentage: parseInt(promoData.discountPercentage),
+        startDate: new Date(promoData.startDate || promoData.eventDate),
+        status: "active"
       });
       res.json(result);
     } catch (err: any) {
