@@ -4,56 +4,56 @@ export default function Menu() {
       id: 1,
       name: "Мохито",
       description: "Свежо с мента, лайм и ром",
-      //price: "12 лв",
+      //price: "12 евро",
       image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/cocktail_mojito-mjQXjYy9xDUE4KbuUt2FyN.webp"
     },
     {
       id: 2,
       name: "Sunset Spritz",
       description: "Портокал, просеко и ликьор",
-      //price: "14 лв",
+      //price: "14 евро",
       image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/cocktail_sunset-kTFfWix6cLQUATGnyCErH3.webp"
     },
     {
       id: 3,
       name: "Ocean Blue",
       description: "Синьо кюрасао, ром и ананас",
-      //price: "13 лв",
+      //price: "13 евро",
       image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/cocktail_ocean-BXgKCUhDyUf8QJLhRH6Tc9.webp"
     },
     {
       id: 4,
       name: "Маргарита",
       description: "Текила, лайм и сол",
-      //price: "12 лв",
+      //price: "12 евро",
       image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/cocktail_margarita-ce6nk5iPaQBZ44Ms7EYHbv.webp"
     },
     {
       id: 5,
       name: "Пина Колада",
       description: "Кокосово мляко, ром и ананас",
-      //price: "13 лв",
+      //price: "13 евро",
       image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/cocktail_pinacolada-7YddyxZDbwQUN9wBpXRD9W.webp"
     },
     {
       id: 6,
       name: "Дайкири",
       description: "Ром, лайм и сироп",
-      //price: "11 лв",
+      //price: "11 евро",
       image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/cocktail_daiquiri-KVssDPnoYsfusr9qBqskvk.webp"
     },
     {
       id: 7,
       name: "Сангрия",
       description: "Червено вино, плодове и ягоди",
-      //price: "10 лв",
+      //price: "10 евро",
       image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/cocktail_sangria-8Dfm6yzcrbA5nz4AEsmyo7.webp"
     },
     {
       id: 8,
       name: "Белини",
       description: "Просеко, праскова и елегантност",
-      //price: "12 лв",
+      //price: "12 евро",
       image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/cocktail_bellini-fwuAJSg878WUKABaTAGP2v.webp"
     }
   ];
