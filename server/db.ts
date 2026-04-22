@@ -24,7 +24,7 @@ export async function getDb() {
   return _db;
 }
 
-// Потребители
+// --- USERS ---
 export async function upsertUser(user: InsertUser) {
   const db = await getDb();
   if (!db) return;
@@ -38,7 +38,7 @@ export async function getUserByOpenId(openId: string) {
   return result[0];
 }
 
-// Резервации
+// --- RESERVATIONS ---
 export async function createReservation(data: InsertReservation) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
@@ -51,14 +51,29 @@ export async function getReservations() {
   return await db.select().from(reservations).orderBy(desc(reservations.createdAt));
 }
 
-// Промоции ( startDate )
+// ТАЗИ ФУНКЦИЯ ЛИПСВАШЕ И ЧУПЕШЕ BUILD-A
+export async function getReservationById(id: number) {
+  const db = await getDb();
+  if (!db) return null;
+  const result = await db.select().from(reservations).where(eq(reservations.id, id)).limit(1);
+  return result[0] || null;
+}
+
+// --- PROMOTIONS ---
 export async function getPromotions() {
   const db = await getDb();
   if (!db) return [];
   return await db.select().from(promotions).orderBy(desc(promotions.createdAt));
 }
 
-// Събития ( eventDate )
+// ТАЗИ ФУНКЦИЯ СЪЩО ЛИПСВАШЕ
+export async function updatePromotion(id: number, data: Partial<InsertPromotion>) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  return await db.update(promotions).set(data).where(eq(promotions.id, id));
+}
+
+// --- EVENTS ---
 export async function getEvents() {
   const db = await getDb();
   if (!db) return [];
