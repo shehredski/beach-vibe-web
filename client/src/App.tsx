@@ -1,12 +1,13 @@
 import EventsPage from "@/components/EventsPage";
 import { Route, Switch } from "wouter";
-import Home from "@/components/Home";   // <--- ТОВА Е ВАЖНОТО
+import Home from "@/components/Home";
 import MenuPage from "./pages/MenuPage";
 import NotFound from "./pages/NotFound";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { TooltipProvider } from "./components/ui/tooltip";
 import { Toaster } from "@/components/ui/sonner";
 import ErrorBoundary from "./components/ErrorBoundary";
+import AdminEvents from "./pages/AdminEvents"; // 1. Импортът е тук
 
 function Router() {
   return (
@@ -14,6 +15,10 @@ function Router() {
       <Route path="/" component={Home} />
       <Route path="/menu" component={MenuPage} />
       <Route path="/events" component={EventsPage} /> 
+      
+      {/* 2. ТОВА Е КРИТИЧНОТО МЯСТО: */}
+      <Route path="/admin-events" component={AdminEvents} />
+      
       <Route component={NotFound} />
     </Switch>
   );
