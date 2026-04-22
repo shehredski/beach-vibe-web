@@ -1,4 +1,4 @@
-import { eq, desc, and } from "drizzle-orm";
+import { eq, desc } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { 
   users, 
@@ -58,7 +58,8 @@ export async function getReservationById(id: number) {
   return result[0] || null;
 }
 
-// --- PROMOTIONS ---
+// --- PROMOTIONS (ФИНАЛЕН КОМПЛЕКТ) ---
+
 export async function getPromotions() {
   const db = await getDb();
   if (!db) return [];
@@ -71,9 +72,21 @@ export async function getActivePromotions() {
   return await db.select().from(promotions).where(eq(promotions.status, "active"));
 }
 
+// ТАЗИ ФУНКЦИЯ ЛИПСВАШЕ ПОСЛЕДНО
+export async function getPromotionById(id: number) {
+  const db = await getDb();
+  if (!db) return null;
+  const result = await db.select().from(promotions).where(eq(promotions.id, id)).limit(1);
+  return result[0] || null;
+}
+
 export async function createPromotion(data: InsertPromotion) {
   const db = await getDb();
-  if (!db) throw new Error("Database not available");
+  if (!database) { // Малка корекция за безопасност
+     const database = await getDb();
+     if (!database) throw new Error("Database not available");
+     return await database.insert(promotions).values(data);
+  }
   return await db.insert(promotions).values(data);
 }
 
