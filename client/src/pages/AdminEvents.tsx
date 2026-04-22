@@ -17,7 +17,6 @@ export default function AdminEvents() {
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData);
 
-    // Подготвяме данните точно както ги очаква твоя backend (routes.ts)
     const payload = {
       title: data.title as string,
       description: data.description as string,
@@ -27,8 +26,6 @@ export default function AdminEvents() {
     };
 
     try {
-      // Опитваме първо с /api/events, но ако сървърът ти ползва tRPC или 
-      // стандартен роутинг, това е мястото, където става грешката.
       const res = await fetch("/api/events", {
         method: "POST",
         headers: { 
@@ -38,11 +35,9 @@ export default function AdminEvents() {
         body: JSON.stringify(payload),
       });
 
-      // Ако получим HTML вместо JSON, ще хванем грешката тук
       const contentType = res.headers.get("content-type");
       if (!contentType || !contentType.includes("application/json")) {
-        console.error("Сървърът не върна JSON, а:", await res.text());
-        throw new Error("Сървърът върна грешен формат (вероятно 404 или 500).");
+        throw new Error("Сървърът върна грешен формат. Провери OAUTH_SERVER_URL!");
       }
 
       const result = await res.json();
@@ -51,7 +46,7 @@ export default function AdminEvents() {
         toast.success("Събитието е записано успешно в SQL!");
         setLocation("/events");
       } else {
-        throw new Error(result.message || "Грешка при запис.");
+        throw new Error(result.message || "Грешна парола или проблем със сървъра.");
       }
     } catch (err: any) {
       console.error("Грешка:", err);
@@ -68,20 +63,40 @@ export default function AdminEvents() {
           <CardTitle className="text-2xl font-bold">Админ: Ново събитие</CardTitle>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <Input name="title" placeholder="Заглавие на събитието" required />
-            <Input name="date" type="datetime-local" required />
-            <Textarea name="description" placeholder="Описание..." required className="min-h-[100px]" />
-            <Input name="imageUrl" placeholder="Линк към снимка (URL)" />
+          {/* autoComplete="off" тук забранява на браузъра да попълва автоматично цялата форма */}
+          <form onSubmit={handleSubmit} className="space-y-4" autoComplete="off">
+            <div className="space-y-1">
+              <label className="text-sm font-medium">Име на събитието</label>
+              <Input name="title" placeholder="напр. Beach Party" required />
+            </div>
+
+            <div className="space-y-1">
+              <label className="text-sm font-medium">Дата и час</label>
+              <Input name="date" type="datetime-local" required />
+            </div>
+
+            <div className="space-y-1">
+              <label className="text-sm font-medium">Описание</label>
+              <Textarea name="description" placeholder="Детайли..." required className="min-h-[100px]" />
+            </div>
+
+            <div className="space-y-1">
+              <label className="text-sm font-medium">Линк към снимка</label>
+              <Input name="imageUrl" placeholder="URL към изображение" />
+            </div>
             
-            <div className="pt-4 border-t">
-              <p className="text-sm text-muted-foreground mb-2">Сигурност:</p>
+            <div className="pt-4 border-t space-y-2">
+              <label className="text-sm font-bold text-primary">Сигурност</label>
               <Input 
                 name="adminPassword" 
-                type="password" 
-                placeholder="Админ парола (beachvibe2024)" 
+                type="password"           // Прави символите на точки
+                autoComplete="new-password" // КРИТИЧНО: Спира подсказките на Chrome/Edge
+                placeholder="Въведете парола за достъп" 
                 required 
               />
+              <p className="text-[10px] text-muted-foreground">
+                Паролата се проверява директно в SQL сървъра.
+              </p>
             </div>
 
             <Button type="submit" className="w-full text-lg" disabled={loading}>
