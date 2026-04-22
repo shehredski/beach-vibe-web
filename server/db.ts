@@ -1,199 +1,13 @@
-import { eq, and, gte, lte, asc } from "drizzle-orm"; // Добавихме asc за подредба по дата
-import { drizzle } from "drizzle-orm/mysql2";
-import { 
-  InsertUser, 
-  users, 
-  reservations, 
-  InsertReservation, 
-  promotions, 
-  InsertPromotion,
-  events,        // <--- Добавено (таблицата)
-  InsertEvent    // <--- Добавено (типа за вмъкване)
-} from "../drizzle/schema";
-import { ENV } from './_core/env';
-
-let _db: ReturnType<typeof drizzle> | null = null;
-
-// Lazily create the drizzle instance so local tooling can run without a DB.
-export async function getDb() {
-  if (!_db && process.env.DATABASE_URL) {
-    try {
-      _db = drizzle(process.env.DATABASE_URL);
-    } catch (error) {
-      console.warn("[Database] Failed to connect:", error);
-      _db = null;
-    }
-  }
-  return _db;
-}
-
-export async function upsertUser(user: InsertUser): Promise<void> {
-  if (!user.openId) {
-    throw new Error("User openId is required for upsert");
-  }
-
-  const db = await getDb();
-  if (!db) {
-    console.warn("[Database] Cannot upsert user: database not available");
-    return;
-  }
-
-  try {
-    const values: InsertUser = {
-      openId: user.openId,
-    };
-    const updateSet: Record<string, unknown> = {};
-
-    const textFields = ["name", "email", "loginMethod"] as const;
-    type TextField = (typeof textFields)[number];
-
-    const assignNullable = (field: TextField) => {
-      const value = user[field];
-      if (value === undefined) return;
-      const normalized = value ?? null;
-      values[field] = normalized;
-      updateSet[field] = normalized;
-    };
-
-    textFields.forEach(assignNullable);
-
-    if (user.lastSignedIn !== undefined) {
-      values.lastSignedIn = user.lastSignedIn;
-      updateSet.lastSignedIn = user.lastSignedIn;
-    }
-    if (user.role !== undefined) {
-      values.role = user.role;
-      updateSet.role = user.role;
-    } else if (user.openId === ENV.ownerOpenId) {
-      values.role = 'admin';
-      updateSet.role = 'admin';
-    }
-
-    if (!values.lastSignedIn) {
-      values.lastSignedIn = new Date();
-    }
-
-    if (Object.keys(updateSet).length === 0) {
-      updateSet.lastSignedIn = new Date();
-    }
-
-    await db.insert(users).values(values).onDuplicateKeyUpdate({
-      set: updateSet,
-    });
-  } catch (error) {
-    console.error("[Database] Failed to upsert user:", error);
-    throw error;
-  }
-}
-
-export async function getUserByOpenId(openId: string) {
-  const db = await getDb();
-  if (!db) {
-    console.warn("[Database] Cannot get user: database not available");
-    return undefined;
-  }
-
-  const result = await db.select().from(users).where(eq(users.openId, openId)).limit(1);
-
-  return result.length > 0 ? result[0] : undefined;
-}
-
-// --- RESERVATIONS ---
-
-export async function createReservation(data: InsertReservation) {
-  const db = await getDb();
-  if (!db) {
-    throw new Error("Database not available");
-  }
-  const result = await db.insert(reservations).values(data);
-  return result;
-}
-
-export async function getReservations() {
-  const db = await getDb();
-  if (!db) {
-    throw new Error("Database not available");
-  }
-  return db.select().from(reservations).orderBy((t) => t.createdAt);
-}
-
-export async function getReservationById(id: number) {
-  const db = await getDb();
-  if (!db) {
-    throw new Error("Database not available");
-  }
-  const result = await db.select().from(reservations).where(eq(reservations.id, id)).limit(1);
-  return result.length > 0 ? result[0] : null;
-}
-
-// --- PROMOTIONS ---
-
-export async function createPromotion(data: InsertPromotion) {
-  const db = await getDb();
-  if (!db) {
-    throw new Error("Database not available");
-  }
-  const result = await db.insert(promotions).values(data);
-  return result;
-}
-
-export async function getPromotions() {
-  const db = await getDb();
-  if (!db) {
-    throw new Error("Database not available");
-  }
-  return db.select().from(promotions).orderBy((t) => t.createdAt);
-}
-
-export async function getActivePromotions() {
-  const db = await getDb();
-  if (!db) {
-    throw new Error("Database not available");
-  }
-  const now = new Date();
-  return db.select().from(promotions).where(
-    and(
-      eq(promotions.status, "active"),
-      lte(promotions.startDate, now),
-      gte(promotions.endDate, now)
-    )
-  );
-}
-
-export async function getPromotionById(id: number) {
-  const db = await getDb();
-  if (!db) {
-    throw new Error("Database not available");
-  }
-  const result = await db.select().from(promotions).where(eq(promotions.id, id)).limit(1);
-  return result.length > 0 ? result[0] : null;
-}
-
-export async function updatePromotion(id: number, data: Partial<InsertPromotion>) {
-  const db = await getDb();
-  if (!db) {
-    throw new Error("Database not available");
-  }
-  return db.update(promotions).set(data).where(eq(promotions.id, id));
-}
-
-export async function deletePromotion(id: number) {
-  const db = await getDb();
-  if (!db) {
-    throw new Error("Database not available");
-  }
-  return db.delete(promotions).where(eq(promotions.id, id));
-}
-
 // --- EVENTS (НОВОТО) ---
 
 export async function getEvents() {
   const db = await getDb();
   if (!db) {
-    throw new Error("Database not available");
+    console.error("[Database] getEvents: database not available");
+    return [];
   }
   // Връщаме събитията подредени по дата (най-скорошните първи)
-  return db.select().from(events).orderBy(asc(events.eventDate));
+  return await db.select().from(events).orderBy(asc(events.eventDate));
 }
 
 export async function createEvent(data: InsertEvent) {
@@ -201,7 +15,9 @@ export async function createEvent(data: InsertEvent) {
   if (!db) {
     throw new Error("Database not available");
   }
-  return db.insert(events).values(data);
+  // ДОБАВЯМЕ await ТУК - критично е за Railway!
+  const result = await db.insert(events).values(data);
+  return result;
 }
 
 export async function deleteEvent(id: number) {
@@ -209,5 +25,5 @@ export async function deleteEvent(id: number) {
   if (!db) {
     throw new Error("Database not available");
   }
-  return db.delete(events).where(eq(events.id, id));
+  return await db.delete(events).where(eq(events.id, id));
 }
