@@ -7,7 +7,7 @@ import { registerOAuthRoutes } from "./oauth";
 import { appRouter } from "../routers";
 import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
-// Внасяме всички необходими функции
+// ВАЖНО: Внасяме и трите функции!
 import { createEvent, getEvents, getPromotions } from "../db"; 
 
 function isPortAvailable(port: number): Promise<boolean> {
@@ -50,7 +50,7 @@ async function startServer() {
     }
   });
 
-  // 2. Вземане на промоции (ВАЖНО - за да се виждат в EventsPage)
+  // 2. Вземане на промоции (това, което виждаш в SQL)
   app.get("/api/promotions", async (_req, res) => {
     try {
       const data = await getPromotions();
@@ -66,23 +66,18 @@ async function startServer() {
       if (req.body.adminPassword !== "beachvibe2024") {
         return res.status(401).json({ message: "Невалидна парола!" });
       }
-
       const { adminPassword, ...eventData } = req.body;
-      
-      // КОРЕКЦИЯ: Използваме eventDate, за да съвпадне със схемата ти
       const result = await createEvent({
         ...eventData,
         eventDate: new Date(eventData.eventDate || eventData.startDate), 
       });
-      
       res.json(result);
     } catch (err: any) {
-      console.error("Грешка при запис:", err);
       res.status(500).json({ error: err.message });
     }
   });
 
-  // tRPC API
+  // tRPC
   app.use(
     "/api/trpc",
     createExpressMiddleware({
@@ -97,11 +92,9 @@ async function startServer() {
     serveStatic(app);
   }
 
-  const preferredPort = parseInt(process.env.PORT || "3000");
-  const port = await findAvailablePort(preferredPort);
-
+  const port = await findAvailablePort(parseInt(process.env.PORT || "3000"));
   server.listen(port, () => {
-    console.log(`Server running on http://localhost:${port}/`);
+    console.log(`Server running on port ${port}`);
   });
 }
 
