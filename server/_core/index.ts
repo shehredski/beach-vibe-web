@@ -7,27 +7,8 @@ import { registerOAuthRoutes } from "./oauth";
 import { appRouter } from "../routers";
 import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
-// ВАЖНО: Внасяме и трите функции!
+// ПРОВЕРИ ПЪТЯ: Ако index.ts е в _core/, трябва да е "../../db"
 import { createEvent, getEvents, getPromotions } from "../db"; 
-
-function isPortAvailable(port: number): Promise<boolean> {
-  return new Promise(resolve => {
-    const server = net.createServer();
-    server.listen(port, () => {
-      server.close(() => resolve(true));
-    });
-    server.on("error", () => resolve(false));
-  });
-}
-
-async function findAvailablePort(startPort: number = 3000): Promise<number> {
-  for (let port = startPort; port < startPort + 20; port++) {
-    if (await isPortAvailable(port)) {
-      return port;
-    }
-  }
-  throw new Error(`No available port found starting from ${startPort}`);
-}
 
 async function startServer() {
   const app = express();
@@ -38,9 +19,7 @@ async function startServer() {
 
   registerOAuthRoutes(app);
 
-  // --- REST API МАРШРУТИ ---
-  
-  // 1. Вземане на събития
+  // API Маршрути
   app.get("/api/events", async (_req, res) => {
     try {
       const data = await getEvents();
@@ -50,7 +29,6 @@ async function startServer() {
     }
   });
 
-  // 2. Вземане на промоции (това, което виждаш в SQL)
   app.get("/api/promotions", async (_req, res) => {
     try {
       const data = await getPromotions();
@@ -60,16 +38,15 @@ async function startServer() {
     }
   });
 
-  // 3. Създаване на събитие
   app.post("/api/events", async (req, res) => {
     try {
       if (req.body.adminPassword !== "beachvibe2024") {
-        return res.status(401).json({ message: "Невалидна парола!" });
+        return res.status(401).json({ message: "Invalid password" });
       }
       const { adminPassword, ...eventData } = req.body;
       const result = await createEvent({
         ...eventData,
-        eventDate: new Date(eventData.eventDate || eventData.startDate), 
+        eventDate: new Date(eventData.eventDate || eventData.startDate),
       });
       res.json(result);
     } catch (err: any) {
@@ -77,14 +54,7 @@ async function startServer() {
     }
   });
 
-  // tRPC
-  app.use(
-    "/api/trpc",
-    createExpressMiddleware({
-      router: appRouter,
-      createContext,
-    })
-  );
+  app.use("/api/trpc", createExpressMiddleware({ router: appRouter, createContext }));
 
   if (process.env.NODE_ENV === "development") {
     await setupVite(app, server);
@@ -92,9 +62,9 @@ async function startServer() {
     serveStatic(app);
   }
 
-  const port = await findAvailablePort(parseInt(process.env.PORT || "3000"));
+  const port = process.env.PORT || 3000;
   server.listen(port, () => {
-    console.log(`Server running on port ${port}`);
+    console.log(`Server started on port ${port}`);
   });
 }
 
