@@ -1,4 +1,4 @@
-import { eq, and, gte, lte, asc } from "drizzle-orm";
+import { eq, and, gte, lte, asc, desc } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { 
   InsertUser, 
@@ -7,10 +7,9 @@ import {
   InsertReservation, 
   promotions, 
   InsertPromotion,
-  events,        
+  events,         
   InsertEvent    
 } from "../drizzle/schema";
-import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
 
@@ -40,7 +39,7 @@ export async function getUserByOpenId(openId: string) {
   return result[0];
 }
 
-// --- RESERVATIONS (ВАЖНО - провери дали тези имена съвпадат с лога) ---
+// --- RESERVATIONS ---
 export async function createReservation(data: InsertReservation) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
@@ -50,7 +49,7 @@ export async function createReservation(data: InsertReservation) {
 export async function getReservations() {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
-  return await db.select().from(reservations).orderBy((t) => t.createdAt);
+  return await db.select().from(reservations).orderBy(desc(reservations.createdAt));
 }
 
 export async function getReservationById(id: number) {
@@ -60,7 +59,7 @@ export async function getReservationById(id: number) {
   return result[0] || null;
 }
 
-// --- PROMOTIONS ---
+// --- PROMOTIONS (Ако ги ползваш отделно) ---
 export async function createPromotion(data: InsertPromotion) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
@@ -70,51 +69,24 @@ export async function createPromotion(data: InsertPromotion) {
 export async function getPromotions() {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
-  return await db.select().from(promotions).orderBy((t) => t.createdAt);
+  return await db.select().from(promotions).orderBy(desc(promotions.createdAt));
 }
 
-export async function getActivePromotions() {
-  const db = await getDb();
-  if (!db) throw new Error("Database not available");
-  const now = new Date();
-  return await db.select().from(promotions).where(
-    and(
-      eq(promotions.status, "active"),
-      lte(promotions.startDate, now),
-      gte(promotions.endDate, now)
-    )
-  );
-}
+// --- EVENTS (ОБНОВЕНИ ЗА ЮНИ ПРОМОЦИЯТА) ---
 
-export async function getPromotionById(id: number) {
-  const db = await getDb();
-  if (!db) throw new Error("Database not available");
-  const result = await db.select().from(promotions).where(eq(promotions.id, id)).limit(1);
-  return result[0] || null;
-}
-
-export async function updatePromotion(id: number, data: Partial<InsertPromotion>) {
-  const db = await getDb();
-  if (!db) throw new Error("Database not available");
-  return await db.update(promotions).set(data).where(eq(promotions.id, id));
-}
-
-export async function deletePromotion(id: number) {
-  const db = await getDb();
-  if (!db) throw new Error("Database not available");
-  return await db.delete(promotions).where(eq(promotions.id, id));
-}
-
-// --- EVENTS ---
 export async function getEvents() {
   const db = await getDb();
   if (!db) return [];
-  return await db.select().from(events).orderBy(asc(events.eventDate));
+  // Подреждаме ги по начална дата, най-новите отгоре
+  // ВНИМАНИЕ: Увери се, че в schema.ts полето е startDate, а не eventDate
+  return await db.select().from(events).orderBy(desc(events.startDate));
 }
 
 export async function createEvent(data: InsertEvent) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
+  // Drizzle автоматично ще вкара title, description, originalPrice, 
+  // discountedPrice, discountPercentage, imageUrl, startDate, endDate и status
   return await db.insert(events).values(data);
 }
 
