@@ -128,11 +128,11 @@ export default function EventsPage() {
                       <div className="flex flex-col">
                         {item.originalPrice && (
                           <span className="text-xs text-gray-400 line-through">
-                            {Number(item.originalPrice).toFixed(2)} лв.
+                            {Number(item.originalPrice).toFixed(2)} евро.
                           </span>
                         )}
                         <span className="text-2xl font-black text-amber-900">
-                          {Number(item.discountedPrice).toFixed(2)} лв.
+                          {Number(item.discountedPrice).toFixed(2)} евро.
                         </span>
                       </div>
                       <div className="bg-amber-100 p-2 rounded-full">
