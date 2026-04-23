@@ -26,17 +26,17 @@ export default function Navigation() {
 
   return (
     <nav className="sticky top-0 z-50 bg-white shadow-lg">
-      <div className="container max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+      <div className="container max-w-7xl mx-auto px-4 py-4 md:py-5 flex items-center justify-between">
         
-        {/* ЛОГО СЕКЦИЯ */}
+        {/* ЛОГО СЕКЦИЯ - УВЕЛИЧЕНА */}
         <Link href="/">
-          <div className="flex items-center gap-2 cursor-pointer group">
+          <div className="flex items-center gap-3 cursor-pointer group">
             <img 
               src="/logo.png" 
               alt="Beach Vibe Logo" 
-              className="h-10 md:h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+              className="h-14 md:h-20 w-auto object-contain transition-all duration-300 group-hover:scale-110 drop-shadow-sm"
             />
-            <span className="text-xl md:text-2xl font-bold text-amber-600 hidden sm:block font-serif">
+            <span className="text-2xl md:text-3xl font-bold text-amber-600 hidden sm:block font-serif tracking-tight">
               Beach Vibe
             </span>
           </div>
@@ -48,20 +48,20 @@ export default function Navigation() {
             <button 
               key={item.id} 
               onClick={() => scrollToSection(item.id)} 
-              className="text-gray-700 hover:text-amber-600 transition-colors font-medium whitespace-nowrap"
+              className="text-gray-700 hover:text-amber-600 transition-colors font-semibold whitespace-nowrap"
             >
               {item.label}
             </button>
           ))}
           
           <Link href="/events">
-            <button className="text-gray-700 hover:text-amber-600 transition-colors font-medium">
+            <button className="text-gray-700 hover:text-amber-600 transition-colors font-semibold">
               Събития
             </button>
           </Link>
 
           <Link href="/menu">
-            <button className="bg-amber-600 text-white px-5 py-2 rounded-lg hover:bg-amber-700 transition-all shadow-md hover:shadow-lg active:scale-95 font-bold">
+            <button className="bg-amber-600 text-white px-6 py-2.5 rounded-xl hover:bg-amber-700 transition-all shadow-md hover:shadow-xl active:scale-95 font-bold">
               Меню 🍹
             </button>
           </Link>
@@ -73,7 +73,7 @@ export default function Navigation() {
             onClick={() => setIsOpen(!isOpen)}
             className="text-gray-600 hover:text-amber-600 p-2"
           >
-            {isOpen ? <X size={28} /> : <Menu size={28} />}
+            {isOpen ? <X size={32} /> : <Menu size={32} />}
           </button>
         </div>
       </div>
@@ -85,19 +85,19 @@ export default function Navigation() {
             <button 
               key={item.id} 
               onClick={() => scrollToSection(item.id)} 
-              className="block w-full text-left p-3 text-gray-700 hover:bg-amber-50 rounded-md font-medium"
+              className="block w-full text-left p-4 text-gray-700 hover:bg-amber-50 rounded-xl font-medium"
             >
               {item.label}
             </button>
           ))}
           <Link href="/events">
-            <button className="block w-full text-left p-3 text-gray-700 hover:bg-amber-50 rounded-md font-medium">
+            <button className="block w-full text-left p-4 text-gray-700 hover:bg-amber-50 rounded-xl font-medium">
               Събития
             </button>
           </Link>
-          <div className="pt-2">
+          <div className="pt-3">
             <Link href="/menu">
-              <button className="block w-full text-center p-3 bg-amber-600 text-white rounded-md font-bold shadow-sm">
+              <button className="block w-full text-center p-4 bg-amber-600 text-white rounded-xl font-bold shadow-md">
                 Виж Менюто 🍹
               </button>
             </Link>
