@@ -26,22 +26,20 @@ export default function About() {
               </div>
 
               {/* СЕКЦИЯ БАР */}
-              <div id="bar" className="scroll-mt-28">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="bg-amber-100 p-3 rounded-full text-2xl">🍹</div>
-                  <h3 className="text-2xl font-bold text-gray-800">Барът Beach Vibe</h3>
-                </div>
-                <p className="text-gray-600">
-                  Насладете се на авторски коктейли, прясно изцедени сокове и подбрани вина, докато релаксирате под звуците на морето.
-                </p>
-                <div className="mt-4 flex gap-2">
-                  <span className="bg-gray-100 px-3 py-1 rounded-full text-sm text-gray-600">Cocktails</span>
-                  <span className="bg-gray-100 px-3 py-1 rounded-full text-sm text-gray-600">Coffee</span>
-                  <span className="bg-gray-100 px-3 py-1 rounded-full text-sm text-gray-600">Cold Drinks</span>
-                </div>
-              </div>
-            </div>
-          </div>
+              <<div className="flex gap-4 mt-6 overflow-x-auto pb-4">
+  <div className="min-w-[150px] p-4 bg-amber-50 rounded-2xl text-center shadow-sm hover:shadow-md transition-all">
+    <span className="text-3xl">🍸</span>
+    <h4 className="font-bold text-sm mt-2">Signature Mojito</h4>
+  </div>
+  <div className="min-w-[150px] p-4 bg-amber-50 rounded-2xl text-center shadow-sm hover:shadow-md transition-all">
+    <span className="text-3xl">🍹</span>
+    <h4 className="font-bold text-sm mt-2">Beach Vibe Spritz</h4>
+  </div>
+  <div className="min-w-[150px] p-4 bg-amber-50 rounded-2xl text-center shadow-sm hover:shadow-md transition-all">
+    <span className="text-3xl">🥥</span>
+    <h4 className="font-bold text-sm mt-2">Pina Colada</h4>
+  </div>
+</div>
 
           <div className="rounded-2xl overflow-hidden shadow-2xl border-4 border-amber-50/50">
             <img
