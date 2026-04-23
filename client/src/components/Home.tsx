@@ -1,46 +1,57 @@
-export default function Hero() {
+import Navigation from "@/components/Navigation";
+import Hero from "@/components/Hero";
+import About from "@/components/About";
+import Gallery from "@/components/Gallery";
+import Promotions from "@/components/Promotions";
+import Booking from "@/components/Booking"; 
+import Location from "@/components/Location";
+import Footer from "@/components/Footer";
+
+export default function Home() {
   return (
-    <div className="relative h-screen flex items-center justify-center text-center text-white">
+    <div className="min-h-screen bg-background text-foreground">
+      <Navigation />
+      
+      {/* Начало / Hero */}
+      <section id="hero">
+        <Hero />
+      </section>
 
-      {/* Background */}
-      <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: "url('/images/hero.jpg')" }}
-      />
+      {/* За плажа & Цени (Обикновено са в About или отделни части на About) */}
+      <section id="about">
+        <About />
+      </section>
 
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-black/50"></div>
+      {/* Барът - Ако описанието на бара е вътре в About, това ще ни отведе там */}
+      <section id="bar">
+        {/* Тук можеш да добавиш специфичен компонент за бара, ако имаш, 
+            но засега го насочваме към секцията About */}
+      </section>
 
-      {/* Content */}
-      <div className="relative z-10 px-4">
-        <h1 className="text-4xl md:text-6xl font-bold mb-4">
-          Beach Vibe
-        </h1>
+      {/* Цени - Тъй като таблицата ти е в CONTENT.md и се рендерира в някой компонент, 
+          слагаме ID-то тук. Ако цените са част от About, кликът ще те прати там. */}
+      <section id="prices">
+        {/* Ако имаш отделен компонент за цени, сложи го тук. 
+            Ако са в About, остави го така или го премести под About */}
+      </section>
 
-        <p className="text-lg md:text-xl mb-6">
-          Private beach near Golden Sands
-        </p>
+      <section id="gallery">
+        <Gallery />
+      </section>
 
-        <div className="flex flex-col md:flex-row gap-4 justify-center">
-          <a
-            href="tel:+359886888101"
-            className="bg-white text-black px-6 py-3 font-semibold"
-          >
-            Call Now
-          </a>
+      <section id="promotions">
+        <Promotions />
+      </section>
 
-          <a
-            href="https://wa.me/359886888101"
-            className="border border-white px-6 py-3"
-          >
-            WhatsApp
-          </a>
-        </div>
+      <section id="reservations">
+        <Booking />
+      </section>
 
-        <p className="mt-4 text-sm opacity-80">
-          Limited cabanas available
-        </p>
-      </div>
+      <section id="location">
+        <Location />
+      </section>
+
+      <Footer />
     </div>
   );
 }
