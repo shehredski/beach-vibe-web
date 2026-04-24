@@ -1,11 +1,11 @@
-import { Menu, X, Globe } from "lucide-react"; // Добавихме икона Globe за езиците
+import { Menu, X, Globe } from "lucide-react";
 import { useState } from "react";
 import { Link } from "wouter";
-import { useLanguage } from "@/contexts/LanguageContext"; // Импорт на твоя контекст
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
-  const { language, setLanguage, t } = useLanguage(); // Използваме твоите функции
+  const { language, setLanguage, t } = useLanguage();
 
   const scrollToSection = (id: string) => {
     if (window.location.pathname === "/") {
@@ -17,14 +17,12 @@ export default function Navigation() {
     setIsOpen(false);
   };
 
-  // Превеждаме етикетите чрез функцията t('') от твоя файл
+  // ОБНОВЕНИ КЛЮЧОВЕ: Всички са с долни черти, за да съвпадат с LanguageContext
   const navItems = [
-    { label: t('nav.beach'), id: "about" },
     { label: t('nav_bar'), id: "bar" },
-    { label: t('nav.prices'), id: "prices" },
-    { label: t('nav.gallery'), id: "gallery" },
-    { label: t('nav.promotions'), id: "promotions" },
-    { label: t('nav.reservations'), id: "reservations" },
+    { label: t('nav_prices'), id: "prices" },
+    { label: t('nav_gallery'), id: "gallery" },
+    { label: t('nav_reservations'), id: "reservations" },
   ];
 
   return (
@@ -57,11 +55,11 @@ export default function Navigation() {
             </button>
           ))}
           
-          {/* ПРЕВКЛЮЧВАТЕЛ НА ЕЗИЦИ */}
+          {/* ПРЕВКЛЮЧВАТЕЛ НА ЕЗИЦИ (Desktop) */}
           <div className="flex items-center gap-1 bg-gray-100 rounded-full p-1 ml-2">
             <button
               onClick={() => setLanguage('bg')}
-              className={`px-2 py-1 rounded-full text-[10px] font-bold transition-all ${
+              className={`px-3 py-1 rounded-full text-[11px] font-bold transition-all ${
                 language === 'bg' ? 'bg-amber-600 text-white shadow-sm' : 'text-gray-500 hover:text-amber-600'
               }`}
             >
@@ -69,7 +67,7 @@ export default function Navigation() {
             </button>
             <button
               onClick={() => setLanguage('en')}
-              className={`px-2 py-1 rounded-full text-[10px] font-bold transition-all ${
+              className={`px-3 py-1 rounded-full text-[11px] font-bold transition-all ${
                 language === 'en' ? 'bg-amber-600 text-white shadow-sm' : 'text-gray-500 hover:text-amber-600'
               }`}
             >
@@ -79,14 +77,13 @@ export default function Navigation() {
 
           <Link href="/menu">
             <button className="bg-amber-600 text-white px-5 py-2 rounded-xl hover:bg-amber-700 transition-all shadow-md font-bold text-sm">
-              {t('nav.menu')} 🍹
+              {t('nav_menu')} 🍹
             </button>
           </Link>
         </div>
 
         {/* Mobile Button Group */}
         <div className="md:hidden flex items-center gap-3">
-          {/* Мобилен превключвател на език */}
           <button 
             onClick={() => setLanguage(language === 'bg' ? 'en' : 'bg')}
             className="flex items-center gap-1 text-xs font-bold text-amber-600 border border-amber-200 px-2 py-1 rounded-lg uppercase"
@@ -103,9 +100,9 @@ export default function Navigation() {
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu Content */}
       {isOpen && (
-        <div className="md:hidden bg-white border-t p-4 space-y-1 shadow-inner">
+        <div className="md:hidden bg-white border-t p-4 space-y-1 shadow-inner animate-in slide-in-from-top duration-300">
           {navItems.map((item) => (
             <button 
               key={item.id} 
@@ -119,7 +116,7 @@ export default function Navigation() {
           <div className="pt-3">
             <Link href="/menu">
               <button className="block w-full text-center p-4 bg-amber-600 text-white rounded-xl font-bold shadow-md">
-                {t('nav.menu')} 🍹
+                {t('nav_menu')} 🍹
               </button>
             </Link>
           </div>
