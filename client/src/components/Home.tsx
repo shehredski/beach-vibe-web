@@ -6,29 +6,34 @@ import Promotions from "@/components/Promotions";
 import Booking from "@/components/Booking"; 
 import Location from "@/components/Location";
 import Footer from "@/components/Footer";
-import { useLanguage } from "@/contexts/LanguageContext"; // Единственото ново нещо тук
 
 export default function Home() {
-  // Вземаме t, за да можем да го ползваме, ако решим да пишем текст директно тук
-  const { t } = useLanguage(); 
-
   return (
     <div className="min-h-screen bg-background text-foreground">
-      {/* Навигацията вече има бутоните BG/EN вътре в себе си */}
       <Navigation />
       
+      {/* Начало / Hero */}
       <section id="hero">
         <Hero />
       </section>
 
+      {/* За плажа & Цени (Обикновено са в About или отделни части на About) */}
       <section id="about">
         <About />
       </section>
 
-      {/* Секциите bar и prices обикновено са част от About.tsx, 
-          затова тук ги оставяме само като празни котви (ID-та) за скрол */}
-      <div id="bar" />
-      <div id="prices" />
+      {/* Барът - Ако описанието на бара е вътре в About, това ще ни отведе там */}
+      <section id="bar">
+        {/* Тук можеш да добавиш специфичен компонент за бара, ако имаш, 
+            но засега го насочваме към секцията About */}
+      </section>
+
+      {/* Цени - Тъй като таблицата ти е в CONTENT.md и се рендерира в някой компонент, 
+          слагаме ID-то тук. Ако цените са част от About, кликът ще те прати там. */}
+      <section id="prices">
+        {/* Ако имаш отделен компонент за цени, сложи го тук. 
+            Ако са в About, остави го така или го премести под About */}
+      </section>
 
       <section id="gallery">
         <Gallery />

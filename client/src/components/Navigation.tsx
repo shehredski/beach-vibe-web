@@ -1,11 +1,9 @@
-import { Menu, X, Globe } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { Link } from "wouter";
-import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
-  const { language, setLanguage, t } = useLanguage();
 
   const scrollToSection = (id: string) => {
     if (window.location.pathname === "/") {
@@ -17,19 +15,20 @@ export default function Navigation() {
     setIsOpen(false);
   };
 
-  // ОБНОВЕНИ КЛЮЧОВЕ: Всички са с долни черти, за да съвпадат с LanguageContext
   const navItems = [
-    { label: t('nav_bar'), id: "bar" },
-    { label: t('nav_prices'), id: "prices" },
-    { label: t('nav_gallery'), id: "gallery" },
-    { label: t('nav_reservations'), id: "reservations" },
+    { label: "За плажа", id: "about" },
+    { label: "Барът", id: "bar" },
+    { label: "Цени", id: "prices" },
+    { label: "Галерия", id: "gallery" },
+    { label: "Промоции", id: "promotions" },
+    { label: "Резервации", id: "reservations" },
   ];
 
   return (
     <nav className="sticky top-0 z-50 bg-white shadow-lg">
       <div className="container max-w-7xl mx-auto px-4 py-4 md:py-5 flex items-center justify-between">
         
-        {/* ЛОГО СЕКЦИЯ */}
+        {/* ЛОГО СЕКЦИЯ - УВЕЛИЧЕНА */}
         <Link href="/">
           <div className="flex items-center gap-3 cursor-pointer group">
             <img 
@@ -44,53 +43,32 @@ export default function Navigation() {
         </Link>
 
         {/* Desktop Menu */}
-        <div className="hidden md:flex items-center gap-4 lg:gap-6">
+        <div className="hidden md:flex items-center gap-6 lg:gap-8">
           {navItems.map((item) => (
             <button 
               key={item.id} 
               onClick={() => scrollToSection(item.id)} 
-              className="text-gray-700 hover:text-amber-600 transition-colors font-semibold whitespace-nowrap text-sm lg:text-base"
+              className="text-gray-700 hover:text-amber-600 transition-colors font-semibold whitespace-nowrap"
             >
               {item.label}
             </button>
           ))}
           
-          {/* ПРЕВКЛЮЧВАТЕЛ НА ЕЗИЦИ (Desktop) */}
-          <div className="flex items-center gap-1 bg-gray-100 rounded-full p-1 ml-2">
-            <button
-              onClick={() => setLanguage('bg')}
-              className={`px-3 py-1 rounded-full text-[11px] font-bold transition-all ${
-                language === 'bg' ? 'bg-amber-600 text-white shadow-sm' : 'text-gray-500 hover:text-amber-600'
-              }`}
-            >
-              BG
+          <Link href="/events">
+            <button className="text-gray-700 hover:text-amber-600 transition-colors font-semibold">
+              Събития
             </button>
-            <button
-              onClick={() => setLanguage('en')}
-              className={`px-3 py-1 rounded-full text-[11px] font-bold transition-all ${
-                language === 'en' ? 'bg-amber-600 text-white shadow-sm' : 'text-gray-500 hover:text-amber-600'
-              }`}
-            >
-              EN
-            </button>
-          </div>
+          </Link>
 
           <Link href="/menu">
-            <button className="bg-amber-600 text-white px-5 py-2 rounded-xl hover:bg-amber-700 transition-all shadow-md font-bold text-sm">
-              {t('nav_menu')} 🍹
+            <button className="bg-amber-600 text-white px-6 py-2.5 rounded-xl hover:bg-amber-700 transition-all shadow-md hover:shadow-xl active:scale-95 font-bold">
+              Меню 🍹
             </button>
           </Link>
         </div>
 
-        {/* Mobile Button Group */}
-        <div className="md:hidden flex items-center gap-3">
-          <button 
-            onClick={() => setLanguage(language === 'bg' ? 'en' : 'bg')}
-            className="flex items-center gap-1 text-xs font-bold text-amber-600 border border-amber-200 px-2 py-1 rounded-lg uppercase"
-          >
-            <Globe size={14} /> {language}
-          </button>
-
+        {/* Mobile Button */}
+        <div className="md:hidden flex items-center">
           <button 
             onClick={() => setIsOpen(!isOpen)}
             className="text-gray-600 hover:text-amber-600 p-2"
@@ -100,9 +78,9 @@ export default function Navigation() {
         </div>
       </div>
 
-      {/* Mobile Menu Content */}
+      {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden bg-white border-t p-4 space-y-1 shadow-inner animate-in slide-in-from-top duration-300">
+        <div className="md:hidden bg-white border-t p-4 space-y-1 shadow-inner">
           {navItems.map((item) => (
             <button 
               key={item.id} 
@@ -112,11 +90,15 @@ export default function Navigation() {
               {item.label}
             </button>
           ))}
-          
+          <Link href="/events">
+            <button className="block w-full text-left p-4 text-gray-700 hover:bg-amber-50 rounded-xl font-medium">
+              Събития
+            </button>
+          </Link>
           <div className="pt-3">
             <Link href="/menu">
               <button className="block w-full text-center p-4 bg-amber-600 text-white rounded-xl font-bold shadow-md">
-                {t('nav_menu')} 🍹
+                Виж Менюто 🍹
               </button>
             </Link>
           </div>
