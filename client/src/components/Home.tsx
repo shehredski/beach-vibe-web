@@ -6,8 +6,11 @@ import Promotions from "@/components/Promotions";
 import Booking from "@/components/Booking"; 
 import Location from "@/components/Location";
 import Footer from "@/components/Footer";
+import { useLanguage } from "@/contexts/LanguageContext"; // Импортираме езика
 
 export default function Home() {
+  const { t } = useLanguage(); // Вземаме функцията за превод, ако ни трябва тук
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Navigation />
@@ -17,22 +20,19 @@ export default function Home() {
         <Hero />
       </section>
 
-      {/* За плажа & Цени (Обикновено са в About или отделни части на About) */}
+      {/* За плажа & Цени */}
       <section id="about">
         <About />
       </section>
 
-      {/* Барът - Ако описанието на бара е вътре в About, това ще ни отведе там */}
+      {/* Барът - Вече имаш ID вътре в About, така че тази празна секция е ок */}
       <section id="bar">
-        {/* Тук можеш да добавиш специфичен компонент за бара, ако имаш, 
-            но засега го насочваме към секцията About */}
+        {/* Ако искаш специфично заглавие тук: <h2 className="hidden">{t('bar.title')}</h2> */}
       </section>
 
-      {/* Цени - Тъй като таблицата ти е в CONTENT.md и се рендерира в някой компонент, 
-          слагаме ID-то тук. Ако цените са част от About, кликът ще те прати там. */}
+      {/* Цени */}
       <section id="prices">
-        {/* Ако имаш отделен компонент за цени, сложи го тук. 
-            Ако са в About, остави го така или го премести под About */}
+        {/* Ако цените са в About, този ID ще работи за скрол */}
       </section>
 
       <section id="gallery">
