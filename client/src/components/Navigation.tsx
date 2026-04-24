@@ -20,7 +20,7 @@ export default function Navigation() {
   // Превеждаме етикетите чрез функцията t('') от твоя файл
   const navItems = [
     { label: t('nav.beach'), id: "about" },
-    { label: t('nav.bar'), id: "bar" },
+    { label: t('nav_bar'), id: "bar" },
     { label: t('nav.prices'), id: "prices" },
     { label: t('nav.gallery'), id: "gallery" },
     { label: t('nav.promotions'), id: "promotions" },
