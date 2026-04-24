@@ -94,7 +94,7 @@ export default function About() {
                 <p className="font-bold text-gray-800">4.9/5 в Google Maps</p>
               </div>
               <a 
-                href="https://www.google.com/maps" 
+                href="https://maps.app.goo.gl/SYJPxZ2FNkqGTTQD7" 
                 target="_blank" 
                 className="bg-blue-900 text-white px-6 py-3 rounded-xl font-bold hover:bg-blue-800 transition-colors text-sm"
               >
