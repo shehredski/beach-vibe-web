@@ -1,6 +1,9 @@
 import React from 'react';
 
 export default function About() {
+  // Универсалният линк към твоя профил, който съдържа и отзивите, и навигацията
+  const googleMapsLink = "https://www.google.com/maps/place/Beach+Vibe/@43.2736111,28.0027778,17z/data=!4m8!3m7!1s0x40a4adbfa3c5874f:0xe1868369abd7bb40!8m2!3d43.2736111!4d28.0027778!9m1!1b1!16s%2Fg%2F11vsw09v_k";
+
   return (
     <section id="about" className="py-20 bg-white">
       <div className="container mx-auto px-4">
@@ -82,10 +85,10 @@ export default function About() {
               <p className="text-gray-500 text-sm mb-6 border-l-2 border-amber-400 pl-4 italic">
                 Всички услуги могат да бъдат заплатени на място. Работим всеки ден от 08:00 до 20:00 ч.
               </p>
-              {/* Автоматична таблица от CONTENT.md */}
+              {/* Тук ще се зареди твоята таблица */}
             </div>
 
-            {/* GOOGLE TRUST БАДЖ С РЕАЛНИ ЛИНКОВЕ */}
+            {/* GOOGLE TRUST БАДЖ - ФИКСИРАН (БЕЗ 404 ГРЕШКИ) */}
             <div className="bg-white p-6 rounded-2xl shadow-md border border-gray-100">
               <div className="flex items-center justify-between mb-4">
                 <div>
@@ -95,7 +98,7 @@ export default function About() {
                   <p className="font-bold text-gray-800 italic">4.9/5 в Google Maps</p>
                 </div>
                 <a 
-                  href="https://www.google.com/maps/dir/?api=1&destination=Beach+Vibe+Camping+Laguna" 
+                  href={googleMapsLink} 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="bg-blue-900 text-white px-5 py-2.5 rounded-xl font-bold hover:bg-blue-800 transition-colors text-sm shadow-lg shadow-blue-900/20"
@@ -104,12 +107,12 @@ export default function About() {
                 </a>
               </div>
               <a 
-                href="https://search.google.com/local/writereview?placeid=ChIJT4fF_6-nt0ARQLuXq2mDhuE"
+                href={googleMapsLink}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block w-full text-center py-3 bg-amber-50 text-amber-700 rounded-xl font-bold border border-amber-200 hover:bg-amber-100 transition-all text-sm"
               >
-                Хареса ли ти при нас? Остави отзив ⭐
+                Виж нашите реални отзиви ⭐
               </a>
             </div>
 
