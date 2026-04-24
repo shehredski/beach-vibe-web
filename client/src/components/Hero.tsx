@@ -1,86 +1,51 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from "wouter";
-import { useLanguage } from "@/contexts/LanguageContext"; // Импортираме контекста
+import React from 'react';
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function Hero() {
-  const { language, t } = useLanguage(); // Вземаме езика и функцията за превод
-  const [displayedText, setDisplayedText] = useState('');
-  
-  // Вземаме текстовете динамично от твоя LanguageContext.tsx
-  const typewriterText = t('hero.tagline'); 
-  const staticSubtext = t('about.description'); // Или друг ключ, който си избрал за подтекст
-
-  useEffect(() => {
-    // Рестартираме текста при смяна на езика
-    setDisplayedText(''); 
-    let index = 0;
-    
-    const interval = setInterval(() => {
-      if (index < typewriterText.length) {
-        setDisplayedText(typewriterText.slice(0, index + 1));
-        index++;
-      } else {
-        clearInterval(interval);
-      }
-    }, 90);
-
-    return () => clearInterval(interval);
-  }, [language, typewriterText]); // Следим за промяна на езика!
+  const { t } = useLanguage();
 
   return (
-    <section
-      id="hero"
-      className="relative h-screen flex items-center justify-center overflow-hidden"
-    >
-      {/* ВИДЕО ФОН */}
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        poster="https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/BOB_3999_f882c966.webp"
-        className="absolute inset-0 w-full h-full object-cover z-0 brightness-90 contrast-110"
-      >
-        <source src="/beach-video.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
-
-      {/* OVERLAY */}
-      <div className="absolute inset-0 bg-black/50 z-10"></div>
-
-      {/* СЪДЪРЖАНИЕ */}
-      <div className="relative z-20 text-center px-4 max-w-5xl mx-auto">
-        
-        {/* Анимираното заглавие */}
-        <h1 className="text-5xl md:text-8xl font-bold text-white mb-6 drop-shadow-2xl min-h-[1.2em]">
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-amber-100">
-            {displayedText}
-          </span>
-          <span className="animate-pulse text-amber-500">|</span>
-        </h1>
-        
-        {/* Статичният подтекст */}
-        <p className="text-xl md:text-3xl text-white/95 mb-10 drop-shadow-md max-w-4xl mx-auto font-light italic leading-relaxed animate-fade-in duration-1000">
-          {staticSubtext}
-        </p>
-        
-        <div className="flex flex-col md:flex-row gap-6 justify-center items-center">
-          <a
-            href="#reservations"
-            className="w-full md:w-auto inline-block bg-amber-600 hover:bg-amber-700 text-white font-bold py-4 px-12 rounded-full text-xl transition-all duration-300 transform hover:scale-110 shadow-[0_0_30px_rgba(217,119,6,0.5)]"
-          >
-            {t('hero.cta')} 🏖️
-          </a>
-
-          <Link href="/menu">
-            <button className="w-full md:w-auto inline-block bg-white/10 hover:bg-white/20 text-white border-2 border-white/30 font-bold py-4 px-12 rounded-full text-xl backdrop-blur-md transition-all duration-300 transform hover:scale-110 shadow-xl">
-              {t('nav.menu')} 🍹
-            </button>
-          </Link>
-        </div>
+    <section className="relative h-[80vh] flex items-center justify-center text-white overflow-hidden">
+      {/* Background Video/Image би трябвало да е тук */}
+      <div className="absolute inset-0 z-0">
+        <video 
+          autoPlay 
+          muted 
+          loop 
+          className="w-full h-full object-cover brightness-50"
+        >
+          <source src="/beach-video.mp4" type="video/mp4" />
+        </video>
       </div>
 
-      <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-background via-background/40 to-transparent z-10"></div>
+      <div className="container mx-auto px-4 z-10 text-center">
+        <h1 className="text-5xl md:text-7xl font-bold mb-6 drop-shadow-lg">
+          {/* СМЕНЕНО: От hero.tagline на title_main */}
+          {t('title_main')}
+        </h1>
+        
+        <p className="text-xl md:text-2xl mb-12 max-w-2xl mx-auto font-light italic drop-shadow-md">
+          {/* СМЕНЕНО: От about.description на title_sub */}
+          {t('title_sub')}
+        </p>
+
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <button 
+            onClick={() => document.getElementById('reservations')?.scrollIntoView({ behavior: 'smooth' })}
+            className="bg-amber-600 hover:bg-amber-700 text-white px-8 py-4 rounded-full font-bold text-lg transition-all transform hover:scale-105 shadow-xl"
+          >
+            {/* Тук можеш да добавиш ключ в LanguageContext за бутона, напр. t('nav_reservations') */}
+            {t('nav_reservations')} 🏖️
+          </button>
+          
+          <button 
+            onClick={() => window.location.href = '/menu'}
+            className="bg-white/20 hover:bg-white/30 backdrop-blur-md text-white border-2 border-white/50 px-8 py-4 rounded-full font-bold text-lg transition-all"
+          >
+            {t('nav_menu')} 🍹
+          </button>
+        </div>
+      </div>
     </section>
   );
 }
