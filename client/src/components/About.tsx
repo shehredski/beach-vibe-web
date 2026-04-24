@@ -1,8 +1,8 @@
 import React from 'react';
 import { useLanguage } from "@/contexts/LanguageContext";
-// ВНИМАНИЕ: Увери се, че тези пътища са правилни според твоята структура
-// import Events from './Events'; 
-// import Promotions from './Promotions';
+// Твоите SQL компоненти
+import Events from './Events';
+import Promotions from './Promotions';
 
 export default function About() {
   const { language, t } = useLanguage();
@@ -10,6 +10,7 @@ export default function About() {
   const googleMapsUrl = "https://www.google.com/maps/dir/?api=1&destination=Beach+Vibe+Camping+Laguna";
   const googleReviewsUrl = "https://www.google.com/search?q=Beach+Vibe+Varna+Reviews#lrd=0x40a4adb7ffc5874f:0xe1868369ab97bb40,1,,,";
 
+  // Пълният списък с ревюта
   const reviews = language === 'bg' ? [
     { name: "Ivan P.", text: "Страхотно място, супер обслужване и уникална атмосфера!", stars: 5 },
     { name: "Maria S.", text: "Най-добрите коктейли на северното черноморие. Мохитото е топ!", stars: 5 },
@@ -24,33 +25,30 @@ export default function About() {
     <section id="about" className="py-20 bg-white">
       <div className="container mx-auto px-4">
         
-        {/* ДИНАМИЧНА СЕКЦИЯ: ПРОМОЦИИ И СЪБИТИЯ (SQL DATA) */}
-        <div className="mb-20 grid md:grid-cols-2 gap-8">
-          <div id="promotions" className="scroll-mt-28 bg-gradient-to-br from-amber-50 to-orange-100 p-8 rounded-[2rem] border border-amber-200 shadow-sm">
+        {/* 1. ДИНАМИЧНИ СЕКЦИИ (SQL / ADMIN PANEL) */}
+        <div className="grid md:grid-cols-2 gap-8 mb-20">
+          <div id="promotions" className="scroll-mt-28 bg-gradient-to-br from-amber-50 to-orange-50 p-8 rounded-[2rem] border border-amber-100 shadow-sm">
             <h3 className="text-2xl font-bold text-amber-900 mb-6 flex items-center gap-2">
-              🔥 {language === 'bg' ? "Актуални Промоции" : "Current Promotions"}
+              🔥 {t('nav_promotions')}
             </h3>
-            {/* ТУК Е ТВОЯТА SQL ЛОГИКА / КОМПОНЕНТ */}
-            <div className="min-h-[100px] flex items-center justify-center border-2 border-dashed border-amber-300 rounded-xl">
-               <p className="text-amber-800 font-medium">{t('promotions_loading_or_empty')}</p>
-            </div>
+            <Promotions />
           </div>
 
-          <div id="events" className="scroll-mt-28 bg-gradient-to-br from-blue-50 to-indigo-100 p-8 rounded-[2rem] border border-blue-200 shadow-sm">
+          <div id="events" className="scroll-mt-28 bg-gradient-to-br from-blue-50 to-indigo-50 p-8 rounded-[2rem] border border-blue-100 shadow-sm">
             <h3 className="text-2xl font-bold text-blue-900 mb-6 flex items-center gap-2">
-              📅 {language === 'bg' ? "Предстоящи Събития" : "Upcoming Events"}
+              📅 {t('nav_events')}
             </h3>
-            {/* ТУК Е ТВОЯТА SQL ЛОГИКА / КОМПОНЕНТ */}
-            <div className="min-h-[100px] flex items-center justify-center border-2 border-dashed border-blue-300 rounded-xl">
-               <p className="text-blue-800 font-medium">{t('events_loading_or_empty')}</p>
-            </div>
+            <Events />
           </div>
         </div>
 
+        {/* 2. ОСНОВНО СЪДЪРЖАНИЕ */}
         <div className="grid md:grid-cols-2 gap-16 items-start">
+          
+          {/* ЛЯВА КОЛОНА */}
           <div className="space-y-12">
-            {/* ОПИСАНИЕ */}
-            <div className="bg-slate-50 p-8 rounded-3xl">
+            {/* ТЕКСТОВО ОПИСАНИЕ */}
+            <div className="bg-slate-50 p-8 rounded-3xl border border-slate-100">
               <p className="text-xl text-gray-700 leading-relaxed mb-6 font-light italic">
                 "{t('about_text_1')}"
               </p>
@@ -66,12 +64,12 @@ export default function About() {
               </h3>
               <div className="flex gap-4 overflow-x-auto pb-4 no-scrollbar">
                 {reviews.map((review, index) => (
-                  <div key={index} className="min-w-[280px] p-6 bg-white rounded-3xl border border-gray-100 shadow-sm">
+                  <div key={index} className="min-w-[280px] p-6 bg-white rounded-3xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
                     <div className="flex text-amber-400 mb-2 text-sm">
                       {[...Array(review.stars)].map((_, i) => <span key={i}>★</span>)}
                     </div>
-                    <p className="text-gray-700 text-sm italic mb-4">"{review.text}"</p>
-                    <p className="text-blue-900 font-bold text-xs uppercase">— {review.name}</p>
+                    <p className="text-gray-700 text-sm italic mb-4 leading-relaxed">"{review.text}"</p>
+                    <p className="text-blue-900 font-bold text-xs uppercase tracking-wider">— {review.name}</p>
                   </div>
                 ))}
               </div>
@@ -84,14 +82,14 @@ export default function About() {
               </h3>
               <div className="flex gap-4 overflow-x-auto pb-4 no-scrollbar">
                 {[
-                  { emoji: "🍸", name: "Mojito", desc: language === 'bg' ? "Свежа мента" : "Fresh mint" },
-                  { emoji: "🍹", name: "Aperol", desc: language === 'bg' ? "Класика" : "Classic" },
-                  { emoji: "🥥", name: "Beach Vibe", desc: language === 'bg' ? "Тропик" : "Tropical" }
+                  { emoji: "🍸", name: "Mojito", desc: language === 'bg' ? "Свежа мента и лайм" : "Fresh mint and lime" },
+                  { emoji: "🍹", name: "Aperol Spritz", desc: language === 'bg' ? "Нашият летен подпис" : "Our summer signature" },
+                  { emoji: "🥥", name: "Beach Vibe", desc: language === 'bg' ? "Тропически рай" : "Tropical paradise" }
                 ].map((drink, index) => (
-                  <div key={index} className="min-w-[150px] p-5 bg-amber-50/50 rounded-3xl text-center border border-amber-100">
+                  <div key={index} className="min-w-[150px] p-5 bg-gradient-to-br from-amber-50/50 to-orange-50/50 rounded-3xl text-center border border-amber-100/50">
                     <span className="text-4xl block mb-2">{drink.emoji}</span>
-                    <h4 className="font-bold text-gray-800 text-sm">{drink.name}</h4>
-                    <p className="text-[10px] text-gray-500 uppercase tracking-widest">{drink.desc}</p>
+                    <h4 className="font-bold text-gray-800 text-sm mb-1">{drink.name}</h4>
+                    <p className="text-[10px] text-gray-500 uppercase tracking-widest font-medium">{drink.desc}</p>
                   </div>
                 ))}
               </div>
@@ -100,25 +98,57 @@ export default function About() {
 
           {/* ДЯСНА КОЛОНА */}
           <div className="space-y-8 sticky top-24">
-            <div id="prices" className="bg-white rounded-[2rem] p-8 shadow-2xl border border-gray-50 scroll-mt-28">
-              <h3 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">🏖️ {t('season_prices')}</h3>
+            {/* ЦЕНИ */}
+            <div id="prices" className="bg-white rounded-3xl p-8 shadow-2xl border border-gray-100 scroll-mt-28">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="bg-amber-100 p-3 rounded-full text-2xl animate-pulse">🏖️</div>
+                <h3 className="text-2xl font-bold text-gray-800">{t('season_prices')}</h3>
+              </div>
               <div className="space-y-4 mb-6">
-                 <div className="flex justify-between font-medium"><span>{language === 'bg' ? "Шезлонг" : "Sun Lounger"}</span><span>10.00 лв.</span></div>
-                 <div className="flex justify-between font-medium"><span>{language === 'bg' ? "Чадър" : "Umbrella"}</span><span>10.00 лв.</span></div>
-                 <div className="flex justify-between font-bold text-amber-600 bg-amber-50 p-2 rounded-lg"><span>{language === 'bg' ? "Комплект" : "Set"}</span><span>30.00 лв.</span></div>
+                <div className="flex justify-between items-center py-2 border-b border-gray-50">
+                  <span className="text-gray-600">{language === 'bg' ? "Шезлонг" : "Sun Lounger"}</span>
+                  <span className="font-bold text-blue-900">10.00 лв.</span>
+                </div>
+                <div className="flex justify-between items-center py-2 border-b border-gray-50">
+                  <span className="text-gray-600">{language === 'bg' ? "Чадър" : "Umbrella"}</span>
+                  <span className="font-bold text-blue-900">10.00 лв.</span>
+                </div>
+                <div className="flex justify-between items-center py-3 bg-amber-50 px-4 rounded-xl font-bold text-amber-700">
+                  <span>{language === 'bg' ? "Комплект (2+1)" : "Set (2+1)"}</span>
+                  <span>30.00 лв.</span>
+                </div>
               </div>
               <p className="text-gray-500 text-xs italic">{t('currency_note')}</p>
             </div>
 
-            <div className="bg-white p-6 rounded-2xl shadow-md border border-gray-100 text-center">
-               <a href={googleMapsUrl} target="_blank" className="bg-blue-900 text-white block w-full py-3 rounded-xl font-bold mb-4 shadow-lg">📍 {t('directions')}</a>
-               <a href={googleReviewsUrl} target="_blank" className="text-amber-700 font-bold text-sm underline">{t('read_reviews')}</a>
+            {/* GOOGLE TRUST БАДЖ */}
+            <div className="bg-white p-6 rounded-2xl shadow-md border border-gray-100">
+              <div className="flex items-center justify-between mb-4">
+                <div>
+                  <div className="flex text-amber-400 mb-1">
+                    {[...Array(5)].map((_, i) => <span key={i} className="text-xl">★</span>)}
+                  </div>
+                  <p className="font-bold text-gray-800 text-sm">4.9/5 Google Maps</p>
+                </div>
+                <a href={googleMapsUrl} target="_blank" rel="noopener noreferrer" className="bg-blue-900 text-white px-5 py-2.5 rounded-xl font-bold text-sm shadow-lg">
+                  📍 {t('directions')}
+                </a>
+              </div>
+              <a href={googleReviewsUrl} target="_blank" rel="noopener noreferrer" className="block w-full text-center py-3 bg-amber-50 text-amber-700 rounded-xl font-bold border border-amber-200 text-sm">
+                {t('read_reviews')}
+              </a>
             </div>
 
-            <div className="rounded-3xl overflow-hidden shadow-xl border-4 border-white">
-              <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/instagram_beach_setup_73f4ca96.webp" alt="Beach" className="w-full h-[250px] object-cover" />
+            {/* СНИМКА */}
+            <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
+              <img
+                src="https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/instagram_beach_setup_73f4ca96.webp"
+                alt="Beach Setup"
+                className="w-full h-[300px] object-cover"
+              />
             </div>
           </div>
+
         </div>
       </div>
     </section>
