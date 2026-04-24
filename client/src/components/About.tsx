@@ -1,8 +1,9 @@
 import React from 'react';
 
 export default function About() {
-  // Универсалният линк към твоя профил, който съдържа и отзивите, и навигацията
-  const googleMapsLink = "https://www.google.com/maps/place/Beach+Vibe/@43.2736111,28.0027778,17z/data=!4m8!3m7!1s0x40a4adbfa3c5874f:0xe1868369abd7bb40!8m2!3d43.2736111!4d28.0027778!9m1!1b1!16s%2Fg%2F11vsw09v_k";
+  // Твоите реални линкове от Google Maps
+  const googleMapsUrl = "https://www.google.com/maps/dir/?api=1&destination=Beach+Vibe+Camping+Laguna";
+  const googleReviewsUrl = "https://www.google.com/search?q=Beach+Vibe+Varna+Reviews#lrd=0x40a4adb7ffc5874f:0xe1868369ab97bb40,1,,,";
 
   return (
     <section id="about" className="py-20 bg-white">
@@ -48,7 +49,7 @@ export default function About() {
               </div>
             </div>
 
-            {/* FAQ СЕКЦИЯ - ВДИГА РЕЙТИНГА В GOOGLE */}
+            {/* FAQ СЕКЦИЯ */}
             <div className="bg-blue-50/50 p-8 rounded-3xl border border-blue-100">
               <h3 className="text-xl font-bold text-blue-900 mb-6">Често задавани въпроси</h3>
               <div className="space-y-4">
@@ -85,20 +86,19 @@ export default function About() {
               <p className="text-gray-500 text-sm mb-6 border-l-2 border-amber-400 pl-4 italic">
                 Всички услуги могат да бъдат заплатени на място. Работим всеки ден от 08:00 до 20:00 ч.
               </p>
-              {/* Тук ще се зареди твоята таблица */}
             </div>
 
-            {/* GOOGLE TRUST БАДЖ - ФИКСИРАН (БЕЗ 404 ГРЕШКИ) */}
+            {/* GOOGLE TRUST БАДЖ С РЕАЛНИ ЛИНКОВЕ */}
             <div className="bg-white p-6 rounded-2xl shadow-md border border-gray-100">
               <div className="flex items-center justify-between mb-4">
                 <div>
                   <div className="flex text-amber-400 mb-1">
-                    {[...Array(5)].map((_, i) => <span key={i}>★</span>)}
+                    {[...Array(5)].map((_, i) => <span key={i} className="text-xl">★</span>)}
                   </div>
                   <p className="font-bold text-gray-800 italic">4.9/5 в Google Maps</p>
                 </div>
                 <a 
-                  href={googleMapsLink} 
+                  href={googleMapsUrl} 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="bg-blue-900 text-white px-5 py-2.5 rounded-xl font-bold hover:bg-blue-800 transition-colors text-sm shadow-lg shadow-blue-900/20"
@@ -107,7 +107,7 @@ export default function About() {
                 </a>
               </div>
               <a 
-                href={googleMapsLink}
+                href={googleReviewsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block w-full text-center py-3 bg-amber-50 text-amber-700 rounded-xl font-bold border border-amber-200 hover:bg-amber-100 transition-all text-sm"
@@ -116,7 +116,7 @@ export default function About() {
               </a>
             </div>
 
-            {/* СНИМКА С ЕФЕКТ */}
+            {/* СНИМКА */}
             <div className="relative group rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
               <div className="absolute -inset-1 bg-gradient-to-r from-amber-400 to-blue-500 opacity-25 group-hover:opacity-40 transition duration-1000"></div>
               <img
