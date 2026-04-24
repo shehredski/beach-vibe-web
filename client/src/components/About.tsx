@@ -1,3 +1,10 @@
+import { useLanguage } from "../App"; // провери пътя до App
+
+// Вътре в компонента:
+const { lang, setLang } = useLanguage();
+
+// И после използваш проверка:
+<h1>{lang === 'bg' ? 'Повече от плаж' : 'More than a beach'}</h1>
 import React from 'react';
 
 export default function About() {
