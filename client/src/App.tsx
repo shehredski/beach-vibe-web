@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext } from "react";
+import React from "react";
 import EventsPage from "@/components/EventsPage";
 import { Route, Switch } from "wouter";
 import Home from "@/components/Home";
@@ -9,13 +9,8 @@ import { TooltipProvider } from "./components/ui/tooltip";
 import { Toaster } from "@/components/ui/sonner";
 import ErrorBoundary from "./components/ErrorBoundary";
 import AdminEvents from "./pages/AdminEvents";
-
-// 1. Създаваме контекст за езика, за да е достъпен навсякъде
-export type Language = 'bg' | 'en';
-export const LanguageContext = createContext<{
-  lang: Language;
-  setLang: (l: Language) => void;
-}>({ lang: 'bg', setLang: () => {} });
+// ИМПОРТИРАМЕ ПРОВАЙДЪРА ОТ ОТДЕЛНИЯ ФАЙЛ
+import { LanguageProvider } from "./contexts/LanguageContext"; 
 
 function Router() {
   return (
@@ -30,23 +25,17 @@ function Router() {
 }
 
 export default function App() {
-  // 2. Стейт за езика - по подразбиране е български
-  const [lang, setLang] = useState<Language>('bg');
-
   return (
     <ErrorBoundary>
-      {/* 3. Опаковаме всичко в LanguageContext.Provider */}
-      <LanguageContext.Provider value={{ lang, setLang }}>
+      {/* Първо обвиваме с езика, после всичко останало */}
+      <LanguageProvider>
         <ThemeProvider defaultTheme="light">
           <TooltipProvider>
             <Toaster />
             <Router />
           </TooltipProvider>
         </ThemeProvider>
-      </LanguageContext.Provider>
+      </LanguageProvider>
     </ErrorBoundary>
   );
 }
-
-// 4. Помощна кука, която ще ползваш в Home, About и Navbar
-export const useLanguage = () => useContext(LanguageContext);
