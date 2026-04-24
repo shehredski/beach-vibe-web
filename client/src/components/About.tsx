@@ -59,7 +59,7 @@ export default function About() {
                   </div>
                 </details>
                 <details className="group bg-white rounded-2xl shadow-sm overflow-hidden transition-all">
-                  <summary className="p-4 cursor-pointer font-medium text-gray-700 flex justify-between items-center list-none">
+                  <summary className="p-4 cursor-pointer font-medium text-gray-800 flex justify-between items-center list-none">
                     Има ли осигурен паркинг?
                     <span className="group-open:rotate-180 transition-transform">▼</span>
                   </summary>
@@ -85,20 +85,31 @@ export default function About() {
               {/* Автоматична таблица от CONTENT.md */}
             </div>
 
-            {/* GOOGLE TRUST БАДЖ */}
-            <div className="flex items-center justify-between bg-white p-6 rounded-2xl shadow-md border border-gray-50">
-              <div>
-                <div className="flex text-amber-400 mb-1">
-                  {[...Array(5)].map((_, i) => <span key={i}>★</span>)}
+            {/* GOOGLE TRUST БАДЖ С РЕАЛНИ ЛИНКОВЕ */}
+            <div className="bg-white p-6 rounded-2xl shadow-md border border-gray-100">
+              <div className="flex items-center justify-between mb-4">
+                <div>
+                  <div className="flex text-amber-400 mb-1">
+                    {[...Array(5)].map((_, i) => <span key={i}>★</span>)}
+                  </div>
+                  <p className="font-bold text-gray-800 italic">4.9/5 в Google Maps</p>
                 </div>
-                <p className="font-bold text-gray-800">4.9/5 в Google Maps</p>
+                <a 
+                  href="https://www.google.com/maps/dir/?api=1&destination=Beach+Vibe+Camping+Laguna" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="bg-blue-900 text-white px-5 py-2.5 rounded-xl font-bold hover:bg-blue-800 transition-colors text-sm shadow-lg shadow-blue-900/20"
+                >
+                  📍 Упътване
+                </a>
               </div>
               <a 
-                href="https://maps.app.goo.gl/SYJPxZ2FNkqGTTQD7" 
-                target="_blank" 
-                className="bg-blue-900 text-white px-6 py-3 rounded-xl font-bold hover:bg-blue-800 transition-colors text-sm"
+                href="https://search.google.com/local/writereview?placeid=ChIJT4fF_6-nt0ARQLuXq2mDhuE"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-full text-center py-3 bg-amber-50 text-amber-700 rounded-xl font-bold border border-amber-200 hover:bg-amber-100 transition-all text-sm"
               >
-                📍 Упътване
+                Хареса ли ти при нас? Остави отзив ⭐
               </a>
             </div>
 
