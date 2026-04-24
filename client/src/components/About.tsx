@@ -1,8 +1,6 @@
 import React from 'react';
 import { useLanguage } from "@/contexts/LanguageContext";
-// Твоите SQL компоненти
-import Events from './Events';
-import Promotions from './Promotions';
+import { Link } from "wouter"; // Използваме Link за навигация към страницата със събития
 
 export default function About() {
   const { language, t } = useLanguage();
@@ -10,44 +8,52 @@ export default function About() {
   const googleMapsUrl = "https://www.google.com/maps/dir/?api=1&destination=Beach+Vibe+Camping+Laguna";
   const googleReviewsUrl = "https://www.google.com/search?q=Beach+Vibe+Varna+Reviews#lrd=0x40a4adb7ffc5874f:0xe1868369ab97bb40,1,,,";
 
-  // Пълният списък с ревюта
-  const reviews = language === 'bg' ? [
-    { name: "Ivan P.", text: "Страхотно място, супер обслужване и уникална атмосфера!", stars: 5 },
-    { name: "Maria S.", text: "Най-добрите коктейли на северното черноморие. Мохитото е топ!", stars: 5 },
-    { name: "George T.", text: "Тихо и спокойно място за почивка. Много чист плаж.", stars: 5 }
-  ] : [
-    { name: "Ivan P.", text: "Great place, super service and unique atmosphere!", stars: 5 },
-    { name: "Maria S.", text: "Best cocktails on the Northern Black Sea coast. The Mojito is top-notch!", stars: 5 },
-    { name: "George T.", text: "Quiet and peaceful place to relax. Very clean beach.", stars: 5 }
-  ];
-
   return (
     <section id="about" className="py-20 bg-white">
       <div className="container mx-auto px-4">
         
-        {/* 1. ДИНАМИЧНИ СЕКЦИИ (SQL / ADMIN PANEL) */}
+        {/* 1. СЕКЦИЯ: ЛИНКОВЕ КЪМ ТВОЯТА SQL СТРАНИЦА */}
         <div className="grid md:grid-cols-2 gap-8 mb-20">
-          <div id="promotions" className="scroll-mt-28 bg-gradient-to-br from-amber-50 to-orange-50 p-8 rounded-[2rem] border border-amber-100 shadow-sm">
-            <h3 className="text-2xl font-bold text-amber-900 mb-6 flex items-center gap-2">
-              🔥 {t('nav_promotions')}
-            </h3>
-            <Promotions />
+          <div className="bg-gradient-to-br from-amber-50 to-orange-50 p-8 rounded-[2rem] border border-amber-100 shadow-sm flex flex-col justify-between">
+            <div>
+              <h3 className="text-2xl font-bold text-amber-900 mb-4 flex items-center gap-2">
+                🔥 {t('nav_promotions')}
+              </h3>
+              <p className="text-amber-800/70 mb-6">
+                {language === 'bg' 
+                  ? "Разгледайте нашите специални летни предложения и отстъпки." 
+                  : "Check out our special summer offers and discounts."}
+              </p>
+            </div>
+            <Link href="/events">
+              <button className="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 rounded-xl transition-all">
+                {language === 'bg' ? "Виж Промоциите" : "View Promotions"}
+              </button>
+            </Link>
           </div>
 
-          <div id="events" className="scroll-mt-28 bg-gradient-to-br from-blue-50 to-indigo-50 p-8 rounded-[2rem] border border-blue-100 shadow-sm">
-            <h3 className="text-2xl font-bold text-blue-900 mb-6 flex items-center gap-2">
-              📅 {t('nav_events')}
-            </h3>
-            <Events />
+          <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-8 rounded-[2rem] border border-blue-100 shadow-sm flex flex-col justify-between">
+            <div>
+              <h3 className="text-2xl font-bold text-blue-900 mb-4 flex items-center gap-2">
+                📅 {t('nav_events')}
+              </h3>
+              <p className="text-blue-800/70 mb-6">
+                {language === 'bg' 
+                  ? "Не пропускайте най-добрите партита и събития на плажа." 
+                  : "Don't miss the best beach parties and events."}
+              </p>
+            </div>
+            <Link href="/events">
+              <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition-all">
+                {language === 'bg' ? "Към Календара" : "View Calendar"}
+              </button>
+            </Link>
           </div>
         </div>
 
-        {/* 2. ОСНОВНО СЪДЪРЖАНИЕ */}
+        {/* 2. ОСТАНАЛОТО СЪДЪРЖАНИЕ */}
         <div className="grid md:grid-cols-2 gap-16 items-start">
-          
-          {/* ЛЯВА КОЛОНА */}
           <div className="space-y-12">
-            {/* ТЕКСТОВО ОПИСАНИЕ */}
             <div className="bg-slate-50 p-8 rounded-3xl border border-slate-100">
               <p className="text-xl text-gray-700 leading-relaxed mb-6 font-light italic">
                 "{t('about_text_1')}"
@@ -57,39 +63,15 @@ export default function About() {
               </p>
             </div>
 
-            {/* РЕВЮТА */}
-            <div className="space-y-6">
-              <h3 className="text-2xl font-bold text-gray-800 flex items-center gap-3">
-                <span className="bg-amber-100 p-2 rounded-lg">💬</span> {t('reviews_title')}
-              </h3>
-              <div className="flex gap-4 overflow-x-auto pb-4 no-scrollbar">
-                {reviews.map((review, index) => (
-                  <div key={index} className="min-w-[280px] p-6 bg-white rounded-3xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                    <div className="flex text-amber-400 mb-2 text-sm">
-                      {[...Array(review.stars)].map((_, i) => <span key={i}>★</span>)}
-                    </div>
-                    <p className="text-gray-700 text-sm italic mb-4 leading-relaxed">"{review.text}"</p>
-                    <p className="text-blue-900 font-bold text-xs uppercase tracking-wider">— {review.name}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
             {/* БАР */}
             <div id="bar" className="scroll-mt-28">
               <h3 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3">
-                <span className="bg-blue-100 p-2 rounded-lg">🍹</span> {t('nav_bar')}
+                🍹 {t('nav_bar')}
               </h3>
-              <div className="flex gap-4 overflow-x-auto pb-4 no-scrollbar">
-                {[
-                  { emoji: "🍸", name: "Mojito", desc: language === 'bg' ? "Свежа мента и лайм" : "Fresh mint and lime" },
-                  { emoji: "🍹", name: "Aperol Spritz", desc: language === 'bg' ? "Нашият летен подпис" : "Our summer signature" },
-                  { emoji: "🥥", name: "Beach Vibe", desc: language === 'bg' ? "Тропически рай" : "Tropical paradise" }
-                ].map((drink, index) => (
-                  <div key={index} className="min-w-[150px] p-5 bg-gradient-to-br from-amber-50/50 to-orange-50/50 rounded-3xl text-center border border-amber-100/50">
-                    <span className="text-4xl block mb-2">{drink.emoji}</span>
-                    <h4 className="font-bold text-gray-800 text-sm mb-1">{drink.name}</h4>
-                    <p className="text-[10px] text-gray-500 uppercase tracking-widest font-medium">{drink.desc}</p>
+              <div className="flex gap-4 overflow-x-auto pb-4 no-scrollbar text-center">
+                {["Mojito", "Aperol Spritz", "Beach Vibe"].map((drink, index) => (
+                  <div key={index} className="min-w-[130px] p-5 bg-amber-50/50 rounded-3xl border border-amber-100">
+                    <h4 className="font-bold text-gray-800 text-sm">{drink}</h4>
                   </div>
                 ))}
               </div>
@@ -98,13 +80,9 @@ export default function About() {
 
           {/* ДЯСНА КОЛОНА */}
           <div className="space-y-8 sticky top-24">
-            {/* ЦЕНИ */}
-            <div id="prices" className="bg-white rounded-3xl p-8 shadow-2xl border border-gray-100 scroll-mt-28">
-              <div className="flex items-center gap-4 mb-6">
-                <div className="bg-amber-100 p-3 rounded-full text-2xl animate-pulse">🏖️</div>
-                <h3 className="text-2xl font-bold text-gray-800">{t('season_prices')}</h3>
-              </div>
-              <div className="space-y-4 mb-6">
+            <div id="prices" className="bg-white rounded-3xl p-8 shadow-xl border border-gray-100 scroll-mt-28">
+              <h3 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">🏖️ {t('season_prices')}</h3>
+              <div className="space-y-3 mb-6">
                 <div className="flex justify-between items-center py-2 border-b border-gray-50">
                   <span className="text-gray-600">{language === 'bg' ? "Шезлонг" : "Sun Lounger"}</span>
                   <span className="font-bold text-blue-900">10.00 лв.</span>
@@ -113,42 +91,18 @@ export default function About() {
                   <span className="text-gray-600">{language === 'bg' ? "Чадър" : "Umbrella"}</span>
                   <span className="font-bold text-blue-900">10.00 лв.</span>
                 </div>
-                <div className="flex justify-between items-center py-3 bg-amber-50 px-4 rounded-xl font-bold text-amber-700">
-                  <span>{language === 'bg' ? "Комплект (2+1)" : "Set (2+1)"}</span>
-                  <span>30.00 лв.</span>
-                </div>
               </div>
-              <p className="text-gray-500 text-xs italic">{t('currency_note')}</p>
+              <p className="text-gray-400 text-[10px] uppercase tracking-widest text-center">{t('currency_note')}</p>
             </div>
 
-            {/* GOOGLE TRUST БАДЖ */}
-            <div className="bg-white p-6 rounded-2xl shadow-md border border-gray-100">
-              <div className="flex items-center justify-between mb-4">
-                <div>
-                  <div className="flex text-amber-400 mb-1">
-                    {[...Array(5)].map((_, i) => <span key={i} className="text-xl">★</span>)}
-                  </div>
-                  <p className="font-bold text-gray-800 text-sm">4.9/5 Google Maps</p>
-                </div>
-                <a href={googleMapsUrl} target="_blank" rel="noopener noreferrer" className="bg-blue-900 text-white px-5 py-2.5 rounded-xl font-bold text-sm shadow-lg">
-                  📍 {t('directions')}
-                </a>
-              </div>
-              <a href={googleReviewsUrl} target="_blank" rel="noopener noreferrer" className="block w-full text-center py-3 bg-amber-50 text-amber-700 rounded-xl font-bold border border-amber-200 text-sm">
-                {t('read_reviews')}
-              </a>
-            </div>
-
-            {/* СНИМКА */}
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
-              <img
-                src="https://d2xsxph8kpxj0f.cloudfront.net/310519663555156662/c35Hsdmsi3FZfxe79ohzXT/instagram_beach_setup_73f4ca96.webp"
-                alt="Beach Setup"
-                className="w-full h-[300px] object-cover"
-              />
-            </div>
+            <a 
+              href={googleMapsUrl} 
+              target="_blank" 
+              className="block w-full text-center py-4 bg-blue-900 text-white rounded-2xl font-bold hover:bg-blue-800 transition-all shadow-lg"
+            >
+              📍 {t('directions')}
+            </a>
           </div>
-
         </div>
       </div>
     </section>
