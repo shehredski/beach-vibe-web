@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLanguage } from "@/contexts/LanguageContext"; // Използваме правилния път
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function About() {
   const { language, t } = useLanguage();
@@ -7,7 +7,7 @@ export default function About() {
   const googleMapsUrl = "https://www.google.com/maps/dir/?api=1&destination=Beach+Vibe+Camping+Laguna";
   const googleReviewsUrl = "https://www.google.com/search?q=Beach+Vibe+Varna+Reviews#lrd=0x40a4adb7ffc5874f:0xe1868369ab97bb40,1,,,";
 
-  // Данни за ревютата, които също се превеждат спрямо езика
+  // Ревютата се сменят автоматично според езика
   const reviews = language === 'bg' ? [
     { name: "Ivan P.", text: "Страхотно място, супер обслужване и уникална атмосфера!", stars: 5 },
     { name: "Maria S.", text: "Най-добрите коктейли на северното черноморие. Мохитото е топ!", stars: 5 },
@@ -22,8 +22,9 @@ export default function About() {
     <section id="about" className="py-20 bg-white">
       <div className="container mx-auto px-4">
         <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-blue-900 tracking-tight">
-          {t('about.title')} <br className="hidden md:block" />
-          <span className="text-amber-500 text-2xl md:text-3xl font-light italic">{t('hero.tagline')}</span>
+          {/* Сменено на новите ключове */}
+          {t('title_main')} <br className="hidden md:block" />
+          <span className="text-amber-500 text-2xl md:text-3xl font-light italic">{t('title_sub')}</span>
         </h2>
 
         <div className="grid md:grid-cols-2 gap-16 items-start">
@@ -31,19 +32,17 @@ export default function About() {
             {/* ОПИСАНИЕ */}
             <div>
               <p className="text-xl text-gray-700 leading-relaxed mb-6 font-light italic">
-                "{t('about.description')}"
+                "{t('about_text_1')}"
               </p>
               <p className="text-gray-600 leading-relaxed">
-                {language === 'bg' 
-                  ? "Разположен в сърцето на Къмпинг Лагуна (до Златни Пясъци), нашият плаж предлага идеалния баланс между природа и модерен лукс."
-                  : "Located in the heart of Camping Laguna (near Golden Sands), our beach offers the perfect balance between nature and modern luxury."}
+                {t('about_text_2')}
               </p>
             </div>
 
             {/* СЕКЦИЯ: РЕАЛНИ МИНИ РЕВЮТА */}
             <div className="space-y-6">
               <h3 className="text-2xl font-bold text-gray-800 flex items-center gap-3">
-                <span className="bg-amber-100 p-2 rounded-lg">💬</span> {language === 'bg' ? "Какво казват гостите ни" : "What our guests say"}
+                <span className="bg-amber-100 p-2 rounded-lg">💬</span> {t('reviews_title')}
               </h3>
               <div className="flex gap-4 overflow-x-auto pb-4 no-scrollbar">
                 {reviews.map((review, index) => (
@@ -54,7 +53,7 @@ export default function About() {
                     <div className="flex text-amber-400 mb-2 text-sm">
                       {[...Array(review.stars)].map((_, i) => <span key={i}>★</span>)}
                     </div>
-                    <p className="text-gray-700 text-sm italic mb-4 leading-relaxed font-serif italic">"{review.text}"</p>
+                    <p className="text-gray-700 text-sm italic mb-4 leading-relaxed italic">"{review.text}"</p>
                     <p className="text-blue-900 font-bold text-xs uppercase tracking-wider">— {review.name}</p>
                   </div>
                 ))}
@@ -64,13 +63,13 @@ export default function About() {
             {/* БАР */}
             <div id="bar" className="scroll-mt-28">
               <h3 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3">
-                <span className="bg-blue-100 p-2 rounded-lg">🍹</span> {t('bar.title')}
+                <span className="bg-blue-100 p-2 rounded-lg">🍹</span> {t('nav_bar')}
               </h3>
               <div className="flex gap-4 overflow-x-auto pb-4 no-scrollbar">
                 {[
-                  { emoji: "🍸", name: t('menu.mojito'), desc: language === 'bg' ? "Свежа мента и лайм" : "Fresh mint and lime" },
-                  { emoji: "🍹", name: t('menu.aperolspritz'), desc: language === 'bg' ? "Нашият летен подпис" : "Our summer signature" },
-                  { emoji: "🥥", name: t('menu.beachvibe'), desc: language === 'bg' ? "Тропически рай" : "Tropical paradise" }
+                  { emoji: "🍸", name: "Mojito", desc: language === 'bg' ? "Свежа мента и лайм" : "Fresh mint and lime" },
+                  { emoji: "🍹", name: "Aperol Spritz", desc: language === 'bg' ? "Нашият летен подпис" : "Our summer signature" },
+                  { emoji: "🥥", name: "Beach Vibe", desc: language === 'bg' ? "Тропически рай" : "Tropical paradise" }
                 ].map((drink, index) => (
                   <div key={index} className="min-w-[150px] p-5 bg-gradient-to-br from-amber-50/50 to-orange-50/50 rounded-3xl text-center border border-amber-100/50 hover:shadow-lg transition-all cursor-default">
                     <span className="text-4xl block mb-2">{drink.emoji}</span>
@@ -88,10 +87,10 @@ export default function About() {
             <div id="prices" className="bg-white rounded-3xl p-8 shadow-2xl border border-gray-100 scroll-mt-28">
               <div className="flex items-center gap-4 mb-6">
                 <div className="bg-amber-100 p-3 rounded-full text-2xl animate-pulse">🏖️</div>
-                <h3 className="text-2xl font-bold text-gray-800">{t('prices.title')} 2026</h3>
+                <h3 className="text-2xl font-bold text-gray-800">{t('season_prices')}</h3>
               </div>
               <p className="text-gray-500 text-sm italic border-l-2 border-amber-400 pl-4 mb-4">
-                {language === 'bg' ? "Всички услуги могат да бъдат заплатени на място в лева или евро." : "All services can be paid on-site in BGN or EUR."}
+                {t('currency_note')}
               </p>
             </div>
 
@@ -110,7 +109,7 @@ export default function About() {
                   rel="noopener noreferrer"
                   className="bg-blue-900 text-white px-5 py-2.5 rounded-xl font-bold hover:bg-blue-800 transition-colors text-sm shadow-lg shadow-blue-900/20"
                 >
-                  📍 {t('nav.contact')}
+                  📍 {t('directions')}
                 </a>
               </div>
               <a 
@@ -119,7 +118,7 @@ export default function About() {
                 rel="noopener noreferrer"
                 className="block w-full text-center py-3 bg-amber-50 text-amber-700 rounded-xl font-bold border border-amber-200 hover:bg-amber-100 transition-all text-sm"
               >
-                {language === 'bg' ? "Виж всички 50+ реални отзиви ⭐" : "Read all 50+ real reviews ⭐"}
+                {t('read_reviews')}
               </a>
             </div>
 
