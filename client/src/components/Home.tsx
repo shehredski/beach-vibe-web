@@ -6,34 +6,29 @@ import Promotions from "@/components/Promotions";
 import Booking from "@/components/Booking"; 
 import Location from "@/components/Location";
 import Footer from "@/components/Footer";
-import { useLanguage } from "@/contexts/LanguageContext"; // Импортираме езика
+import { useLanguage } from "@/contexts/LanguageContext"; // Единственото ново нещо тук
 
 export default function Home() {
-  const { t } = useLanguage(); // Вземаме функцията за превод, ако ни трябва тук
+  // Вземаме t, за да можем да го ползваме, ако решим да пишем текст директно тук
+  const { t } = useLanguage(); 
 
   return (
     <div className="min-h-screen bg-background text-foreground">
+      {/* Навигацията вече има бутоните BG/EN вътре в себе си */}
       <Navigation />
       
-      {/* Начало / Hero */}
       <section id="hero">
         <Hero />
       </section>
 
-      {/* За плажа & Цени */}
       <section id="about">
         <About />
       </section>
 
-      {/* Барът - Вече имаш ID вътре в About, така че тази празна секция е ок */}
-      <section id="bar">
-        {/* Ако искаш специфично заглавие тук: <h2 className="hidden">{t('bar.title')}</h2> */}
-      </section>
-
-      {/* Цени */}
-      <section id="prices">
-        {/* Ако цените са в About, този ID ще работи за скрол */}
-      </section>
+      {/* Секциите bar и prices обикновено са част от About.tsx, 
+          затова тук ги оставяме само като празни котви (ID-та) за скрол */}
+      <div id="bar" />
+      <div id="prices" />
 
       <section id="gallery">
         <Gallery />
